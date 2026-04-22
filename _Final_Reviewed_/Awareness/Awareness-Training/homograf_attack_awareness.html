@@ -1,0 +1,360 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#0d1b3e;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(226,75,74,0.1)}
+.hero-badge{display:inline-block;background:rgba(226,75,74,0.2);border:1px solid rgba(226,75,74,0.35);color:#f87171;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#f87171}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#0d1b3e;color:#93c5fd;border-color:#185fa5}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-w{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}
+
+.url-demo{background:#0a0f1e;border-radius:10px;padding:16px;margin-bottom:10px;border:1px solid rgba(55,138,221,0.15)}
+.url-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:10px 12px;border-radius:8px}
+.url-row:last-child{margin-bottom:0}
+.url-real{background:rgba(29,158,117,0.1);border:1px solid rgba(29,158,117,0.2)}
+.url-fake{background:rgba(226,75,74,0.1);border:1px solid rgba(226,75,74,0.2)}
+.url-label{font-size:10px;font-weight:500;width:40px;flex-shrink:0}
+.url-label-g{color:#34d399}.url-label-r{color:#f87171}
+.url-text{font-family:var(--font-mono,monospace);font-size:13px;flex:1}
+.url-text-g{color:#6ee7b7}.url-text-r{color:#fca5a5}
+.url-badge{font-size:9px;padding:2px 7px;border-radius:8px;font-weight:500;flex-shrink:0}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.3)}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.3)}
+
+.char-compare{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.char-pair{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:8px;padding:10px 12px;min-width:130px;flex:1}
+.char-pair-title{font-size:10px;color:var(--color-text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.char-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.char-row:last-child{margin-bottom:0}
+.char-orig{font-size:20px;font-weight:500;color:var(--color-text-primary);width:26px;text-align:center}
+.char-fake{font-size:20px;font-weight:500;color:#f87171;width:26px;text-align:center}
+.char-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.3}
+
+.quiz-wrap{background:var(--color-background-secondary);border-radius:12px;padding:16px;border:1px solid var(--color-border-tertiary)}
+.quiz-q{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.quiz-hint{font-size:11px;color:var(--color-text-secondary);margin-bottom:12px}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{padding:10px 14px;border-radius:8px;border:1px solid var(--color-border-tertiary);background:var(--color-background-primary);cursor:pointer;font-size:12px;font-family:var(--font-mono,monospace);color:var(--color-text-primary);text-align:left;transition:all .15s}
+.quiz-opt:hover{border-color:var(--color-border-secondary);background:var(--color-background-secondary)}
+.quiz-opt.correct{background:rgba(29,158,117,0.1);border-color:#1d9e75;color:#34d399}
+.quiz-opt.wrong{background:rgba(226,75,74,0.1);border-color:#e24b4a;color:#f87171}
+.quiz-result{margin-top:10px;font-size:12px;line-height:1.5;padding:10px 12px;border-radius:8px;display:none}
+.quiz-result.show{display:block}
+.quiz-result.ok{background:rgba(29,158,117,0.1);border:1px solid rgba(29,158,117,0.2);color:#6ee7b7}
+.quiz-result.fail{background:rgba(226,75,74,0.1);border:1px solid rgba(226,75,74,0.2);color:#fca5a5}
+.quiz-next{margin-top:10px;font-size:12px;padding:7px 14px;border-radius:8px;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);display:none}
+.quiz-next.show{display:inline-block}
+
+.step-flow{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-num{width:26px;height:26px;border-radius:50%;background:#185fa5;color:#93c5fd;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-line-v{width:1px;height:12px;background:rgba(55,138,221,0.2);margin-left:13px}
+.step-body{flex:1;padding-bottom:4px}
+.step-title{font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:2px}
+.step-desc{font-size:11px;color:rgba(147,197,253,0.65);line-height:1.4}
+
+.footer{background:#0d1b3e;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#f87171}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">Cybersecurity Awareness</div>
+  <h1>Serangan <span>Homograf</span><br>Waspada URL Palsu yang Terlihat Asli</h1>
+  <p>Teknik penipuan yang menggunakan karakter mirip untuk menyamarkan URL berbahaya</p>
+  <div class="hero-icon">🔍</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('apa')">Apa itu Homograf?</div>
+  <div class="tab" onclick="sw('contoh')">Contoh Nyata</div>
+  <div class="tab" onclick="sw('deteksi')">Cara Deteksi</div>
+  <div class="tab" onclick="sw('quiz')">Quiz Interaktif</div>
+  <div class="tab" onclick="sw('proteksi')">Proteksi & Dos/Don'ts</div>
+</div>
+
+<div id="p-apa" class="panel active">
+  <div class="card card-r" style="margin-bottom:10px">
+    <div class="sec sc-r"><span class="dot dot-r"></span>Definisi serangan homograf</div>
+    <p class="tx tx-r" style="margin-bottom:8px">Serangan <strong>homograf</strong> (atau <strong>IDN Homograph Attack</strong>) adalah teknik penipuan di mana penyerang membuat domain/URL yang <strong>terlihat identik</strong> dengan situs asli, tetapi menggunakan karakter dari alfabet lain yang bentuknya sangat mirip.</p>
+    <p class="tx tx-r">Misalnya: huruf latin <strong>a</strong> vs karakter Sirilik <strong>а</strong> — tampak sama di layar, tapi berbeda secara teknis. Browser menerima keduanya sebagai domain valid!</p>
+  </div>
+
+  <div class="g2">
+    <div class="card card-b">
+      <div class="sec sc-b"><span class="dot dot-b"></span>Bagaimana cara kerjanya?</div>
+      <div class="step-flow">
+        <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Penyerang memilih target</div><div class="step-desc">Misal: situs bank terkenal atau email korporat</div></div></div>
+        <div class="step-line-v"></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Ganti karakter kunci</div><div class="step-desc">Satu atau dua huruf diganti karakter Unicode mirip dari bahasa lain</div></div></div>
+        <div class="step-line-v"></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Daftarkan domain palsu</div><div class="step-desc">Domain baru didaftarkan dan terlihat sah di browser</div></div></div>
+        <div class="step-line-v"></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Sebar via phishing</div><div class="step-desc">Link dikirim via email, chat, atau SMS untuk mencuri data login</div></div></div>
+      </div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Mengapa berbahaya?</div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-y"><strong>Lolos pemeriksaan visual</strong> — mata manusia tidak bisa membedakan tanpa tools khusus</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-y"><strong>SSL certificate tetap valid</strong> — gembok hijau muncul, seolah-olah situs aman dan terpercaya</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-y"><strong>Bypass email filter</strong> — sistem keamanan sering tidak mendeteksi karena URL tampak normal</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-y"><strong>Efektif di mobile</strong> — layar kecil membuat URL semakin sulit dibaca dengan teliti</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-y"><strong>Menarget kredensial, data keuangan</strong> dan informasi sensitif perusahaan</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-contoh" class="panel">
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Perbandingan URL asli vs palsu — coba bedakan!</div>
+  <div class="url-demo">
+    <div class="url-row url-real"><span class="url-label url-label-g">ASLI</span><span class="url-text url-text-g">https://www.google.com</span><span class="url-badge badge-g">Aman</span></div>
+    <div class="url-row url-fake"><span class="url-label url-label-r">PALSU</span><span class="url-text url-text-r">https://www.gооgle.com</span><span class="url-badge badge-r">Berbahaya</span></div>
+  </div>
+  <p class="tx" style="color:var(--color-text-secondary);font-size:11px;margin-bottom:12px">Pada contoh di atas, huruf "o" kedua dan ketiga di URL palsu menggunakan karakter Sirilik (U+043E), bukan huruf Latin biasa. Keduanya tampak identik!</p>
+
+  <div class="url-demo">
+    <div class="url-row url-real"><span class="url-label url-label-g">ASLI</span><span class="url-text url-text-g">https://paypal.com/login</span><span class="url-badge badge-g">Aman</span></div>
+    <div class="url-row url-fake"><span class="url-label url-label-r">PALSU</span><span class="url-text url-text-r">https://pаypal.com/login</span><span class="url-badge badge-r">Berbahaya</span></div>
+  </div>
+  <p class="tx" style="color:var(--color-text-secondary);font-size:11px;margin-bottom:12px">Huruf "a" pertama di URL palsu adalah karakter Sirilik. Identik secara visual, tapi domain berbeda sepenuhnya.</p>
+
+  <div class="url-demo">
+    <div class="url-row url-real"><span class="url-label url-label-g">ASLI</span><span class="url-text url-text-g">https://microsoft.com</span><span class="url-badge badge-g">Aman</span></div>
+    <div class="url-row url-fake"><span class="url-label url-label-r">PALSU</span><span class="url-text url-text-r">https://mıcrosoft.com</span><span class="url-badge badge-r">Berbahaya</span></div>
+  </div>
+  <p class="tx" style="color:var(--color-text-secondary);font-size:11px;margin-bottom:12px">Huruf "i" menggunakan karakter Turkish dotless-i (ı). Hampir tak terlihat bedanya di ukuran font kecil.</p>
+
+  <div class="sec sc-r" style="margin-bottom:8px"><span class="dot dot-r"></span>Karakter-karakter yang sering disalahgunakan</div>
+  <div class="char-compare">
+    <div class="char-pair">
+      <div class="char-pair-title">Huruf "a"</div>
+      <div class="char-row"><span class="char-orig">a</span><span style="font-size:11px;color:var(--color-text-secondary)">Latin a (U+0061)</span></div>
+      <div class="char-row"><span class="char-fake">а</span><span class="char-desc">Sirilik а (U+0430) — identik!</span></div>
+    </div>
+    <div class="char-pair">
+      <div class="char-pair-title">Huruf "o"</div>
+      <div class="char-row"><span class="char-orig">o</span><span style="font-size:11px;color:var(--color-text-secondary)">Latin o (U+006F)</span></div>
+      <div class="char-row"><span class="char-fake">о</span><span class="char-desc">Sirilik о (U+043E) — identik!</span></div>
+    </div>
+    <div class="char-pair">
+      <div class="char-pair-title">Huruf "e"</div>
+      <div class="char-row"><span class="char-orig">e</span><span style="font-size:11px;color:var(--color-text-secondary)">Latin e (U+0065)</span></div>
+      <div class="char-row"><span class="char-fake">е</span><span class="char-desc">Sirilik е (U+0435) — identik!</span></div>
+    </div>
+    <div class="char-pair">
+      <div class="char-pair-title">Huruf "c"</div>
+      <div class="char-row"><span class="char-orig">c</span><span style="font-size:11px;color:var(--color-text-secondary)">Latin c (U+0063)</span></div>
+      <div class="char-row"><span class="char-fake">с</span><span class="char-desc">Sirilik с (U+0441) — identik!</span></div>
+    </div>
+    <div class="char-pair">
+      <div class="char-pair-title">Huruf "p"</div>
+      <div class="char-row"><span class="char-orig">p</span><span style="font-size:11px;color:var(--color-text-secondary)">Latin p (U+0070)</span></div>
+      <div class="char-row"><span class="char-fake">р</span><span class="char-desc">Sirilik р (U+0440) — identik!</span></div>
+    </div>
+    <div class="char-pair">
+      <div class="char-pair-title">Angka "0" vs "O"</div>
+      <div class="char-row"><span class="char-orig">0</span><span style="font-size:11px;color:var(--color-text-secondary)">Angka nol</span></div>
+      <div class="char-row"><span class="char-fake">O</span><span class="char-desc">Huruf kapital O — mudah tertukar</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-deteksi" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Cara mendeteksi URL homograf</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Hover dulu sebelum klik</strong> — lihat URL yang muncul di status bar browser di pojok kiri bawah</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Salin URL ke text editor</strong> — tempel di Notepad atau VS Code, karakter aneh kadang terlihat berbeda</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan URL decoder tool</strong> — cek di whoisxmlapi.com atau tools serupa untuk decode karakter Unicode</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Perhatikan "xn--" di address bar</strong> — browser modern mengonversi IDN homograf ke format Punycode seperti xn--googie-rya.com</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ketik manual langsung</strong> — jangan klik link dari email atau chat, ketik URL langsung di browser</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan bookmark</strong> — simpan situs penting di bookmark agar tidak perlu mengetik atau klik link</div></div>
+    </div>
+    <div class="card card-b">
+      <div class="sec sc-b"><span class="dot dot-b"></span>Tanda-tanda URL mencurigakan</div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b">URL diterima via <strong>email tidak diminta</strong>, chat, atau SMS yang mendesak</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b">Ada <strong>urgensi berlebihan</strong> — "akun Anda akan diblokir dalam 24 jam!"</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b">Nama domain <strong>sedikit berbeda</strong> dari yang biasa — paypa1 bukan paypal, g00gle bukan google</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b">TLD mencurigakan — <strong>.xyz, .tk, .ml</strong> alih-alih .com atau .co.id</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b">Situs meminta <strong>login ulang tanpa alasan jelas</strong> meski sudah login sebelumnya</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b"><strong>Tampilan situs sedikit berbeda</strong> dari biasanya — font, layout, atau warna yang tidak pas</div></div>
+    </div>
+  </div>
+
+  <div class="card card-y">
+    <div class="sec sc-y"><span class="dot dot-y"></span>Cara browser menampilkan domain homograf (Punycode)</div>
+    <p class="tx tx-y" style="margin-bottom:10px">Browser modern (Chrome, Firefox, Edge) kadang mengonversi domain IDN yang mencurigakan ke format <strong>Punycode</strong> untuk memperlihatkan karakter sebenarnya:</p>
+    <div class="url-demo" style="margin-bottom:0">
+      <div class="url-row url-fake" style="margin-bottom:6px"><span class="url-label url-label-r" style="width:80px;font-size:10px">Terlihat</span><span class="url-text url-text-r">https://www.аpple.com</span></div>
+      <div class="url-row url-real"><span class="url-label url-label-g" style="width:80px;font-size:10px">Sebenarnya</span><span class="url-text url-text-g" style="font-size:12px">https://www.xn--pple-43d.com</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-quiz" class="panel">
+  <div class="sec sc-b" style="margin-bottom:10px"><span class="dot dot-b"></span>Uji kemampuanmu — pilih URL yang ASLI</div>
+  <div class="quiz-wrap" id="quiz-box">
+    <div class="quiz-q" id="q-text"></div>
+    <div class="quiz-hint" id="q-hint"></div>
+    <div class="quiz-opts" id="q-opts"></div>
+    <div class="quiz-result" id="q-result"></div>
+    <button class="quiz-next" id="q-next" onclick="nextQ()">Soal berikutnya →</button>
+  </div>
+  <div id="q-score-wrap" style="display:none;margin-top:12px">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Hasil quiz</div>
+      <p class="tx tx-g" style="font-size:14px;margin-bottom:6px">Skor kamu: <strong id="q-score-txt"></strong></p>
+      <p class="tx tx-g" id="q-score-msg"></p>
+      <button style="margin-top:10px;font-size:12px;padding:7px 14px;border-radius:8px;cursor:pointer;border:1px solid rgba(29,158,117,0.3);background:rgba(29,158,117,0.1);color:#34d399" onclick="resetQ()">Coba lagi</button>
+    </div>
+  </div>
+</div>
+
+<div id="p-proteksi" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Yang harus dilakukan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Selalu ketik URL secara manual</strong> untuk situs penting — bank, email, sistem internal kantor</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan password manager</strong> — otomatis mendeteksi domain yang tidak cocok dan tidak akan auto-fill</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan MFA/2FA</strong> — walau password dicuri, akun tetap terlindungi dengan autentikasi dua faktor</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Bookmark situs penting</strong> — gunakan bookmark yang sudah diverifikasi, bukan klik dari link email</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update browser secara rutin</strong> — browser terbaru memiliki proteksi IDN homograf yang lebih baik</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan DNS filtering</strong> — solusi seperti Cisco Umbrella atau Cloudflare Gateway memblokir domain berbahaya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan ke IT Security</strong> jika menerima link mencurigakan via email atau chat internal</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Yang tidak boleh dilakukan</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>klik langsung link</strong> dari email, SMS, atau chat yang tidak diminta</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan percaya <strong>gembok SSL saja</strong> sebagai bukti situs aman — domain palsu bisa punya SSL valid</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan login di situs yang <strong>didapat dari link email</strong> tanpa memverifikasi URL secara hati-hati</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan abaikan <strong>peringatan browser</strong> tentang situs berbahaya atau tidak aman</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan share <strong>link internal kantor</strong> via saluran tidak resmi yang bisa disadap atau dimodifikasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan mengira <strong>tampilan situs yang sama</strong> sudah cukup membuktikan URL-nya asli</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan masukkan <strong>kredensial atau data sensitif</strong> sebelum memverifikasi domain dengan benar</div></div>
+    </div>
+  </div>
+  <div class="card card-b">
+    <div class="sec sc-b"><span class="dot dot-b"></span>Tools bantu deteksi homograf</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Browser built-in</strong> — Chrome & Firefox menampilkan Punycode untuk domain mencurigakan</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>VirusTotal</strong> — scan URL untuk cek reputasi dan potensi bahaya</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>URLVoid</strong> — cek reputasi domain dari berbagai sumber blacklist</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Unicode Inspector</strong> — tempel URL untuk melihat kode karakter sesungguhnya</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>DNS filtering (Cloudflare / Umbrella)</strong> — proteksi di level jaringan kantor</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Email security gateway</strong> — scan dan blokir link berbahaya sebelum sampai ke inbox</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>Jika ragu, jangan klik — ketik manual atau tanya IT Security</span></div>
+    <div class="footer-sub">Satu klik pada URL palsu bisa membahayakan seluruh organisasi</div>
+  </div>
+  <div class="footer-right">Cybersecurity<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['apa','contoh','deteksi','quiz','proteksi'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+  if(id==='quiz') initQ();
+}
+
+const qs=[
+  {q:'Mana URL login bank yang ASLI?',hint:'Perhatikan setiap huruf dengan sangat teliti',opts:['https://www.bса.co.id/login','https://www.bca.co.id/login','https://www.bcа.co.id/login','https://www.b-ca.co.id/login'],ans:1,exp:'URL asli adalah bca.co.id dengan huruf Latin standar. Pilihan lain menggunakan karakter Sirilik atau tanda hubung yang tidak ada di domain resmi.'},
+  {q:'Link mana yang aman untuk diklik?',hint:'Lihat domain utamanya, bukan subdomain',opts:['https://login.paypa1.com','https://secure.pаypal.com','https://www.paypal.com/signin','https://paypal-secure.com/login'],ans:2,exp:'Hanya paypal.com yang domain resmi. paypa1 menggunakan angka 1 bukan huruf l, pаypal pakai Sirilik, dan paypal-secure.com adalah domain berbeda yang tidak resmi.'},
+  {q:'URL email perusahaan mana yang asli?',hint:'Domain perusahaan biasanya singkat dan tanpa karakter aneh',opts:['mail.cornpany.co.id','mail.cоmpany.co.id','mail.company.co.id','mail.c0mpany.co.id'],ans:2,exp:'company.co.id adalah yang benar. cornpany pakai "rn" bukan "m", cоmpany pakai Sirilik o, dan c0mpany pakai angka 0.'},
+  {q:'Mana URL Microsoft yang sah untuk login?',hint:'Perhatikan huruf i pada microsoft',opts:['https://login.mіcrosoft.com','https://login.mıcrosoft.com','https://login.microsoft.com','https://login.m1crosoft.com'],ans:2,exp:'login.microsoft.com adalah satu-satunya URL resmi Microsoft. Dua pilihan pertama menggunakan karakter Unicode mirip huruf i (Sirilik і dan Turkish ı), dan pilihan terakhir menggunakan angka 1.'},
+  {q:'Link reset password mana yang TIDAK berbahaya?',hint:'Perhatikan seluruh struktur URL, bukan hanya nama brand',opts:['https://accounts.gооgle.com/reset','https://accounts.google.com/reset','https://google-accounts.com/reset','https://g00gle.com/accounts/reset'],ans:1,exp:'Hanya accounts.google.com yang domain resmi Google. gооgle pakai Sirilik o, google-accounts.com dan g00gle.com adalah domain berbeda yang bukan milik Google.'}
+];
+
+let qi=0,score=0,answered=false;
+function initQ(){if(document.getElementById('q-text').textContent)return;renderQ();}
+function renderQ(){
+  if(qi>=qs.length){showScore();return;}
+  const q=qs[qi];
+  document.getElementById('q-text').textContent='Soal '+(qi+1)+'/'+qs.length+': '+q.q;
+  document.getElementById('q-hint').textContent='Petunjuk: '+q.hint;
+  document.getElementById('q-result').className='quiz-result';
+  document.getElementById('q-result').textContent='';
+  document.getElementById('q-next').className='quiz-next';
+  answered=false;
+  const opts=document.getElementById('q-opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='quiz-opt';
+    b.textContent=o;
+    b.onclick=()=>answer(i,q);
+    opts.appendChild(b);
+  });
+  document.getElementById('q-score-wrap').style.display='none';
+  document.getElementById('quiz-box').style.display='block';
+}
+function answer(i,q){
+  if(answered)return;
+  answered=true;
+  const btns=document.querySelectorAll('.quiz-opt');
+  btns[q.ans].classList.add('correct');
+  if(i!==q.ans){btns[i].classList.add('wrong');}else{score++;}
+  const r=document.getElementById('q-result');
+  r.className='quiz-result show '+(i===q.ans?'ok':'fail');
+  r.textContent=(i===q.ans?'Benar! ':'Salah! ')+q.exp;
+  document.getElementById('q-next').className='quiz-next show';
+}
+function nextQ(){qi++;renderQ();}
+function showScore(){
+  document.getElementById('quiz-box').style.display='none';
+  document.getElementById('q-score-wrap').style.display='block';
+  document.getElementById('q-score-txt').textContent=score+' / '+qs.length+' benar';
+  const msgs=['Perlu banyak latihan lagi — homograf sangat berbahaya! Pelajari lagi materinya.','Lumayan, tapi masih perlu waspada. Ulangi latihan untuk meningkatkan kemampuan deteksi.','Bagus! Kamu cukup waspada terhadap URL mencurigakan. Terus tingkatkan!','Excellent! Kemampuan deteksi homografmu sangat baik. Bagikan ilmu ini ke rekan kerja!'];
+  document.getElementById('q-score-msg').textContent=msgs[Math.min(Math.floor(score/qs.length*4),3)];
+}
+function resetQ(){qi=0;score=0;answered=false;document.getElementById('q-score-wrap').style.display='none';document.getElementById('quiz-box').style.display='block';renderQ();}
+</script>

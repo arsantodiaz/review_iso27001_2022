@@ -1,0 +1,60 @@
+Sebagian jawaban sudah benar, tetapi masih ada kesalahan pada hal-hal kecil.
+
+🟢Aset Informasi - Dokumen Strategi Perusahaan - Confidential - Kritikal
+🟡Aset Hardware - Laptop Kerja Karyawan - Internal Use Only - Non-Kritikal
+🟢Aset Software - Sistem Email Perusahaan - Restricted - Kritikal
+
+
+Nilai 8
+-----
+
+
+Aset Hardware - Laptop - Internal Use Only - Non-Kritikal
+Analisis: Perlu Koreksi. 
+Kritikalitas: Laptop bersifat Non-Kritikal karena kegagalan satu unit perangkat individu tidak menghentikan operasional perusahaan secara masif (berbeda dengan server).
+Sensitivitas: Laptop sebagai perangkat fisik (Hardware) dikategorikan sebagai Internal Use Only. Status Confidential seharusnya melekat pada Data/Informasi di dalamnya, bukan fisiknya.
+
+
+-----
+
+Review:
+🔴[Aset Informasi] - [Template Presentasi Internal] - [Confidential] - [Non Kritikal] >> SALAH. Template kosong adalah aset standar kerja yang diklasifikasikan sebagai Internal Use Only. Label Confidential tidak tepat kecuali template tersebut sudah mengandung informasi strategi rahasia perusahaan.
+🔴[Aset Software] - [Tools Manajemen Tugas] - [Confidential] - [Non Kritikal] >> SALAH. Label Confidential hanya berlaku untuk data di dalamnya, bukan pada perangkat lunaknya. Software sebagai platform kerja diklasifikasikan sebagai Internal Use Only atau Restricted.
+
+Kesimpulan:Belum memahami klasifikasi data karena masih mengulangi kesalahan yang sama dalam menerapkan label kerahasiaan (Confidential) pada aset pendukung dan alat kerja yang seharusnya bersifat internal.
+
+
+
+❌ Belum sepenuhnya memahami pembagian aset dan penetuan sensitivitas dan kritikalitasnya.
+
+-----
+❌ Belum mengetahui ancaman dan mitigasi pada asset.
+
+Sudah mengetahui ancaman dan mitigasi pada asset.
+
+-----
+
+Mengetahui BIA, tetapi proses ini tidak menggambarkan proses yang ada di departemennya.
+
+❌ Belum sepenuhnya paham BIA itu apa dan implementasinya seperti apa
+
+
+-----
+Sudah mengetahui gunanya BIA itu apa, namun belum menyebutkan bisnis proses kritikal di departemennya karena poin B tidak diisi. Penjelasan pada poin A sudah benar secara konseptual, di mana BIA berfungsi sebagai fondasi untuk menentukan strategi pemulihan (Recovery Strategy) berdasarkan dampak yang mungkin timbul terhadap operasional.
+
+Tanpa adanya identifikasi proses pada poin B, sulit untuk menentukan apakah prioritas pemulihan sudah selaras dengan fungsi utama departemen. Dalam standar ISO 22301, poin B sangat krusial untuk menentukan target RTO (berapa lama sistem boleh mati) dan RPO (berapa banyak data yang boleh hilang).
+
+----
+Mengetahui BIA, tetapi proses ini tidak menggambarkan proses yang ada di departemennya.
+Tanpa adanya identifikasi proses pada poin B, sulit untuk menentukan apakah prioritas pemulihan sudah selaras dengan fungsi utama departemen. Dalam standar ISO 22301, poin B sangat krusial untuk menentukan target RTO (berapa lama sistem boleh mati) dan RPO (berapa banyak data yang boleh hilang).
+
+-----
+
+Review:
+
+[a] Penjelasan mengenai tujuan BIA sudah tepat, mencakup identifikasi proses kritis, penilaian dampak, dan penetapan prioritas pemulihan untuk menjamin kelangsungan operasional. [b] Ketiga proses yang disebutkan telah secara spesifik menggambarkan fungsi inti dari Direktorat Finance & Investment yang memiliki dampak finansial dan kepatuhan yang sangat signifikan.
+
+Kesimpulan: Sudah mengetahui gunanya BIA itu apa dan mengetahui bisnis proses kritikal di departemennya.
+
+
+

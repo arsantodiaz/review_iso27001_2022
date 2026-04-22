@@ -1,0 +1,28 @@
+Buat info graphics dengan elemen Ini untuk menjelaskan alur CI/CD, microservices, dan GRC
+
+Komponen:
+
+* USER -> Coraza WAF -> Kong API Gateway -> Consul + FABIO + Registrator
+* Developer ke blok CI/CD -> JIRA
+* Developer juga ke blok CI/CD -> Jenkins (didalamnya ada Checkstlye, Gitleaks, Sonarqube, ZAP, Trivy dan K6) -> Sonatype Nexus -> Defect Dojo
+* Infrastructure ke PRovisioning Box isinya : PAM (Segura / Guacamole) -> Ansible
+* Security Layer Box isinya: Keycloak (IAM) , Infisical, Vault
+* Integration Box : Kafka , Valkey Redis
+* Application Service: ReactJS, ReactNative, NextJS, NestJS, Springboot, Python, PHP
+* data storage layer: SQL Server, Postgresql, Mongodb, MySQL
+* Monitoring Alert : Grafana (Prometheus, Loki, Tempo, OpenTelemetry) , NTFY
+* Surrounding Apps: Flowable BPMN, Metabase BI, DMS, n8n Automation, Airflow ETL
+* Governance Risk Compliance : CISO Assistant, Wazuh, Suricata, MISP (Cuman 4 ini aja, jangn loe tambah)
+
+
+Ketentuan:
+* Kasih infographics yang ada logo nya maisng masing, 
+* versi futuristik elegen. konsep retro. jalur ubah ke arrow solid yang flow
+* alur jangan loe ubah, gak pelru header gak perlu legend.
+* Actor loe ganti pakai image orang menyesuaikan perannya, gak usah kasih embel embel keterangan
+* Ukuran dimensi 14:9
+* Versi Bahasa Inggris
+* Logo ciso ubah pakai logo ini
+* JANGAN NAMBAH KOMPONEN !!!!!
+* Konsep 3D formal elegant corporate style
+* di application service, tambahkan gambar docker, karena itu semua bentuk container

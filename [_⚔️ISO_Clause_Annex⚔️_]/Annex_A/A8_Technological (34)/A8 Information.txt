@@ -1,0 +1,165 @@
+I. Keamanan Perangkat Pengguna & Otentikasi (Endpoint & Access)
+A8.1 Perangkat Titik Akhir Pengguna (User Endpoint Devices)
+
+Dokumen: Kebijakan Keamanan Endpoint.
+
+Bukti (Evidence): Screenshot implementasi Mobile Device Management (MDM), enkripsi disk (misal: BitLocker), dan status pembaruan patch OS pada laptop/PC karyawan.
+
+A8.2 Hak Akses Istimewa (Privileged Access Rights)
+
+Dokumen: Matriks Hak Akses Administrator.
+
+Bukti (Evidence): Log dari sistem Privileged Access Management (PAM), atau daftar persetujuan tertulis setiap kali seorang engineer membutuhkan hak "Root/Admin" (tidak diberikan secara permanen jika tidak perlu).
+
+A8.3 Pembatasan Akses Informasi (Information Access Restriction)
+
+Bukti (Evidence): Access Control List (ACL) pada database atau File Server, memastikan staf dari departemen A tidak bisa membuka folder rahasia milik departemen B.
+
+A8.4 Akses ke Kode Sumber (Access to Source Code)
+
+Bukti (Evidence): Matriks pengaturan hak akses di repository kode (misal: GitLab, GitHub, Bitbucket). Pengembang junior tidak boleh memiliki hak akses ke kode sumber sistem produksi utama tanpa approval.
+
+A8.5 Otentikasi yang Aman (Secure Authentication)
+
+Bukti (Evidence): Screenshot layar login aplikasi internal atau VPN yang membuktikan adanya kewajiban MFA (Multi-Factor Authentication) / 2FA.
+
+II. Perlindungan Data Terapan & Kriptografi (Data & Cryptography)
+A8.10 Penghapusan Informasi (Information Deletion)
+
+Dokumen: Prosedur Penghapusan Data Digital.
+
+Bukti (Evidence): Script penghapusan otomatis (auto-purge) pada sistem database, atau log eksekusi pembersihan data nasabah/karyawan yang sudah tidak aktif sesuai masa retensi regulasi.
+
+A8.11 Penyembunyian Data (Data Masking)
+
+Dokumen: Panduan Data Masking/Anonymization.
+
+Bukti (Evidence): Tangkapan layar database pengujian (UAT) yang menunjukkan bahwa data sensitif (seperti NIK, nomor kartu kredit, nomor telepon) telah diacak atau disamarkan (ditampilkan sebagai ****).
+
+A8.12 Pencegahan Kebocoran Data (Data Leakage Prevention / DLP)
+
+Dokumen: Kebijakan DLP.
+
+Bukti (Evidence): Log alert atau laporan dari software DLP yang membuktikan adanya pemblokiran otomatis saat karyawan mencoba mengirim dokumen Confidential ke email pribadi atau Google Drive eksternal.
+
+A8.24 Penggunaan Kriptografi (Use of Cryptography)
+
+Dokumen: Kebijakan Manajemen Kunci Kriptografi (Key Management Policy).
+
+Bukti (Evidence): Konfigurasi algoritma enkripsi (misal: AES-256) pada database, penggunaan sertifikat SSL/TLS v1.2 atau v1.3 pada website, dan log siklus rotasi kunci enkripsi.
+
+III. Ketahanan & Operasional TI Infrastruktur (IT Ops & Resilience)
+A8.6 Manajemen Kapasitas (Capacity Management)
+
+Dokumen: Laporan Perencanaan Kapasitas TI (Capacity Planning).
+
+Bukti (Evidence): Dashboard monitoring (misal: PRTG, SolarWinds, Zabbix) yang menampilkan grafik historis penggunaan CPU, RAM, dan Storage. Harus ada bukti peringatan (alert threshold) jika kapasitas sudah mencapai 80%.
+
+A8.13 Pencadangan Informasi (Information Backup)
+
+Dokumen: Prosedur Backup and Restore.
+
+Bukti (Evidence): Jadwal backup otomatis, log laporan keberhasilan/kegagalan backup harian, dan Laporan Uji Coba Pemulihan Data (Restore Test Report) secara berkala (sangat krusial untuk menghadapi ransomware).
+
+A8.14 Redundansi Fasilitas Pemrosesan (Redundancy of Processing Facilities)
+
+Bukti (Evidence): Arsitektur sistem High Availability (HA). Contoh: Screenshot konfigurasi Load Balancer, klasterisasi server aktif-pasif, atau database mirroring ke lokasi Disaster Recovery Center (DRC).
+
+A8.17 Sinkronisasi Waktu (Clock Synchronization)
+
+Bukti (Evidence): Konfigurasi Network Time Protocol (NTP) Server pusat yang memastikan semua server, PC, dan CCTV di perusahaan memiliki waktu yang presisi dan sama (penting untuk keakuratan forensik insiden).
+
+A8.18 Penggunaan Program Utilitas Berhak Istimewa (Use of Privileged Utility Programs)
+
+Bukti (Evidence): Konfigurasi yang membatasi penggunaan tools teknis level sistem (seperti PsExec, PowerShell eksekusi otomatis) hanya untuk administrator pada waktu tertentu.
+
+A8.19 Instalasi Perangkat Lunak di Sistem Operasional (Installation of Software on Operational Systems)
+
+Bukti (Evidence): Form pengajuan instalasi aplikasi di server produksi yang telah disetujui, serta implementasi AppLocker (karyawan tidak bisa menginstal aplikasi .exe tanpa hak admin).
+
+IV. Jaringan dan Pemantauan (Network & Monitoring)
+A8.20 Keamanan Jaringan (Networks Security)
+
+Bukti (Evidence): Matriks Aturan Firewall (Firewall Rule/Policy), dokumentasi arsitektur jaringan yang memperlihatkan lapisan DMZ (Demilitarized Zone).
+
+A8.21 Keamanan Layanan Jaringan (Security of Network Services)
+
+Bukti (Evidence): SLA dengan penyedia layanan internet (ISP), serta konfigurasi Web Application Firewall (WAF) atau Anti-DDoS protection.
+
+A8.22 Pemisahan Jaringan (Segregation of Networks)
+
+Bukti (Evidence): Konfigurasi Virtual LAN (VLAN). (Contoh: VLAN tamu tidak dapat terhubung (ping) ke VLAN ruang server atau VLAN keuangan).
+
+A8.23 Penyaringan Web (Web Filtering)
+
+Bukti (Evidence): Konfigurasi Web Proxy atau DNS Filter yang memblokir karyawan dari mengakses situs web berbahaya, judi, pornografi, atau situs file sharing tak resmi.
+
+A8.15 Pencatatan Log (Logging)
+
+Bukti (Evidence): Log audit trail aplikasi terpusat, pengiriman log sistem ke server syslog atau SIEM (Security Information and Event Management), dan konfigurasi perlindungan log agar tidak bisa dihapus oleh peretas (WORM storage).
+
+A8.16 Pemantauan Aktivitas (Monitoring Activities)
+
+Bukti (Evidence): Laporan Security Operations Center (SOC) atau bukti peninjauan alert keamanan jaringan secara berkala oleh tim Cybersecurity.
+
+V. Kerentanan & Keamanan Aplikasi (Vulnerability & AppSec)
+A8.7 Perlindungan Terhadap Malware (Protection Against Malware)
+
+Bukti (Evidence): Konsol Endpoint Detection and Response (EDR) / Antivirus terpusat yang menunjukkan bahwa signature virus selalu up-to-date dan terpasang di 100% perangkat korporat.
+
+A8.8 Manajemen Kerentanan Teknis (Management of Technical Vulnerabilities)
+
+Dokumen: Prosedur Manajemen Patch (Pembaruan Sistem).
+
+Bukti (Evidence): Laporan hasil Vulnerability Assessment (VA) / Penetration Testing (PenTest), beserta matriks pelacakan perbaikan (remediation tracker) oleh tim TI terhadap kelemahan yang ditemukan.
+
+A8.9 Manajemen Konfigurasi (Configuration Management)
+
+Dokumen: Dokumen Server/Network Hardening Standard (merujuk pada standar seperti CIS Benchmarks).
+
+Bukti (Evidence): Hasil audit konfigurasi server berkala yang membuktikan bahwa port default yang tidak aman (seperti Telnet atau port RDP standar) telah ditutup.
+
+VI. Siklus Hidup Pengembangan Perangkat Lunak yang Aman (Secure SDLC)
+(Catatan: Bagian 8.25 hingga 8.34 secara khusus wajib bagi perusahaan yang membangun atau mengembangkan perangkat lunak/aplikasinya sendiri)
+
+A8.25 Siklus Hidup Pengembangan Aman (Secure Development Life Cycle / SDLC)
+
+Dokumen: Pedoman SDLC (memasukkan metodologi DevSecOps).
+
+A8.26 Persyaratan Keamanan Aplikasi (Application Security Requirements)
+
+Bukti (Evidence): Dokumen spesifikasi kebutuhan bisnis (BRD/FSD) yang memasukkan persyaratan keamanan (contoh: "Sistem harus memblokir akun setelah 3 kali gagal login").
+
+A8.27 Arsitektur Sistem Aman (Secure System Architecture)
+
+Bukti (Evidence): Dokumen Threat Modeling pada tahap perancangan aplikasi sebelum penulisan kode dimulai.
+
+A8.28 Pengodean Aman (Secure Coding)
+
+Bukti (Evidence): Laporan dari alat pengujian kode statis / Static Application Security Testing (SAST) seperti SonarQube, atau panduan secure coding standar industri (seperti pedoman OWASP Top 10).
+
+A8.29 Pengujian Keamanan dalam Pengembangan (Security Testing in Development)
+
+Bukti (Evidence): Laporan Dynamic Application Security Testing (DAST) atau laporan uji coba keamanan oleh tim QA sebelum aplikasi Go-Live.
+
+A8.30 Pengembangan yang Dialihdayakan (Outsourced Development)
+
+Bukti (Evidence): Source code review (peninjauan kode) independen oleh tim internal terhadap kode aplikasi yang dibuat oleh vendor/pihak ketiga, serta SLA patching keamanan dari vendor.
+
+A8.31 Pemisahan Lingkungan (Separation of Environments)
+
+Bukti (Evidence): Arsitektur jaringan dan perizinan akses yang membuktikan bahwa lingkungan Development, Testing (UAT), dan Production benar-benar terpisah (berbeda server, berbeda database, berbeda hak akses).
+
+A8.32 Manajemen Perubahan (Change Management)
+
+Dokumen: Prosedur Change Management.
+
+Bukti (Evidence): Tiket Change Request, dokumen persetujuan Rollback Plan, dan MoM (Minutes of Meeting) persetujuan dewan penilai / Change Advisory Board (CAB) sebelum deploy ke produksi.
+
+A8.33 Informasi Pengujian (Test Information)
+
+Bukti (Evidence): Prosedur pembuatan "Data Dummy". Bukti nyata bahwa proses testing (UAT) sama sekali tidak menggunakan data nasabah/transaksi nyata yang ditarik dari database produksi (Production DB).
+
+A8.34 Perlindungan Sistem Informasi Selama Pengujian Audit (Protection During Audit Testing)
+
+Bukti (Evidence): Jadwal pelaksanaan audit TI (penetration testing oleh pihak eksternal), dan bukti koordinasi untuk memastikan proses audit (pemindaian keamanan) dilakukan di luar jam sibuk agar tidak mematikan server produksi (Denial of Service).

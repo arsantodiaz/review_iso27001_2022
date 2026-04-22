@@ -1,0 +1,64 @@
+Buatkan infographics seperti notebooklm ui style dengan model 3D Claymotion mattel dengan warna yang sejuk tapi tulisan yang clear , gambar profesional tidak ke kanak kanakan.
+Ukuran Landscape 16:9, high resolution.
+
+Ketentuan yang harus dipegang:
+* Tidak ada content atau tulisan berulang.
+* Tidak perlu ada logo perusahaan
+
+
+>>>>>>>>> Slide: Kerangka Kerja
+
+Sebuah adegan infografis makro 3D claymation yang sangat detail dan rumit, dibuat dengan cermat dari tanah liat lembut matte. Berlatar belakang studio yang bersih dengan bokeh lembut yang halus di latar belakang yang sangat jauh.
+Pencahayaan studio yang lembut dan menyebar dengan kedalaman bidang yang dangkal. Semua teks dalam huruf tanah liat pahatan yang jelas. Warna terakota.
+
+Di bagian atas, dalam huruf tanah liat pahatan yang jelas, teks judul berbunyi: 
+"Kerangka Kerja ISO/IEC 27001:2022".
+
+Adegan ini menampilkan aliran pusat dari modul-modul tanah liat yang saling terhubung dengan tekstur taktil dan sidik jari yang halus, disajikan sebagai sebuah "peta". Dari kiri ke kanan:
+
+Modul "Pondasi & Perencanaan (Klausul 4-6)": Gambarkan mulai dari organisasi, kepemipinan sampi perencanaan.
+Gambarkan suasana crowded untuk persiapan dengan icon icon 3D karakter orang professional.
+
+Modul "Dukungan dan Operasional (Klasul 7-8)":
+Gambarkan suasan terkait dengan support sumber daya, awareness, dokumen,sampai penangan risiko.
+
+Modul "Evaluasi (Klausul 9)"
+Gambarkan suasana untuk  evaluasi, audit internal, rapat tinjauan management.
+
+Modul "Peningkatan (Klausul 10)"
+Gambarkan suasana untuk improvement
+
+Gambarkan pula blok blok.
+Blok Pusat "LAMPIRAN A": Empat panel tanah liat berbentuk U yang saling terkait. Label "LAMPIRAN A (Referensi Kontrol Keamanan)" berada di tengah.
+
+Kiri-Atas "ORGANISASIONAL (37 Kontrol)": Jabat tangan, perisai, dokumen. Teks di bawah: "Kebijakan, hubungan pemasok, dan manajemen insiden."
+
+Kanan-Atas "ORANG (8 Kontrol)": Dua orang, simbol wifi, gembok. Teks di bawah: "Keamanan SDM, remote working, dan perjanjian kerahasiaan."
+
+Kiri-Bawah "FISIK (14 Kontrol)": Bangunan, server, kamera. Teks di bawah: "Pengamanan area, media penyimpanan, dan fasilitas pendukung."
+
+Kanan-Bawah "TEKNOLOGI (34 Kontrol)": Sidik jari, kunci, simbol kode. Teks di bawah: "Autentikasi, enkripsi, dan keamanan pengembangan sistem."
+
+
+
+
+
+
+
+
+
+
+-----------------
+
+Kata Kunci Rahasia: Kata-kata seperti "shallow depth of field", "tilt-shift", dan "macro photography" di dalam prompt itu yang bikin efek bokeh-nya jadi sangat kuat dan dramatis.
+
+
+📝 Opsi 1: Fokus ke Buku Catatan & Ide (Paling mirip NotebookLM)
+Prompt: A 3D claymation style render of an open, minimalist notebook floating gently in the center. Small, colorful glowing idea nodes and papers made of matte clay are popping out of the pages. Clean, modern intellectual aesthetic, similar to NotebookLM branding. The main subject is in sharp focus with a tactile clay texture. The background is beautifully blurred with glowing, colorful bokeh spheres. Shallow depth of field, tilt-shift effect, soft cinematic lighting, 8k resolution.
+
+🧠 Opsi 2: Gaya Abstrak & Teknologi (Fokus ke sisi "AI"-nya)
+Prompt: Stop-motion claymation aesthetic. A stylized, cute brain made of soft matte clay looking at a clean clay notebook. Floating data lines made of clay connecting them. NotebookLM brand style, clean and modern. Extreme shallow depth of field. The background is an out-of-focus modern workspace with warm, magical bokeh lights. Soft studio lighting, highly detailed clay texture with subtle fingerprints, vibrant but pastel colors.
+
+🧑‍💻 Opsi 3: Ada Karakter yang Sedang Belajar/Riset
+Prompt: Cute 3D claymation character of a student sitting at a neat desk, happily organizing oversized floating notes and a glowing notebook. NotebookLM aesthetic, minimalist and smart workspace, pastel Google colors. Sharp focus on the character and the notebook. The background features a very blurred library or office with strong bokeh light effects. Macro photography style, tactile clay feeling, soft ambient lighting.
+

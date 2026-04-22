@@ -1,0 +1,97 @@
+Diorama kantor modern bertingkat tinggi bergaya 3D claymation, sangat detail, sibuk dan penuh semangat.
+
+Gaya claymation Wallace and Gromit, kualitas Laika Studios, tekstur tanah liat matte lembut, tepi membulat, subsurface scattering, pencahayaan hangat, warna cerah jenuh, tilt-shift miniatur, render berbasis fisika, depth of field, 4K, rasio 16:9.
+
+
+
+// SETTING KANTOR
+
+Kantor modern bergaya Google di gedung tinggi lantai atas.
+
+Jendela kaca besar memperlihatkan latar belakang MONAS dan langit Jakarta yang cerah.
+
+Dinding belakang: logo bunga teratai hijau + "EQUITY LIFE INDONESIA".
+
+Spanduk merah besar: "TARGET: ISO 27001:2022!" tambahkan logo ISO/IEC nya.
+
+Ada sudut santai dengan sofa warna-warni, meja foosball, tanaman hias dari tanah liat.
+
+Lantai kayu, meja modern dari tanah liat, kertas dan map warna-warni berserakan.
+
+
+
+// 5 ZONA KARAKTER — TOTAL 19 FIGUR
+
+
+
+ZONA KIRI — 2 figur laki-laki di depan whiteboard PDCA:
+
+Endiaz: laki-laki, kacamata , rambut hitam pendek, jas+celana panjang BIRU TEAL,
+
+menunjuk diagram dengan tongkat panjang, ekspresi fokus bersemangat.
+
+Andy: laki-laki, rambut cokelat, tanpa kacamata, jas+celana panjang HIJAU TUA,
+
+pegang buku tebal dua tangan, angguk serius sambil senyum.
+
+
+
+ZONA TENGAH KIRI — 3 figur laki-laki tenggelam tumpukan map:
+
+Didik: laki-laki, rambut hitam pendek, kemeja+celana panjang HIJAU ZAMRUD, susun map ke rak dengan tenang, ekspresi profesional.
+
+Andika: laki-laki, rambut hitam, kemeja+celana panjang UNGU, kedua tangan penuh map hampir jatuh, ekspresi struggle bertekad.
+
+Thomas: laki-laki, kepala botak tanpa rambut sama sekali, kacamata bulat, kemeja+celana panjang ORANYE, tetes keringat tanah liat besar di dahi, jempol naik dengan senyum heroik kelelahan.
+
+
+
+ZONA TENGAH — 11 figur di meja panjang:
+
+Ronald: laki-laki, rambut bergelombang tebal, kacamata bulat, agak gemuk, kemeja+celana panjang BIRU LANGIT, ketik laptop sangat cepat, ekspresi tegang serius.
+
+David: laki-laki, wajah bulat kulit agak coklat dikit, rambut botak tipis rapi, paling gemuk, kemeja+celana panjang MERAH MUDA, bawa nampan dokumen tinggi dengan senyum ceria menyemangati.
+
+Luci: perempuan, rambut panjang hitam, blazer+rok KUNING, tempel sticky notes merah muda.
+
+Indri: perempuan, rambut sedang cokelat, blazer+rok TOSCA, tempel sticky notes kuning.
+
+Iman: laki-laki, rambut hitam, kemeja+celana panjang NAVY TUA, tunjuk dokumen berapi-api.
+
+Jonatha: laki-laki, rambut pendek, kemeja+celana panjang ORANYE TUA, FACEPALM DRAMATIS telapak menutup muka, mata bulat besar, tetap senyum.
+
+Chico: laki-laki, rambut hitam, kemeja+celana panjang HIJAU LUMUT, tunjuk kertas regulasi, ekspresi bingung tapi senyum lebar.
+
+Rizky: laki-laki, rambut hitam, kemeja+celana panjang MERAH MAROON, FACEPALM paling dramatis, kepala hampir meja, masih senyum kecil.
+
+Toni: laki-laki, rambut hitam, jas+celana panjang TOSCA TUA, angkat kedua tangan ke udara ekspresi semangat.
+
+Bona : laki-laki, rambut botak tipis hitam, kemeja+celana panjang COKELAT EMAS, pegang model server tanah liat kecil dan bawa kabel sliweran, bicara seru dengan figur Ibut.
+
+Ibut : laki-laki, rambut hitam, kemeja+celana panjang UNGU TUA, pegang dokumen bertuliskan "BCDRP"
+
+
+ZONA KANAN — 2 figur perempuan internal audit:
+
+Azaria: perempuan, rambut panjang hitam terurai, blazer+rok MERAH MUDA CERAH, kaca pembesar RAKSASA berbingkai emas, periksa dokumen, mata menyipit tajam, postur detektif.
+
+Vero: perempuan, rambut dikuncir hitam, blazer+rok UNGU LAVENDER, kaca pembesar RAKSASA emas, tatap checklist, alis berkerut analitis.
+
+
+
+ZONA PALING KANAN — 1 figur perempuan komunikasi:
+
+Yuliarti: perempuan, rambut pendek bergelombang, blazer+rok KUNING CERAH MENYOLOK, megafon oranye tangan kanan terangkat tinggi, tangan kiri koordinasi lebar, senyum terbesar di seluruh gambar, panah komunikasi warna-warni menyebar ke semua arah.
+
+
+Ketentuan:
+
+Tepat 19 figur berbeda, warna blazer masing-masing unik, tidak ada duplikat.
+harus ada teks nama pada gambar. Visual karakter Harus dapat dibedakan dengan jelas.
+gak usah ada tulisan zona . 1 Karakter orang 1 Nama gak duplikat. jangan typo !!!!!
+
+
+Negative Prompt:
+
+Copyproporsi realistis, kulit fotorealistis, anime, shading datar, ilustrasi 2D, pencahayaan gelap, suasana suram, figur buram, kualitas rendah, watermark, label teks tidak ada pada figur, anggota tubuh ekstra, nama duplikat, jari berlebihan, wajah cacat, tubuh menyatu, figur duplikat, wajah identik, dua blazer warna sama, tepi tajam, permukaan plastik mengkilap, karakter tambahan tidak diminta, lebih dari 19 karakter, karakter double, gender tidak sesuai, proporsi Pixar, gaya Disney, over-saturated, background indoor tanpa jendela, menampilkan nama zona, lebih dari 19 nama.
+

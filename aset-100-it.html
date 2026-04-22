@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventaris Aset IT — Asuransi Jiwa Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0D1117;
+  --bg2: #161B22;
+  --bg3: #1F2937;
+  --border: #30363D;
+  --text: #E6EDF3;
+  --muted: #8B949E;
+  --gold: #D4A843;
+  --gold2: #F0C96A;
+  --red: #FF6B6B;
+  --red-bg: rgba(255,107,107,0.12);
+  --amber: #F59E0B;
+  --amber-bg: rgba(245,158,11,0.12);
+  --blue: #58A6FF;
+  --blue-bg: rgba(88,166,255,0.12);
+  --green: #3FB950;
+  --green-bg: rgba(63,185,80,0.12);
+  --purple: #BC8CFF;
+  --purple-bg: rgba(188,140,255,0.12);
+  --cyan: #39D0D8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(180deg, #0D1117 0%, #0D1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 1.8rem 2rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 60px,
+    rgba(212,168,67,0.03) 60px,
+    rgba(212,168,67,0.03) 61px
+  );
+}
+.header-inner { max-width: 1600px; margin: 0 auto; position: relative; }
+.header-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+.header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.02em;
+}
+.header h1 span { color: var(--gold); }
+.header-sub { color: var(--muted); font-size: 0.8rem; margin-bottom: 1.2rem; }
+
+/* STATS ROW */
+.stats { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.stat {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.stat-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label { font-size: 0.68rem; color: var(--muted); }
+
+/* FILTER BAR */
+.filter-bar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 2rem;
+  display: flex; gap: 0.7rem; flex-wrap: wrap; align-items: center;
+}
+.filter-bar-inner { max-width: 1600px; margin: 0 auto; width: 100%; display: flex; gap: 0.7rem; flex-wrap: wrap; align-items: center; }
+
+.filter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.search-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.78rem;
+  width: 220px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box:focus { border-color: var(--gold); }
+.search-box::placeholder { color: var(--muted); }
+
+select.filter-select {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+select.filter-select:focus { border-color: var(--gold); }
+select.filter-select option { background: var(--bg3); }
+
+.filter-count {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-left: auto;
+  white-space: nowrap;
+}
+.filter-count span { color: var(--gold2); font-weight: 600; }
+
+.btn-reset {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  padding: 0.4rem 0.7rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.2s;
+}
+.btn-reset:hover { border-color: var(--gold); color: var(--gold); }
+
+/* MAIN TABLE */
+.main { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem 3rem; }
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+thead {
+  background: var(--bg2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+thead th {
+  padding: 0.7rem 0.8rem;
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+thead th:hover { color: var(--text); }
+
+tbody tr {
+  border-bottom: 1px solid rgba(48,54,61,0.6);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+tbody tr:hover { background: rgba(212,168,67,0.04); }
+tbody tr.expanded { background: rgba(212,168,67,0.06); }
+
+tbody td {
+  padding: 0.6rem 0.8rem;
+  vertical-align: middle;
+  color: var(--text);
+}
+
+td.no {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  width: 36px;
+  text-align: center;
+}
+
+td.asset-name {
+  font-weight: 500;
+  font-size: 0.78rem;
+  min-width: 220px;
+  max-width: 280px;
+  color: var(--text);
+}
+
+td.dept-cell {
+  min-width: 130px;
+}
+
+/* DEPT BADGES */
+.dept-badge {
+  font-size: 0.62rem;
+  font-weight: 500;
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.03em;
+}
+.dept-Infrastruktur { background: rgba(57,208,216,0.12); color: var(--cyan); }
+.dept-CoreSystem    { background: rgba(88,166,255,0.15); color: var(--blue); }
+.dept-Development   { background: rgba(63,185,80,0.12); color: var(--green); }
+.dept-DevSecOps     { background: rgba(188,140,255,0.12); color: var(--purple); }
+.dept-DataAnalytics { background: rgba(245,158,11,0.12); color: var(--amber); }
+.dept-BusinessAnalyst { background: rgba(212,168,67,0.12); color: var(--gold); }
+.dept-DigitalStrategy { background: rgba(255,107,107,0.12); color: var(--red); }
+.dept-Security      { background: rgba(255,100,100,0.15); color: #ff8080; }
+
+/* SENS BADGES */
+.sens-badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.18rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+.sens-Confidential { background: var(--red-bg); color: var(--red); border: 1px solid rgba(255,107,107,0.2); }
+.sens-Restricted   { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+.sens-Internal     { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(88,166,255,0.2); }
+.sens-Public       { background: var(--green-bg); color: var(--green); border: 1px solid rgba(63,185,80,0.2); }
+
+/* KRIT BADGE */
+.krit-badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.18rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.krit-Kritikal    { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(188,140,255,0.2); }
+.krit-NonKritikal { background: rgba(139,148,158,0.12); color: var(--muted); border: 1px solid rgba(139,148,158,0.2); }
+
+/* CIA CELLS */
+.cia-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  text-align: center;
+  width: 30px;
+}
+.cia-dot { display: inline-flex; align-items: center; justify-content: center; gap: 3px; }
+.score-1 { color: #3FB950; }
+.score-2 { color: var(--amber); }
+.score-3 { color: var(--red); }
+
+.total-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: center;
+  width: 40px;
+}
+.total-9 { color: var(--red); }
+.total-8 { color: #FF9966; }
+.total-7 { color: var(--amber); }
+.total-6 { color: #A3C55A; }
+.total-low { color: var(--muted); }
+
+/* RTO RPO RETENSI */
+td.rto-cell, td.rpo-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--cyan);
+  white-space: nowrap;
+  min-width: 70px;
+}
+td.ret-cell {
+  font-size: 0.68rem;
+  color: var(--muted);
+  min-width: 120px;
+}
+
+/* EXPAND ROW */
+.expand-row td {
+  padding: 0;
+  cursor: default;
+}
+.expand-content {
+  padding: 1rem 1.2rem 1rem 3.2rem;
+  background: rgba(212,168,67,0.04);
+  border-top: 1px solid rgba(212,168,67,0.15);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.expand-field label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.expand-field p {
+  font-size: 0.75rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.expand-field.full { grid-column: 1 / -1; }
+
+/* CHEVRON */
+.chevron { color: var(--muted); font-size: 0.65rem; transition: transform 0.2s; display: inline-block; }
+.expanded .chevron { transform: rotate(180deg); }
+
+/* NO RESULTS */
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* LEGEND */
+.legend {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  padding: 0.7rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13,17,23,0.5);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.65rem; color: var(--muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* PRINT */
+@media print {
+  .filter-bar, .header::before { display: none; }
+  body { background: white; color: black; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">// ISO/IEC 27001:2022 — Annex A.8 | Asset Management Register</div>
+    <h1>Inventaris Aset <span>Departemen IT</span></h1>
+    <div class="header-sub">PT Asuransi Jiwa Indonesia · Dokumen Klasifikasi Aset — Sensitivitas, Kritikalitas, RTO/RPO, Retensi</div>
+    <div class="stats" id="statsRow"></div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <span class="filter-label">Filter:</span>
+    <input type="text" class="search-box" id="searchInput" placeholder="🔍 Cari nama aset...">
+    <select class="filter-select" id="deptFilter">
+      <option value="">Semua Departemen</option>
+      <option value="Infrastruktur">Infrastruktur</option>
+      <option value="Core System">Core System</option>
+      <option value="Development">Development</option>
+      <option value="DevSecOps">DevSecOps</option>
+      <option value="Data & Analytics">Data & Analytics</option>
+      <option value="Business Analyst">Business Analyst</option>
+      <option value="Digital Strategy">Digital Strategy</option>
+      <option value="Security">Security</option>
+    </select>
+    <select class="filter-select" id="sensFilter">
+      <option value="">Semua Sensitivitas</option>
+      <option value="Confidential">Confidential</option>
+      <option value="Restricted">Restricted</option>
+      <option value="Internal Use Only">Internal Use Only</option>
+      <option value="Public">Public</option>
+    </select>
+    <select class="filter-select" id="kritFilter">
+      <option value="">Semua Kritikalitas</option>
+      <option value="Kritikal">Kritikal</option>
+      <option value="Non-Kritikal">Non-Kritikal</option>
+    </select>
+    <button class="btn-reset" onclick="resetFilters()">↺ Reset</button>
+    <div class="filter-count">Menampilkan <span id="countDisplay">100</span> / 100 aset</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="table-wrap">
+    <table id="assetTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nama Aset</th>
+          <th>Departemen IT</th>
+          <th>Kategori</th>
+          <th>Sensitivitas</th>
+          <th>Kritikalitas</th>
+          <th title="Confidentiality">C</th>
+          <th title="Integrity">I</th>
+          <th title="Availability">A</th>
+          <th>Total CIA</th>
+          <th>RTO</th>
+          <th>RPO</th>
+          <th>Retensi</th>
+          <th>PIC / Pemilik</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="no-results" id="noResults" style="display:none">Tidak ada aset yang cocok dengan filter.</div>
+  </div>
+</div>
+
+<script>
+const assets = [
+  // ── INFRASTRUKTUR (20) ──────────────────────────────────────────────────────
+  {no:1, nama:"Server Produksi Utama (VMware ESXi Cluster)", dept:"Infrastruktur", kat:"Hardware / Infrastruktur", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"15 Menit",ret:"Selama aktif + 3 Thn", pic:"IT Infrastructure Manager", lokasi:"Data Center Utama, Jakarta", deskripsi:"Server fisik dan virtual (VMware ESXi cluster) yang menjalankan seluruh workload produksi kritikal: core insurance, database, middleware, dan aplikasi bisnis utama.", alasan_krit:"Seluruh sistem produksi bergantung pada cluster ini. Kegagalan tanpa failover menghentikan semua operasional bisnis.", alasan_sens:"Konfigurasi dan akses server produksi hanya untuk tim infrastruktur dan security; eksploitasi membuka akses ke semua sistem."},
+  {no:2, nama:"Server DR — Disaster Recovery Site", dept:"Infrastruktur", kat:"Hardware / Infrastruktur", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"4 Jam",rpo:"1 Jam",ret:"Selama aktif + 3 Thn", pic:"IT Infrastructure Manager", lokasi:"DR Site, Surabaya", deskripsi:"Server replika di lokasi terpisah untuk menjalankan sistem bisnis kritikal saat DC utama tidak tersedia. Bagian dari strategi BCP/DRP perusahaan.", alasan_krit:"Satu-satunya pengganti DC utama saat bencana. Tanpa DR, perusahaan tidak bisa memenuhi RTO yang ditetapkan OJK.", alasan_sens:"Lokasi dan konfigurasi DR hanya diketahui tim terbatas; informasinya tidak boleh bocor untuk mencegah targeted attack."},
+  {no:3, nama:"Storage Area Network (SAN Tier-1)", dept:"Infrastruktur", kat:"Hardware / Infrastruktur", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"15 Menit",ret:"Selama aktif + 5 Thn", pic:"IT Infrastructure Manager", lokasi:"Data Center Utama", deskripsi:"Storage terpusat berbasis SAN yang menyimpan data produksi semua sistem kritikal. Dilengkapi RAID 6, multipath, dan replikasi sinkron ke DR.", alasan_krit:"Semua data produksi berada di SAN ini. Kegagalan tanpa redundansi berarti data hilang dan sistem tidak bisa berjalan.", alasan_sens:"Konfigurasi zoning dan LUN mapping tidak boleh diketahui pihak tidak berwenang."},
+  {no:4, nama:"NAS Backup (Network Attached Storage)", dept:"Infrastruktur", kat:"Hardware / Infrastruktur", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"5 Tahun (data backup)", pic:"IT Infrastructure Manager", lokasi:"Data Center Utama", deskripsi:"Perangkat NAS untuk penyimpanan backup data harian, mingguan, dan bulanan dari semua sistem. Terintegrasi dengan Veeam Backup & Replication.", alasan_krit:"Sumber utama pemulihan data saat terjadi kehilangan data produksi. Kegagalan NAS membuat RPO tidak dapat dipenuhi.", alasan_sens:"Berisi salinan lengkap data produksi; akses harus dibatasi ketat."},
+  {no:5, nama:"Firewall Perimeter Utama (Palo Alto NGFW)", dept:"Infrastruktur", kat:"Keamanan Jaringan", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"1 Jam",rpo:"30 Menit",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"IT Security & Infrastructure", lokasi:"DC Utama — DMZ Layer", deskripsi:"Firewall next-generation di perimeter jaringan yang memfilter seluruh traffic masuk/keluar ke data center. Dilengkapi IPS, URL filtering, dan threat intelligence.", alasan_krit:"Garda terdepan keamanan jaringan. Kegagalan atau bypass membuka seluruh sistem internal ke internet.", alasan_sens:"Konfigurasi rules dan policy sangat sensitif; detail topologi jaringan tidak boleh diketahui pihak luar."},
+  {no:6, nama:"Firewall Internal (Segmentasi Jaringan)", dept:"Infrastruktur", kat:"Keamanan Jaringan", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"1 Jam",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"IT Security & Infrastructure", lokasi:"Data Center Utama", deskripsi:"Firewall untuk segmentasi jaringan internal: zona production, development, management, user network, dan DMZ. Mencegah lateral movement antar zona.", alasan_krit:"Tanpa segmentasi, satu sistem yang terkompromi dapat langsung mengakses semua sistem lain.", alasan_sens:"Peta segmentasi jaringan dan rules antar zona tidak boleh diketahui penyerang."},
+  {no:7, nama:"Core Switch & Network Backbone", dept:"Infrastruktur", kat:"Jaringan", sens:"Internal Use Only", krit:"Kritikal", c:1,i:3,a:3, rto:"1 Jam",rpo:"30 Menit",ret:"Selama aktif + 2 Thn", pic:"IT Infrastructure", lokasi:"DC Utama & Kantor Pusat", deskripsi:"Perangkat core switching yang menghubungkan seluruh infrastruktur jaringan internal. Kegagalan core switch berdampak pada semua konektivitas antar sistem.", alasan_krit:"Single point of connectivity untuk semua sistem. Downtime langsung berdampak pada seluruh operasional.", alasan_sens:"Konfigurasi jaringan internal relevan untuk keamanan namun tidak mengandung data bisnis sensitif."},
+  {no:8, nama:"Router WAN & SD-WAN", dept:"Infrastruktur", kat:"Jaringan", sens:"Internal Use Only", krit:"Kritikal", c:1,i:3,a:3, rto:"2 Jam",rpo:"1 Jam",ret:"Selama aktif + 2 Thn", pic:"IT Infrastructure", lokasi:"Kantor Pusat & Cabang Regional", deskripsi:"Router dan SD-WAN yang mengelola koneksi WAN antar kantor pusat, cabang, data center, dan internet. Termasuk konfigurasi BGP dan routing policy.", alasan_krit:"Koneksi antar kantor cabang dan DC bergantung pada router ini. Downtime memutus komunikasi bisnis nasional.", alasan_sens:"Konfigurasi routing internal cukup sensitif namun tidak mengandung data nasabah."},
+  {no:9, nama:"Load Balancer Aplikasi (F5 BIG-IP)", dept:"Infrastruktur", kat:"Jaringan", sens:"Restricted", krit:"Kritikal", c:1,i:3,a:3, rto:"1 Jam",rpo:"30 Menit",ret:"Selama aktif + 2 Thn", pic:"IT Infrastructure", lokasi:"DC Utama — DMZ", deskripsi:"Load balancer yang mendistribusikan traffic ke server-server aplikasi web, API, dan portal nasabah. Konfigurasi SSL termination dan health check disimpan di sini.", alasan_krit:"Tanpa load balancer, portal nasabah dan API tidak dapat melayani banyak pengguna; single server bisa overload.", alasan_sens:"Konfigurasi SSL certificate dan backend server pool bersifat sensitif."},
+  {no:10, nama:"VPN Gateway (Remote Access & Site-to-Site)", dept:"Infrastruktur", kat:"Keamanan Jaringan", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"2 Jam",rpo:"1 Jam",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"IT Security & Infrastructure", lokasi:"Data Center Utama", deskripsi:"VPN gateway untuk akses remote karyawan (WFH/mobile) dan koneksi site-to-site antar lokasi. Menyimpan konfigurasi tunnel, sertifikat, dan log koneksi.", alasan_krit:"Akses remote seluruh karyawan bergantung pada VPN ini, terutama untuk operasional hybrid work.", alasan_sens:"Konfigurasi VPN, sertifikat, dan log koneksi tidak boleh diketahui pihak eksternal."},
+  {no:11, nama:"Fasilitas Data Center Utama (Tier III)", dept:"Infrastruktur", kat:"Fasilitas Fisik", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"N/A",rpo:"N/A",ret:"Selama beroperasi", pic:"IT Infrastructure Manager / Direktur IT", lokasi:"Jakarta (lokasi spesifik classified)", deskripsi:"Fasilitas data center tier-3 yang menampung seluruh infrastruktur IT kritikal. Mencakup sistem kelistrikan ganda, pendingin, akses fisik berlapis, dan fire suppression.", alasan_krit:"Seluruh sistem IT bergantung pada fasilitas ini. Bencana pada DC utama langsung memicu BCP/DRP.", alasan_sens:"Lokasi spesifik dan detail layout DC adalah informasi classified; penyerang fisik dapat menargetkan DC."},
+  {no:12, nama:"DR Site / Co-Location Surabaya", dept:"Infrastruktur", kat:"Fasilitas Fisik", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"N/A",rpo:"N/A",ret:"Selama beroperasi", pic:"IT Infrastructure Manager", lokasi:"Surabaya (lokasi classified)", deskripsi:"Fasilitas co-location di kota berbeda sebagai Disaster Recovery Site. Diaktifkan saat DC utama mengalami bencana besar. Informasi lokasi dan akses sangat terbatas.", alasan_krit:"Satu-satunya alternatif DC saat bencana. Tanpa DR site aktif, BCP tidak dapat dieksekusi.", alasan_sens:"Lokasi dan prosedur aktivasi DR adalah informasi highly confidential."},
+  {no:13, nama:"Sistem UPS & Kelistrikan Data Center", dept:"Infrastruktur", kat:"Fasilitas Fisik", sens:"Internal Use Only", krit:"Kritikal", c:1,i:2,a:3, rto:"30 Menit",rpo:"N/A",ret:"Log maintenance: 2 Thn", pic:"IT Infrastructure / Facility Mgmt", lokasi:"Data Center Utama", deskripsi:"Sistem UPS (Uninterruptible Power Supply) dan generator diesel yang memastikan ketersediaan daya untuk perangkat DC selama pemadaman listrik. Dilengkapi transfer switch otomatis.", alasan_krit:"Kegagalan sistem kelistrikan langsung mematikan semua perangkat DC; downtime total seluruh sistem.", alasan_sens:"Spesifikasi teknis relevan untuk operasional internal namun tidak mengandung data sensitif."},
+  {no:14, nama:"Sistem Pendingin HVAC Data Center", dept:"Infrastruktur", kat:"Fasilitas Fisik", sens:"Internal Use Only", krit:"Kritikal", c:1,i:2,a:3, rto:"30 Menit",rpo:"N/A",ret:"Log maintenance: 2 Thn", pic:"IT Infrastructure / Facility Mgmt", lokasi:"Data Center Utama", deskripsi:"Sistem HVAC yang menjaga suhu dan kelembaban optimal di ruang server. Kegagalan pendinginan lebih dari 15 menit dapat merusak hardware secara permanen.", alasan_krit:"Overheating server dapat menyebabkan kerusakan fisik permanen dan data loss. Dampak lebih besar dari downtime biasa.", alasan_sens:"Informasi teknis operasional; tidak mengandung data sensitif bisnis."},
+  {no:15, nama:"Tape Library & Backup Media (Offsite Vault)", dept:"Infrastruktur", kat:"Hardware / Infrastruktur", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"8 Jam",rpo:"24 Jam",ret:"10 Tahun (ketentuan OJK)", pic:"IT Infrastructure", lokasi:"DC Utama & Offsite Vault Jakarta", deskripsi:"Tape library untuk backup data jangka panjang (long-term retention) sesuai regulasi OJK. Media tape disimpan di offsite vault berbeda dari lokasi DC sebagai perlindungan bencana.", alasan_krit:"Sumber pemulihan data untuk skenario disaster total dimana NAS dan DWH tidak dapat dipulihkan.", alasan_sens:"Media tape berisi salinan lengkap data nasabah dan keuangan; harus disimpan terenkripsi."},
+  {no:16, nama:"Backup Software & Orchestration (Veeam)", dept:"Infrastruktur", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Selama aktif + 2 Thn", pic:"IT Infrastructure", lokasi:"Server Management — DC Utama", deskripsi:"Platform backup Veeam Backup & Replication yang mengorkestrasi seluruh jadwal backup, verifikasi data, dan proses restore. Konfigurasi backup job dan credential tersimpan di sini.", alasan_krit:"Tanpa backup software berjalan, seluruh jadwal backup berhenti dan RPO tidak dapat dipenuhi.", alasan_sens:"Konfigurasi backup termasuk target storage dan credential harus dilindungi."},
+  {no:17, nama:"Network Monitoring System (Zabbix/Grafana)", dept:"Infrastruktur", kat:"Perangkat Lunak", sens:"Internal Use Only", krit:"Kritikal", c:2,i:2,a:2, rto:"4 Jam",rpo:"4 Jam",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"IT Infrastructure / NOC", lokasi:"Server Monitoring — DC Utama", deskripsi:"Platform monitoring real-time untuk memantau availability, performa, dan anomali seluruh infrastruktur jaringan dan server. Dashboard dan alerting otomatis ke tim NOC.", alasan_krit:"Tanpa monitoring, tim tidak dapat mendeteksi kegagalan awal sebelum berdampak ke bisnis (visibility loss).", alasan_sens:"Dashboard topologi jaringan bersifat internal; tidak boleh diakses pihak luar."},
+  {no:18, nama:"DNS Server Internal & Eksternal", dept:"Infrastruktur", kat:"Jaringan", sens:"Internal Use Only", krit:"Kritikal", c:1,i:3,a:3, rto:"1 Jam",rpo:"30 Menit",ret:"Selama aktif + 2 Thn", pic:"IT Infrastructure", lokasi:"DC Utama (Primary & Secondary DNS)", deskripsi:"Server DNS untuk resolusi nama domain internal dan eksternal. Kegagalan DNS menyebabkan seluruh layanan berbasis hostname tidak dapat diakses meski server masih hidup.", alasan_krit:"DNS adalah fondasi connectivity; kegagalannya mematikan akses ke semua sistem secara efektif.", alasan_sens:"Zona DNS internal mengungkap topologi sistem; harus dilindungi dari DNS enumeration."},
+  {no:19, nama:"Active Directory / Identity Provider (LDAP)", dept:"Infrastruktur", kat:"Perangkat Lunak", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"1 Jam",rpo:"15 Menit",ret:"Selama aktif + 5 Thn (log audit)", pic:"IT Infrastructure / IT Security", lokasi:"DC Utama (Primary DC & Backup DC)", deskripsi:"Active Directory sebagai pusat identitas dan autentikasi seluruh pengguna karyawan, akun layanan, dan policy GPO. Semua sistem internal bergantung pada AD untuk autentikasi.", alasan_krit:"Kegagalan AD berarti tidak ada satu pun karyawan yang bisa login ke sistem. Dampak total dan segera.", alasan_sens:"AD menyimpan seluruh akun, hash password, dan group membership; kompromi AD = kompromi seluruh perusahaan."},
+  {no:20, nama:"Email Gateway Korporat (Microsoft 365/Exchange)", dept:"Infrastruktur", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:2,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Arsip email: 5 Thn", pic:"IT Infrastructure", lokasi:"Cloud (Microsoft 365 / On-Premise Exchange)", deskripsi:"Sistem email korporat dan security gateway (anti-spam, anti-phishing, DLP email). Komunikasi bisnis kritikal—termasuk komunikasi OJK—bergantung pada sistem ini.", alasan_krit:"Email adalah kanal komunikasi utama bisnis; downtime menghentikan komunikasi internal dan eksternal.", alasan_sens:"Email berisi informasi bisnis sensitif dan komunikasi regulator yang tidak boleh diakses pihak luar."},
+
+  // ── CORE SYSTEM (15) ──────────────────────────────────────────────────────
+  {no:21, nama:"Sistem Core Insurance (AS400/Oracle Insurance)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"15 Menit",ret:"Data transaksi: 10 Thn (OJK)", pic:"IT Core System / Div. Operasional", lokasi:"Server AS400 / Oracle — DC Utama", deskripsi:"Sistem backbone pengelolaan polis asuransi jiwa. Menangani penerbitan polis, pemrosesan premi, renewal, lapse, surrender, dan seluruh siklus hidup polis nasabah.", alasan_krit:"Inti operasional perusahaan. Downtime menghentikan penerbitan polis dan pembayaran klaim; dampak langsung ke nasabah dan regulator.", alasan_sens:"Akses terbatas tim operasional & IT; manipulasi sistem dapat menyebabkan fraud polis massal."},
+  {no:22, nama:"Database Polis Aktif Nasabah", dept:"Core System", kat:"Data / Database", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"1 Jam",rpo:"15 Menit",ret:"Masa polis + 10 Thn (OJK)", pic:"Div. Operasional & IT Core System", lokasi:"Oracle RAC Cluster — DC Utama", deskripsi:"Database yang menyimpan data lengkap semua polis aktif: nomor polis, data tertanggung, nilai pertanggungan, premi, riwayat pembayaran, dan status polis. Berisi PII nasabah.", alasan_krit:"Data inti bisnis asuransi. Kerusakan atau kehilangan data polis menghentikan semua layanan nasabah dan pelaporan OJK.", alasan_sens:"Mengandung PII nasabah yang dilindungi UU PDP No.27/2022; kebocoran berpotensi sanksi hukum besar."},
+  {no:23, nama:"Sistem Manajemen Klaim (Claims Management)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"10 Tahun (regulasi OJK)", pic:"Div. Klaim & IT", lokasi:"Server Aplikasi — DC Utama", deskripsi:"Sistem yang mengelola seluruh proses klaim nasabah dari pengajuan, verifikasi, investigasi, approval, hingga pembayaran. Menyimpan data medis dan dokumen pendukung klaim.", alasan_krit:"Kegagalan sistem klaim langsung berdampak ke nasabah yang menunggu pembayaran; risiko hukum dan reputasi tinggi.", alasan_sens:"Berisi data medis dan riwayat klaim yang merupakan data sensitif paling tinggi per UU PDP."},
+  {no:24, nama:"Sistem Aktuaria & Pricing Engine", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"4 Jam",rpo:"1 Jam",ret:"10 Tahun", pic:"Div. Aktuaria & IT", lokasi:"Server Aktuaria — DC Utama", deskripsi:"Engine kalkulasi premi, cadangan teknis (PSAK 74), dan analisis profitabilitas produk. Menggunakan tabel mortalita, morbiditas, dan asumsi aktuaria proprietary.", alasan_krit:"Seluruh penetapan premi produk baru bergantung pada engine ini; kegagalan menghentikan launch produk dan renewals.", alasan_sens:"Asumsi aktuaria dan model pricing adalah IP utama perusahaan; bocor ke kompetitor berdampak kompetitif signifikan."},
+  {no:25, nama:"Sistem Manajemen Agen & Distribusi", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"1 Jam",ret:"7 Tahun", pic:"Div. Keagenan & IT", lokasi:"Server Aplikasi — DC Utama", deskripsi:"Sistem pengelolaan data agen, kode agen, lisensi AAJI, komisi, dan kinerja penjualan. Terintegrasi dengan core insurance untuk penerbitan polis melalui kanal agen.", alasan_krit:"Seluruh kanal distribusi agen bergantung pada sistem ini; downtime menghentikan penjualan polis baru.", alasan_sens:"Data komisi dan kinerja agen bersifat sensitif; akses terbatas pada divisi keagenan dan keuangan."},
+  {no:26, nama:"Sistem Penagihan Premi (Billing & Collection)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"10 Tahun", pic:"Div. Keuangan & IT", lokasi:"Server Aplikasi — DC Utama", deskripsi:"Sistem penagihan dan pengelolaan pembayaran premi nasabah melalui berbagai kanal: transfer bank, auto-debet, virtual account, dan kartu kredit. Terhubung dengan rekonsiliasi keuangan.", alasan_krit:"Kegagalan billing berarti tidak ada penerimaan premi; polis dapat lapse massal dan cash flow terganggu.", alasan_sens:"Berisi informasi rekening bank dan riwayat transaksi keuangan nasabah yang sangat sensitif."},
+  {no:27, nama:"General Ledger / ERP Keuangan (SAP/Oracle)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"4 Jam",rpo:"1 Jam",ret:"10 Tahun (UU Keuangan)", pic:"Div. Keuangan & IT", lokasi:"Server SAP/Oracle — DC Utama", deskripsi:"Sistem ERP untuk pencatatan akuntansi, general ledger, AP/AR, dan pelaporan keuangan. Menjadi sumber data utama laporan PSAK 74 dan OJK.", alasan_krit:"Wajib untuk penutupan buku bulanan/tahunan; kegagalan mengganggu seluruh proses keuangan dan pelaporan.", alasan_sens:"Mengandung data keuangan material perusahaan; bocor sebelum publikasi dapat memicu insider trading."},
+  {no:28, nama:"Sistem Pelaporan OJK (SILK / APOLO / SIPO)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"4 Jam",rpo:"2 Jam",ret:"10 Tahun", pic:"Div. Keuangan & Compliance", lokasi:"Server Aplikasi / Portal Cloud OJK", deskripsi:"Sistem dan tools pelaporan regulasi ke OJK: SILK untuk laporan keuangan, APOLO untuk laporan bisnis perasuransian, dan pelaporan statistik periodik wajib.", alasan_krit:"Kegagalan pelaporan ke OJK tepat waktu berpotensi sanksi administratif dan pencabutan izin usaha.", alasan_sens:"Laporan OJK mengandung data keuangan dan bisnis material yang bersifat highly confidential."},
+  {no:29, nama:"Sistem Reinsuransi (Reinsurance Management)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"10 Tahun", pic:"Div. Reinsuransi & IT", lokasi:"Server Aplikasi — DC Utama", deskripsi:"Sistem pengelolaan perjanjian dan laporan reinsuransi dengan perusahaan reasuransi (Munich Re, Swiss Re, Hannover Re). Menyimpan treaty, data cession, dan klaim reasuransi.", alasan_krit:"Kegagalan sistem reinsuransi menghambat transfer risiko; potensi kerugian besar jika laporan cession terlambat.", alasan_sens:"Perjanjian treaty reasuransi adalah kontrak komersial sensitif yang tidak boleh diketahui kompetitor."},
+  {no:30, nama:"Sistem Manajemen Investasi (Investment System)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"10 Tahun", pic:"Div. Investasi & IT", lokasi:"Server Aplikasi — DC Utama", deskripsi:"Sistem pengelolaan portofolio investasi perusahaan: saham, obligasi, reksa dana, deposito, dan properti. Kritikal untuk perhitungan hasil investasi yang mempengaruhi cadangan teknis.", alasan_krit:"Keputusan investasi bernilai triliunan rupiah bergantung pada data sistem ini; error berisiko kerugian besar.", alasan_sens:"Strategi investasi perusahaan adalah informasi market-sensitive yang tidak boleh bocor ke publik."},
+  {no:31, nama:"Portal Self-Service Nasabah (Customer Portal)", dept:"Core System", kat:"Aplikasi Web", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"1 Jam",ret:"Log akses: 1 Thn; Data nasabah: sesuai polis", pic:"Div. Digital & IT", lokasi:"Cloud (AWS Jakarta) / Hybrid", deskripsi:"Portal web untuk nasabah mengakses informasi polis, membayar premi, mengajukan klaim, dan mengunduh dokumen polis. Berisi autentikasi nasabah dan riwayat transaksi.", alasan_krit:"Kanal layanan mandiri utama; downtime memaksa nasabah ke call center yang meningkatkan biaya operasional.", alasan_sens:"Berisi kredensial dan data transaksi nasabah; keamanan autentikasi sangat kritikal."},
+  {no:32, nama:"Sistem Manajemen Dokumen (DMS/ECM)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"10 Tahun", pic:"Div. Operasional & IT", lokasi:"Server DMS — DC Utama", deskripsi:"Sistem penyimpanan dan manajemen dokumen digital: SPAJ, polis, dokumen klaim, dan formulir nasabah. Dilengkapi versioning, audit trail, dan kontrol akses granular.", alasan_krit:"Semua dokumen legal nasabah tersimpan di sini; kehilangan dokumen berpotensi masalah hukum besar.", alasan_sens:"Dokumen nasabah termasuk rekam medis adalah data paling sensitif dalam perusahaan asuransi."},
+  {no:33, nama:"Sistem HRIS (Human Resource Information System)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:2,a:2, rto:"24 Jam",rpo:"8 Jam",ret:"10 Tahun (data karyawan)", pic:"Div. HR & IT", lokasi:"Server Aplikasi / Cloud HR", deskripsi:"Sistem pengelolaan data karyawan, payroll, absensi, benefit, dan performance management. Mengandung data pribadi karyawan yang dilindungi UU PDP.", alasan_krit:"Kegagalan sistem payroll menghentikan pembayaran gaji karyawan; risiko hukum ketenagakerjaan besar.", alasan_sens:"Berisi data pribadi karyawan, gaji, dan rekam kerja yang sangat sensitif per UU PDP dan UU Ketenagakerjaan."},
+  {no:34, nama:"Enterprise Service Bus / Middleware (MuleSoft)", dept:"Core System", kat:"Infrastruktur Aplikasi", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"IT Core System / Arsitektur", lokasi:"Server Middleware — DC Utama", deskripsi:"Platform integrasi yang menghubungkan semua sistem internal (core insurance, ERP, agen, digital) melalui messaging dan API. Kegagalan ESB memutus komunikasi antar sistem.", alasan_krit:"Semua pertukaran data antar sistem melewati ESB; downtime memutus alur data seluruh operasional.", alasan_sens:"Konfigurasi integrasi dan transformasi data bisnis sensitif tidak boleh diketahui pihak luar."},
+  {no:35, nama:"Sistem Service Desk IT (ServiceNow/Freshdesk)", dept:"Core System", kat:"Aplikasi Bisnis", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:2, rto:"24 Jam",rpo:"8 Jam",ret:"3 Tahun", pic:"IT Support Manager", lokasi:"Cloud SaaS", deskripsi:"Platform manajemen tiket IT untuk pengelolaan insiden, permintaan layanan, perubahan (change management), dan tracking SLA. Log tiket berisi informasi teknis internal.", alasan_krit:"Jika tidak tersedia, tim IT masih bisa menerima permintaan via email dan telepon sementara.", alasan_sens:"Berisi detail masalah teknis internal; tidak boleh diakses publik namun dampak kebocoran minimal."},
+
+  // ── DEVELOPMENT (10) ──────────────────────────────────────────────────────
+  {no:36, nama:"Source Code Repository (GitLab Enterprise)", dept:"Development", kat:"Perangkat Lunak", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"8 Jam",rpo:"1 Jam",ret:"Selama aktif + 7 Thn", pic:"Engineering Manager / CTO", lokasi:"GitLab Self-Hosted — DC Utama", deskripsi:"Repository terpusat seluruh source code aplikasi dan sistem perusahaan. Merupakan intellectual property utama IT. Kebocoran dapat membahayakan keamanan seluruh sistem.", alasan_krit:"Tanpa source code repository, pengembangan dan deployment aplikasi terhenti total; hilang = kehilangan IP utama.", alasan_sens:"Source code mengandung logika bisnis, rahasia implementasi, dan potensi vulnerability yang bisa dieksploitasi."},
+  {no:37, nama:"Server Development Environment", dept:"Development", kat:"Hardware / Infrastruktur", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"Selama aktif + 1 Thn", pic:"IT Development", lokasi:"Server Dev — DC Internal / Cloud Dev", deskripsi:"Environment server untuk pengembangan aplikasi oleh tim developer. Berisi data dummy/masked dan kode dalam proses pengembangan. Tidak terhubung langsung ke sistem produksi.", alasan_krit:"Downtime tidak berdampak pada produksi; developer dapat beralih ke local environment sementara.", alasan_sens:"Tidak mengandung data produksi nyata; risiko kebocoran rendah jika data masking diterapkan."},
+  {no:38, nama:"Server Staging / UAT (User Acceptance Testing)", dept:"Development", kat:"Hardware / Infrastruktur", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"2 Hari",rpo:"24 Jam",ret:"Selama aktif + 1 Thn", pic:"IT Development / QA Manager", lokasi:"Server Staging — DC Internal", deskripsi:"Environment staging yang mereplikasi produksi untuk pengujian akhir sebelum deployment. Mungkin berisi subset data produksi yang ter-masking untuk keperluan pengujian realistis.", alasan_krit:"Pengujian dapat ditunda sementara tanpa dampak ke produksi; UAT bisa dijadwalkan ulang.", alasan_sens:"Potensi mengandung data produksi masked; kontrol akses diperlukan untuk mencegah exfiltrasi."},
+  {no:39, nama:"CI/CD Pipeline (GitLab CI / Jenkins / ArgoCD)", dept:"Development", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"Log build: 1 Thn; Konfigurasi: Selama aktif", pic:"DevSecOps / Engineering Manager", lokasi:"Server CI/CD — DC Utama / Cloud", deskripsi:"Pipeline otomatis build, test, dan deployment aplikasi ke berbagai environment. Konfigurasi pipeline, credentials, dan secrets tersimpan di sini dan harus dilindungi.", alasan_krit:"Tanpa CI/CD, deployment fitur dan patch keamanan menjadi manual dan lambat; risiko operasional meningkat.", alasan_sens:"Pipeline mengandung credentials lingkungan produksi; kompromi pipeline bisa menyebabkan supply chain attack."},
+  {no:40, nama:"Artifact Repository (Nexus / JFrog Artifactory)", dept:"Development", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"Selama aktif + 3 Thn", pic:"DevSecOps / Engineering", lokasi:"Server — DC Utama / Cloud", deskripsi:"Repository untuk menyimpan artifact hasil build (JAR, Docker image, binary), library, dan dependency. Kompromi repository dapat menyebabkan supply chain attack ke semua aplikasi.", alasan_krit:"Semua deployment bergantung pada artifact dari repository ini; downtime menghentikan pipeline CI/CD.", alasan_sens:"Artifact produksi yang ter-tamper dapat menyebarkan malware ke seluruh sistem; integritas sangat kritikal."},
+  {no:41, nama:"Project Management & Issue Tracker (Jira)", dept:"Development", kat:"Perangkat Lunak", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"3 Tahun", pic:"IT Development / PMO IT", lokasi:"Cloud SaaS (Atlassian Cloud)", deskripsi:"Platform manajemen proyek IT, tracking sprint, backlog, dan issue teknis. Berisi roadmap produk, detail teknis, dan estimasi yang bersifat internal perusahaan.", alasan_krit:"Downtime tidak menghentikan development; tim dapat berkomunikasi via saluran lain sementara.", alasan_sens:"Roadmap dan backlog bersifat internal; tidak mengandung data nasabah."},
+  {no:42, nama:"Dokumentasi Teknis & Knowledge Base (Confluence)", dept:"Development", kat:"Dokumen / Informasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"Selama aktif + 3 Thn", pic:"IT Development", lokasi:"Cloud SaaS / Self-Hosted", deskripsi:"Knowledge base teknis: arsitektur sistem, runbook, panduan deployment, API documentation, dan troubleshooting guide. Penting untuk operasional dan onboarding developer baru.", alasan_krit:"Tidak mengandung data produksi; kurangnya dokumentasi dapat dipulihkan dengan manual namun butuh waktu.", alasan_sens:"Berisi detail teknis sistem internal namun tidak menjadi target prioritas bagi penyerang."},
+  {no:43, nama:"Test Framework & Test Case Repository", dept:"Development", kat:"Perangkat Lunak", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"3 Tahun", pic:"QA Lead / IT Development", lokasi:"GitLab Repository / Server QA", deskripsi:"Framework pengujian otomatis (Selenium, JMeter, Postman) dan kumpulan test case untuk semua aplikasi. Mencakup unit test, integration test, dan performance test.", alasan_krit:"Pengujian manual masih bisa dilakukan; dampak ke produksi tidak langsung.", alasan_sens:"Test case berisi detail perilaku sistem internal yang sebaiknya tidak diketahui pihak luar."},
+  {no:44, nama:"API Documentation Portal (Swagger/Postman)", dept:"Development", kat:"Dokumen / Informasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"Selama aktif + 2 Thn", pic:"IT Development / Arsitektur", lokasi:"Portal Internal / Server Dev", deskripsi:"Dokumentasi spesifikasi API internal dan eksternal. Berisi endpoint, payload, authentication scheme, dan contoh request/response untuk semua integrasi sistem.", alasan_krit:"Tidak tersedianya dokumentasi tidak menghentikan API yang berjalan; hanya menghambat pengembangan baru.", alasan_sens:"Detail endpoint dan skema autentikasi API tidak boleh diketahui pihak eksternal tanpa otorisasi."},
+  {no:45, nama:"Library & Dependency Management (SBOM)", dept:"Development", kat:"Perangkat Lunak", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:3,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"Selama aktif", pic:"Engineering / DevSecOps", lokasi:"Source Code Repository", deskripsi:"Software Bill of Materials (SBOM) dan daftar dependency eksternal (npm, maven, pip) yang digunakan dalam setiap aplikasi. Integritas sangat penting untuk mencegah dependency confusion.", alasan_krit:"Tidak tersedianya SBOM tidak langsung menghentikan sistem; namun menjadi masalah saat audit keamanan.", alasan_sens:"Daftar library yang digunakan mengungkap stack teknologi; integritas lebih penting dari kerahasiaannya."},
+
+  // ── DEVSECOPS (10) ──────────────────────────────────────────────────────
+  {no:46, nama:"SAST Tool (SonarQube / Checkmarx)", dept:"DevSecOps", kat:"Keamanan Aplikasi", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"3 Hari",rpo:"1 Hari",ret:"Hasil scan: 3 Thn", pic:"DevSecOps Lead / AppSec", lokasi:"Server CI/CD — DC Utama / Cloud", deskripsi:"Tools analisis keamanan kode statis yang mengidentifikasi vulnerability (SQL injection, XSS, hardcoded secrets) dalam source code sebelum deployment ke produksi.", alasan_krit:"Tanpa SAST, kode dengan kerentanan keamanan dapat masuk ke produksi tanpa terdeteksi; risiko breach meningkat.", alasan_sens:"Laporan SAST mengandung detail kerentanan spesifik dalam kode; bocor ke penyerang sangat berbahaya."},
+  {no:47, nama:"DAST Tool (OWASP ZAP / Burp Suite Pro)", dept:"DevSecOps", kat:"Keamanan Aplikasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Hasil scan: 3 Thn", pic:"DevSecOps / AppSec Team", lokasi:"Server Testing Internal", deskripsi:"Tools pengujian keamanan dinamis untuk mendeteksi vulnerability pada aplikasi yang sedang berjalan. Digunakan dalam siklus security testing sebelum go-live produk.", alasan_krit:"DAST bersifat periodik; tidak tersedia sesaat tidak langsung menghentikan operasional.", alasan_sens:"Hasil scan DAST mengandung detail kerentanan aktif; tidak boleh diakses pihak tidak berwenang."},
+  {no:48, nama:"Secrets Management Platform (HashiCorp Vault)", dept:"DevSecOps", kat:"Keamanan Aplikasi", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"1 Jam",rpo:"15 Menit",ret:"Selama aktif + 5 Thn (audit log)", pic:"DevSecOps / CISO", lokasi:"DC Utama — HA Cluster", deskripsi:"Platform manajemen secrets terpusat yang menyimpan API keys, database credentials, certificates, dan tokens secara aman. Semua aplikasi bergantung pada vault untuk credential injection.", alasan_krit:"Kegagalan Vault menghentikan semua aplikasi yang tidak bisa mendapatkan credentials; downtime total.", alasan_sens:"Vault menyimpan credentials akses ke semua sistem; kompromi Vault = kompromi seluruh perusahaan."},
+  {no:49, nama:"Infrastructure as Code (Terraform / Ansible)", dept:"DevSecOps", kat:"Perangkat Lunak", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:1, rto:"1 Hari",rpo:"4 Jam",ret:"Selama aktif + 3 Thn", pic:"DevSecOps / Cloud Infrastructure", lokasi:"GitLab Repository — akses sangat terbatas", deskripsi:"Kode IaC untuk provisioning dan konfigurasi infrastruktur cloud dan on-premise. Mengandung konfigurasi keamanan, network topology, dan credential environment.", alasan_krit:"IaC adalah blueprint infrastruktur; kehilangan atau korupsi menghambat recovery dan provisioning baru.", alasan_sens:"IaC mengandung seluruh topologi infrastruktur dan konfigurasi keamanan; bocor = peta infrastruktur untuk penyerang."},
+  {no:50, nama:"Container Security Scanner (Trivy / Snyk Container)", dept:"DevSecOps", kat:"Keamanan Aplikasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Hasil scan: 2 Thn", pic:"DevSecOps Team", lokasi:"CI/CD Pipeline / Cloud", deskripsi:"Tools scanning image container Docker/OCI untuk mendeteksi CVE dalam base image dan layer aplikasi sebelum deployment ke Kubernetes. Terintegrasi sebagai quality gate.", alasan_krit:"Bersifat preventif; tidak tersedia sesaat meningkatkan risiko namun tidak langsung menghentikan produksi.", alasan_sens:"Laporan CVE berisi detail kerentanan container; sebaiknya tidak diakses publik."},
+  {no:51, nama:"Container Orchestration Platform (Kubernetes/EKS)", dept:"DevSecOps", kat:"Infrastruktur Aplikasi", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"DevSecOps / IT Infrastructure", lokasi:"DC Utama / Cloud (AWS EKS)", deskripsi:"Platform orkestrasi container Kubernetes untuk mengelola deployment, scaling, dan lifecycle aplikasi berbasis microservices. Konfigurasi cluster, RBAC, dan network policy bersifat sensitif.", alasan_krit:"Semua aplikasi microservices berjalan di Kubernetes; kegagalan cluster mematikan semua layanan digital.", alasan_sens:"Konfigurasi RBAC Kubernetes menentukan akses semua aplikasi; eksploitasi berdampak ke seluruh cluster."},
+  {no:52, nama:"Private Container Image Registry", dept:"DevSecOps", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Selama aktif + 2 Thn", pic:"DevSecOps Team", lokasi:"DC Utama / Cloud Registry", deskripsi:"Registry privat untuk menyimpan Docker/OCI image yang telah diverifikasi dan di-scan. Digunakan sebagai sumber tunggal image untuk deployment produksi.", alasan_krit:"Tanpa registry, deployment baru tidak bisa dilakukan; konfigurasi rollback juga terpengaruh.", alasan_sens:"Image produksi mengandung kode aplikasi; harus dijaga integritasnya untuk mencegah supply chain attack."},
+  {no:53, nama:"Dependency Vulnerability Scanner (Snyk/OWASP DC)", dept:"DevSecOps", kat:"Keamanan Aplikasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Hasil scan: 2 Thn", pic:"DevSecOps Team", lokasi:"CI/CD Pipeline", deskripsi:"Tools yang menganalisis dependency open-source dan mendeteksi kerentanan CVE yang diketahui. Terintegrasi dalam pipeline CI/CD sebagai quality gate keamanan wajib.", alasan_krit:"Bersifat preventif; downtime sesaat tidak langsung berdampak ke produksi.", alasan_sens:"Laporan kerentanan dependency bersifat internal; akses cukup untuk tim DevSecOps dan development."},
+  {no:54, nama:"Security Policy as Code (OPA Gatekeeper/Kyverno)", dept:"DevSecOps", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Selama aktif + 3 Thn", pic:"DevSecOps / IT Security", lokasi:"Kubernetes Cluster / GitLab", deskripsi:"Kebijakan keamanan yang dikodekan (OPA/Kyverno) yang diterapkan otomatis pada Kubernetes. Memastikan compliance dan standar keamanan ditegakkan secara otomatis di setiap deployment.", alasan_krit:"Tanpa policy enforcement, deployment yang tidak compliant dapat masuk ke produksi tanpa kontrol.", alasan_sens:"Policy keamanan mengungkap standar dan batasan infrastruktur; tidak boleh diketahui penyerang."},
+  {no:55, nama:"Laporan Penetration Test & VA (Third-Party)", dept:"DevSecOps", kat:"Dokumen / Informasi", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:1, rto:"3 Hari",rpo:"N/A",ret:"5 Tahun", pic:"CISO / IT Security Manager", lokasi:"SharePoint Keamanan — akses sangat terbatas", deskripsi:"Laporan hasil penetration test dan vulnerability assessment oleh pihak internal dan eksternal. Mengandung detail kerentanan aktif sistem yang sangat berbahaya jika bocor.", alasan_krit:"Laporan ini diperlukan untuk bukti kepatuhan ISO 27001 dan audit OJK/regulator; hilang = temuan audit kritis.", alasan_sens:"Mengandung detail eksploitasi spesifik sistem; bocor ke penyerang memberikan peta jalan untuk serangan."},
+
+  // ── DATA & ANALYTICS (12) ──────────────────────────────────────────────────────
+  {no:56, nama:"Data Warehouse Perusahaan (BigQuery/Redshift)", dept:"Data & Analytics", kat:"Data / Database", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"10 Tahun", pic:"Chief Data Officer / IT Data Eng", lokasi:"Cloud DWH (GCP BigQuery / AWS Redshift)", deskripsi:"Repositori data terpusat yang mengintegrasikan data dari semua sistem operasional untuk pelaporan manajemen, analitik bisnis, dan kepatuhan regulasi OJK.", alasan_krit:"Sumber data tunggal untuk semua laporan manajemen dan OJK; kegagalan membutakan manajemen terhadap kondisi bisnis.", alasan_sens:"Mengandung data agregat nasabah, keuangan, dan operasional yang sangat sensitif secara bisnis dan regulasi."},
+  {no:57, nama:"Data Lake / Raw Data Storage (AWS S3)", dept:"Data & Analytics", kat:"Data / Database", sens:"Confidential", krit:"Kritikal", c:3,i:2,a:2, rto:"1 Hari",rpo:"8 Jam",ret:"10 Tahun", pic:"Chief Data Officer / Data Engineering", lokasi:"Cloud Object Storage (AWS S3 / Azure Blob)", deskripsi:"Penyimpanan data mentah (raw) dari berbagai sistem sumber sebelum diproses ETL. Berisi data nasabah, transaksi, dan log sistem dalam format aslinya.", alasan_krit:"Data lake adalah fondasi semua pipeline analitik; kerusakan menghentikan seluruh proses data downstream.", alasan_sens:"Berisi raw data termasuk PII nasabah yang belum di-mask; akses harus sangat terbatas."},
+  {no:58, nama:"ETL Pipeline & Data Orchestration (Apache Airflow)", dept:"Data & Analytics", kat:"Perangkat Lunak", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"Data Engineering Lead", lokasi:"Server ETL — DC Utama / Cloud", deskripsi:"Pipeline ETL yang memproses dan mentransformasi data dari sistem sumber ke DWH. Konfigurasi pipeline, koneksi database, dan jadwal job mengandung informasi sensitif.", alasan_krit:"Tanpa ETL berjalan, DWH tidak diperbarui; laporan manajemen dan OJK menjadi stale dan tidak akurat.", alasan_sens:"Konfigurasi koneksi ke sistem produksi dan credential database tersimpan dalam pipeline ETL."},
+  {no:59, nama:"Business Intelligence Platform (Tableau / Power BI)", dept:"Data & Analytics", kat:"Perangkat Lunak", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"1 Hari",rpo:"24 Jam",ret:"Laporan: 3 Thn; Tool: Selama aktif", pic:"Data & Analytics / Business Unit", lokasi:"Cloud SaaS / On-Premise Server", deskripsi:"Platform BI untuk visualisasi data, dashboard manajemen, dan laporan bisnis. Berisi data agregat bisnis yang sensitif; akses dikontrol berdasarkan peran pengguna.", alasan_krit:"Laporan dapat di-export dan diakses secara manual dari DWH sementara jika BI down.", alasan_sens:"Dashboard berisi KPI dan data bisnis material; akses harus dikontrol per peran jabatan."},
+  {no:60, nama:"Tabel Mortalita & Morbiditas (Aktuaria IP)", dept:"Data & Analytics", kat:"Data / Dokumen", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam",ret:"10 Tahun", pic:"Kepala Aktuaria / CDO", lokasi:"Server Aktuaria — DC Utama (Terenkripsi)", deskripsi:"Data tabel mortalita, morbiditas, dan asumsi aktuaria yang digunakan dalam penetapan premi dan cadangan teknis. Merupakan intellectual property proprietary perusahaan.", alasan_krit:"Seluruh perhitungan premi dan cadangan PSAK 74 bergantung pada data ini; data yang salah = cadangan tidak akurat.", alasan_sens:"Model aktuaria adalah IP utama; bocor ke kompetitor memberikan keunggulan kompetitif yang sangat signifikan."},
+  {no:61, nama:"Data Enrichment Nasabah (Third-Party Data)", dept:"Data & Analytics", kat:"Data / Database", sens:"Confidential", krit:"Non-Kritikal", c:3,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Sesuai kontrak vendor + 2 Thn", pic:"Data & Analytics / Marketing", lokasi:"Server Data — DC Utama (Enkripsi AES-256)", deskripsi:"Data dari pihak ketiga (credit bureau, data demografi, dll) untuk memperkaya profil nasabah dan analisis risiko underwriting. Tunduk perjanjian lisensi dan UU PDP.", alasan_krit:"Proses underwriting dan scoring dapat dilakukan tanpa data enrichment; dampak bisnis bersifat pengurangan kualitas.", alasan_sens:"Data pribadi pihak ketiga dilindungi UU PDP dan perjanjian data sharing; kebocoran menimbulkan sanksi hukum."},
+  {no:62, nama:"Model ML — Fraud Detection & Risk Scoring", dept:"Data & Analytics", kat:"Data / Perangkat Lunak", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam",ret:"Selama digunakan + 5 Thn", pic:"Data Science Lead / Chief Actuary", lokasi:"ML Platform — Cloud / Server AI", deskripsi:"Model machine learning untuk scoring risiko calon nasabah, deteksi fraud klaim secara real-time, dan prediksi perilaku nasabah. IP kritikal dengan dampak langsung ke profitabilitas.", alasan_krit:"Model fraud detection yang tidak berfungsi membuka perusahaan terhadap klaim fraudulent bernilai besar.", alasan_sens:"Model merupakan IP utama; bocor ke pihak luar memungkinkan adversarial attack untuk menghindari deteksi fraud."},
+  {no:63, nama:"Master Data Management (MDM) System", dept:"Data & Analytics", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam",ret:"Selama aktif + 10 Thn", pic:"Chief Data Officer / IT Data", lokasi:"Server MDM — DC Utama", deskripsi:"Sistem sumber kebenaran tunggal (single source of truth) untuk data master nasabah, produk, dan agen. Inkonsistensi MDM berdampak ke seluruh sistem downstream.", alasan_krit:"Data master yang tidak tersedia atau korup menyebabkan inkonsistensi data di semua sistem; dampak operasional besar.", alasan_sens:"MDM mengandung data lengkap semua nasabah; merupakan target utama untuk data exfiltration."},
+  {no:64, nama:"Data Catalog & Metadata Management (Collibra)", dept:"Data & Analytics", kat:"Perangkat Lunak", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"24 Jam",ret:"Selama aktif + 3 Thn", pic:"Chief Data Officer", lokasi:"Cloud SaaS / On-Premise", deskripsi:"Platform untuk mendokumentasikan, mengklasifikasikan, dan mengelola metadata aset data perusahaan. Mendukung data governance, data lineage, dan kepatuhan regulasi data.", alasan_krit:"Tidak tersedianya data catalog tidak menghentikan operasional; berdampak pada governance namun tidak bisnis inti.", alasan_sens:"Berisi inventaris aset data yang cukup sensitif namun dampak kebocoran lebih ke governance daripada operasional."},
+  {no:65, nama:"Data Historis Klaim 10+ Tahun (Claim Archive)", dept:"Data & Analytics", kat:"Data / Database", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"1 Hari",rpo:"24 Jam",ret:"10 Tahun (minimum, OJK)", pic:"Div. Klaim / CDO", lokasi:"DWH & Tape Backup — DC Utama", deskripsi:"Arsip data historis klaim lebih dari 10 tahun, termasuk data medis, keputusan klaim, dan pola fraudulent. Digunakan untuk analisis aktuaria dan machine learning fraud detection.", alasan_krit:"Diperlukan untuk audit OJK jangka panjang dan pembaruan model aktuaria; hilang = ketidakpatuhan regulasi.", alasan_sens:"Mengandung data medis historis nasabah yang merupakan kategori data sensitif tertinggi per UU PDP."},
+  {no:66, nama:"Model Prediksi Churn & Lapse Nasabah", dept:"Data & Analytics", kat:"Data / Perangkat Lunak", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Selama digunakan + 3 Thn", pic:"Data Science / Marketing", lokasi:"ML Platform — Cloud", deskripsi:"Model prediktif untuk mengidentifikasi nasabah berisiko lapse atau churn. Digunakan oleh tim marketing dan agen untuk program retensi proaktif nasabah.", alasan_krit:"Program retensi dapat dilakukan secara manual tanpa model; dampak lebih ke efisiensi marketing.", alasan_sens:"Model mengandung metodologi analitik proprietary; bocor memberi kompetitor insight tentang strategi retensi."},
+  {no:67, nama:"Platform Streaming Real-Time (Apache Kafka)", dept:"Data & Analytics", kat:"Infrastruktur Aplikasi", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"Log streaming: 7 Hari; Data processed: sesuai downstream", pic:"Data Engineering / IT Infrastructure", lokasi:"DC Utama / Cloud (AWS MSK)", deskripsi:"Platform streaming data real-time yang mengalirkan event transaksi (pembayaran premi, pengajuan klaim) untuk deteksi fraud real-time dan pembaruan sistem downstream.", alasan_krit:"Deteksi fraud real-time bergantung pada Kafka; kegagalan berarti transaksi tidak dianalisis sebelum diproses.", alasan_sens:"Event stream berisi transaksi keuangan real-time; akses harus dikontrol ketat."},
+
+  // ── BUSINESS ANALYST (8) ──────────────────────────────────────────────────────
+  {no:68, nama:"Business Requirements Document (BRD) Core System", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"7 Tahun", pic:"IT BA Lead / Project Manager", lokasi:"SharePoint Proyek IT / Confluence", deskripsi:"Dokumen kebutuhan bisnis untuk pengembangan atau perubahan sistem core. Berisi detail proses bisnis, rule bisnis asuransi, dan spesifikasi fungsional yang menjadi panduan development.", alasan_krit:"Dokumen referensi; proyek masih bisa berjalan dengan dokumen sebelumnya dalam jangka pendek.", alasan_sens:"Berisi detail rule bisnis asuransi yang tidak boleh diketahui kompetitor atau pihak luar."},
+  {no:69, nama:"Functional Specification Document (FSD/SRS)", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"7 Tahun", pic:"IT BA / Development Lead", lokasi:"SharePoint Proyek IT / Confluence", deskripsi:"Spesifikasi fungsional dan teknis detail hasil analisis kebutuhan. Menjelaskan perilaku sistem, alur proses, validasi data, dan antarmuka antar sistem dalam setiap proyek pengembangan.", alasan_krit:"Tidak tersedianya FSD menghambat development baru namun tidak menghentikan sistem yang sudah berjalan.", alasan_sens:"Detail teknis dan rule bisnis dalam FSD tidak boleh diketahui pihak eksternal."},
+  {no:70, nama:"Peta Proses Bisnis & BPMN Diagram", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"5 Thn atau sampai proses berubah + 3 Thn", pic:"IT BA / Proses & Mutu", lokasi:"SharePoint / Confluence / Visio Online", deskripsi:"Diagram alur proses bisnis (swimlane, BPMN 2.0) yang mendokumentasikan proses operasional asuransi: penerbitan polis, klaim, pembayaran premi, dan onboarding agen.", alasan_krit:"Proses bisnis sudah dipahami staf; diagram hanya referensi dokumentasi, bukan operasional.", alasan_sens:"Proses bisnis internal sebaiknya tidak diketahui kompetitor namun dampaknya relatif kecil."},
+  {no:71, nama:"Data Dictionary & Kamus Data Perusahaan", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Selama aktif + 3 Thn", pic:"IT BA / Data Governance", lokasi:"Confluence / SharePoint", deskripsi:"Definisi standar seluruh entitas data, field, tipe data, dan aturan bisnis. Menjadi referensi untuk konsistensi data antar sistem dan panduan pengembangan sistem baru.", alasan_krit:"Dokumen referensi; tidak tersedianya kamus data menghambat proyek baru namun tidak operasional.", alasan_sens:"Bersifat dokumentasi internal; tidak mengandung data sensitif bisnis atau nasabah."},
+  {no:72, nama:"UAT Plan & Hasil Pengujian (Acceptance Test)", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"5 Tahun", pic:"IT BA / QA / Business User", lokasi:"SharePoint Proyek IT / Jira", deskripsi:"Dokumen rencana dan hasil UAT yang membuktikan sistem telah memenuhi kebutuhan pengguna bisnis sebelum go-live. Digunakan sebagai bukti kepatuhan dalam audit proyek IT.", alasan_krit:"Dokumen historis; tidak tersedianya UAT record menghambat audit namun tidak operasional.", alasan_sens:"Berisi detail pengujian sistem internal; bukan target prioritas bagi penyerang."},
+  {no:73, nama:"Peta Arsitektur Bisnis & Aplikasi (EA/TOGAF)", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"7 Thn atau sampai arsitektur berubah", pic:"Enterprise Architect / CTO", lokasi:"SharePoint Arsitektur IT — akses terbatas", deskripsi:"Peta lengkap arsitektur bisnis, aplikasi, data, dan teknologi perusahaan mengacu framework TOGAF. Mengandung topologi sistem yang sensitif dan menjadi panduan roadmap IT.", alasan_krit:"Dokumen strategis; tidak tersedianya peta arsitektur menghambat perencanaan namun tidak operasional.", alasan_sens:"Peta arsitektur lengkap perusahaan sangat sensitif; bocor ke penyerang memberikan peta target serangan."},
+  {no:74, nama:"Gap Analysis & IT Roadmap (3-5 Tahun)", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"5 Tahun", pic:"CTO / IT Strategy", lokasi:"SharePoint Manajemen IT", deskripsi:"Dokumen analisis kesenjangan sistem saat ini vs target arsitektur, beserta roadmap pengembangan sistem dan investasi teknologi 3-5 tahun ke depan.", alasan_krit:"Dokumen perencanaan strategis; tidak tersedianya roadmap tidak menghentikan operasional.", alasan_sens:"Rencana investasi teknologi dan roadmap bersifat sensitif secara kompetitif; bocor ke kompetitor merugikan."},
+  {no:75, nama:"Matriks RACI & Dokumen Tata Kelola IT (COBIT)", dept:"Business Analyst", kat:"Dokumen / Informasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"3 Thn atau sampai direvisi + 2 Thn", pic:"CTO / IT Governance Officer", lokasi:"SharePoint IT Internal", deskripsi:"Dokumen matriks RACI peran dan tanggung jawab dalam proses IT, beserta kebijakan tata kelola IT berbasis framework COBIT. Mendukung audit ISO 27001 dan OJK.", alasan_krit:"Dokumen tata kelola; operasional tetap berjalan tanpa RACI meski meningkatkan risiko governance.", alasan_sens:"Mengungkap struktur organisasi IT internal; sebaiknya tidak diakses publik namun dampak kebocoran rendah."},
+
+  // ── DIGITAL STRATEGY (10) ──────────────────────────────────────────────────────
+  {no:76, nama:"Aplikasi Mobile Nasabah (iOS & Android)", dept:"Digital Strategy", kat:"Aplikasi Mobile", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Log: 1 Thn; Data nasabah: sesuai polis", pic:"Chief Digital Officer / IT Dev", lokasi:"App Store / Play Store + Backend Cloud AWS Jakarta", deskripsi:"Aplikasi mobile untuk nasabah: cek status polis, bayar premi, ajukan klaim, download kartu anggota, dan akses layanan digital. Mengandung autentikasi dan sesi nasabah.", alasan_krit:"Kanal digital utama nasabah; downtime berdampak ke pengalaman nasabah dan reputasi perusahaan.", alasan_sens:"Berisi token autentikasi nasabah; kerentanan aplikasi mobile dapat dieksploitasi untuk akses akun nasabah."},
+  {no:77, nama:"API Gateway (Apigee / Kong / AWS API Gateway)", dept:"Digital Strategy", kat:"Infrastruktur Aplikasi", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"1 Jam",rpo:"30 Menit",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"Digital Strategy / IT Architecture", lokasi:"Cloud (AWS/GCP) / On-Premise Hybrid", deskripsi:"Gateway terpusat untuk semua API eksternal dan internal. Mengelola autentikasi, rate limiting, routing, dan monitoring API. Semua integrasi digital melewati API gateway.", alasan_krit:"Semua layanan digital (mobile app, mitra fintech, agregator) bergantung pada API gateway; downtime total.", alasan_sens:"Konfigurasi routing dan kunci enkripsi API gateway tidak boleh diketahui pihak tidak berwenang."},
+  {no:78, nama:"Platform e-KYC & Verifikasi Identitas (Biometrik)", dept:"Digital Strategy", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"10 Thn (KYC per regulasi AML/POJK)", pic:"Chief Digital Officer / Compliance", lokasi:"Cloud + On-Premise HSM", deskripsi:"Platform verifikasi identitas digital nasabah menggunakan biometrik wajah, OCR KTP, dan liveness detection. Terintegrasi dengan Dukcapil dan penyedia e-KYC teregulasi OJK.", alasan_krit:"Onboarding digital nasabah baru bergantung sepenuhnya pada e-KYC; kegagalan menghentikan akuisisi digital.", alasan_sens:"Menyimpan data biometrik dan dokumen identitas nasabah; merupakan data sensitif tertinggi per UU PDP."},
+  {no:79, nama:"Payment Gateway Integration (Midtrans/Bank Direct)", dept:"Digital Strategy", kat:"Infrastruktur Aplikasi", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"10 Thn (data transaksi keuangan)", pic:"Digital Strategy / Keuangan / IT", lokasi:"Cloud + Integrasi Multi-Bank", deskripsi:"Integrasi payment gateway untuk pembayaran premi digital via transfer bank, virtual account, kartu kredit/debit, dan dompet digital (GoPay, OVO, DANA). Menyimpan token pembayaran.", alasan_krit:"Tanpa payment gateway, nasabah tidak bisa bayar premi digital; risiko lapse massal dan cash flow terganggu.", alasan_sens:"Menyimpan token pembayaran dan log transaksi keuangan nasabah; standar keamanan PCI DSS berlaku."},
+  {no:80, nama:"Chatbot & AI Virtual Assistant Nasabah", dept:"Digital Strategy", kat:"Aplikasi AI", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"1 Hari",rpo:"8 Jam",ret:"Log chat: 2 Thn; Model: Selama aktif", pic:"Digital Strategy / Customer Service", lokasi:"Cloud (AWS Lex / GCP Dialogflow)", deskripsi:"Chatbot AI untuk layanan pelanggan digital 24/7. Menjawab pertanyaan tentang produk, status klaim, dan panduan pembayaran. Terintegrasi dengan WhatsApp Business dan website.", alasan_krit:"Downtime chatbot tidak menghentikan layanan; nasabah dapat menghubungi call center langsung.", alasan_sens:"Log percakapan berisi informasi pertanyaan nasabah; sebaiknya tidak dapat diakses pihak luar."},
+  {no:81, nama:"CRM Digital & Marketing Automation (Salesforce)", dept:"Digital Strategy", kat:"Aplikasi Bisnis", sens:"Confidential", krit:"Non-Kritikal", c:3,i:2,a:1, rto:"1 Hari",rpo:"8 Jam",ret:"5 Tahun", pic:"Marketing / Chief Digital Officer", lokasi:"Cloud SaaS (Salesforce / HubSpot)", deskripsi:"Platform CRM dan marketing automation yang menyimpan data prospek, nasabah, riwayat interaksi, segmentasi kampanye, dan perilaku digital. Mengandung PII nasabah dan prospek.", alasan_krit:"Campaign marketing masih bisa dilakukan secara manual; downtime berdampak efisiensi marketing, bukan operasional.", alasan_sens:"Mengandung PII nasabah dan data perilaku digital; menjadi target data breach yang populer secara global."},
+  {no:82, nama:"Integrasi Agregator & Mitra Fintech (Open API)", dept:"Digital Strategy", kat:"Infrastruktur Aplikasi", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"7 Thn (data transaksi via agregator)", pic:"Digital Strategy / IT Architecture", lokasi:"API Gateway / Cloud Integration", deskripsi:"Integrasi API dengan platform agregator (PasarPolis, Qoala) dan mitra fintech. Mengandung API keys, SLA, dan data transaksi dari kanal distribusi digital strategis.", alasan_krit:"Distribusi digital melalui agregator adalah kanal pertumbuhan kritikal; downtime berarti kehilangan penjualan signifikan.", alasan_sens:"API keys dan konfigurasi integrasi mitra adalah informasi komersial sensitif; bocor dapat disalahgunakan."},
+  {no:83, nama:"Website Korporat & Landing Page Produk", dept:"Digital Strategy", kat:"Aplikasi Web", sens:"Public", krit:"Non-Kritikal", c:1,i:2,a:1, rto:"1 Hari",rpo:"8 Jam",ret:"Konten diarsip: 3 Thn", pic:"Marketing / Digital Strategy", lokasi:"Cloud CDN (AWS CloudFront / Cloudflare)", deskripsi:"Situs web publik yang menampilkan informasi produk, profil perusahaan, kalkulator premi online, dan formulir kontak. Tidak mengandung data sensitif nasabah.", alasan_krit:"Downtime tidak menghentikan penjualan (agen dan cabang masih beroperasi); berdampak reputasi digital saja.", alasan_sens:"Seluruh konten didesain untuk publik; tidak ada data sensitif yang perlu dilindungi di layer ini."},
+  {no:84, nama:"Digital Transformation Roadmap & OKR Digital", dept:"Digital Strategy", kat:"Dokumen / Informasi", sens:"Confidential", krit:"Non-Kritikal", c:3,i:2,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"5 Tahun", pic:"Chief Digital Officer / Direksi", lokasi:"SharePoint Direksi — akses sangat terbatas", deskripsi:"Dokumen strategi transformasi digital 3-5 tahun, OKR divisi digital, dan roadmap investasi teknologi. Sangat sensitif secara kompetitif karena mengungkap arah strategis perusahaan.", alasan_krit:"Dokumen strategis; tidak tersedianya dokumen tidak menghentikan operasional digital yang sudah berjalan.", alasan_sens:"Roadmap digital mengungkap strategi bisnis dan investasi teknologi; sangat berbahaya jika diketahui kompetitor."},
+  {no:85, nama:"Developer Portal & API Management Platform", dept:"Digital Strategy", kat:"Infrastruktur Aplikasi", sens:"Restricted", krit:"Non-Kritikal", c:2,i:2,a:1, rto:"2 Hari",rpo:"1 Hari",ret:"Selama aktif + 2 Thn", pic:"Digital Strategy / IT Architecture", lokasi:"Cloud / On-Premise", deskripsi:"Portal developer untuk mengelola dokumentasi dan akses API yang dibuka ke mitra eksternal. Mengatur onboarding mitra, manajemen API key, dan usage analytics per mitra.", alasan_krit:"Onboarding mitra baru dapat ditunda; mitra yang sudah aktif tidak terdampak selama API gateway berjalan.", alasan_sens:"API key mitra eksternal dan konfigurasi akses harus dilindungi untuk mencegah penyalahgunaan."},
+
+  // ── SECURITY (15) ──────────────────────────────────────────────────────
+  {no:86, nama:"SIEM Platform (Splunk / QRadar / Wazuh)", dept:"Security", kat:"Keamanan Siber", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"2 Jam",rpo:"1 Jam",ret:"Log online: 1 Thn + Arsip: 2 Thn (POJK 11/2022)", pic:"CISO / SOC Manager", lokasi:"DC Utama — Server SIEM Dedicated", deskripsi:"Platform terpusat pengumpulan, korelasi, dan analisis log keamanan dari seluruh sistem. Digunakan untuk deteksi ancaman, investigasi insiden, dan pelaporan insiden ke OJK.", alasan_krit:"Tanpa SIEM, SOC kehilangan visibilitas keamanan; serangan tidak terdeteksi hingga dampak terjadi (blind spot total).", alasan_sens:"SIEM berisi log semua sistem dan data forensik insiden; kebocoran mengungkap kapabilitas deteksi perusahaan."},
+  {no:87, nama:"WAF (Web Application Firewall — Cloudflare/F5)", dept:"Security", kat:"Keamanan Siber", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:3, rto:"1 Jam",rpo:"30 Menit",ret:"Log: 1 Thn; Konfigurasi: Selama aktif", pic:"IT Security / Infrastructure", lokasi:"Cloud (Cloudflare) / DC DMZ (F5 ASM)", deskripsi:"Firewall aplikasi web yang melindungi portal nasabah, API, dan website dari serangan OWASP Top 10 (SQLi, XSS, CSRF, dll). Dilengkapi bot management dan DDoS protection.", alasan_krit:"Tanpa WAF, aplikasi web terbuka langsung ke serangan; risiko breach aplikasi meningkat drastis.", alasan_sens:"Konfigurasi rules WAF tidak boleh diketahui penyerang agar tidak di-bypass; log WAF mengandung data IP attacker."},
+  {no:88, nama:"Endpoint Detection & Response (CrowdStrike/SentinelOne)", dept:"Security", kat:"Keamanan Siber", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Log telemetri: 90 Hari; Alert: 1 Thn", pic:"CISO / IT Security Manager", lokasi:"Cloud SaaS + Agent di semua endpoint", deskripsi:"Platform EDR yang memantau, mendeteksi, dan merespons ancaman di semua endpoint (laptop, server, VM). Menyediakan visibilitas real-time dan kemampuan isolasi endpoint.", alasan_krit:"Tanpa EDR, endpoint menjadi titik buta; malware atau ransomware dapat menyebar tanpa terdeteksi.", alasan_sens:"Data telemetri endpoint berisi informasi aktivitas sistem yang tidak boleh diketahui penyerang."},
+  {no:89, nama:"DLP (Data Loss Prevention — Forcepoint/Symantec)", dept:"Security", kat:"Keamanan Siber", sens:"Restricted", krit:"Kritikal", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam",ret:"Log insiden DLP: 3 Thn", pic:"CISO / IT Security", lokasi:"Server DLP — DC Utama / Cloud SaaS", deskripsi:"Sistem yang memantau dan mencegah exfiltrasi data sensitif melalui email, USB, cloud storage, dan web. Policy DLP dikonfigurasi berdasarkan klasifikasi data (PII, keuangan).", alasan_krit:"Tanpa DLP, data nasabah dapat diexfiltrasi tanpa terdeteksi; risiko pelanggaran UU PDP dan POJK tinggi.", alasan_sens:"Konfigurasi policy DLP mengungkap apa yang dianggap sensitif; tidak boleh diketahui pihak dalam yang berniat buruk."},
+  {no:90, nama:"Privileged Access Management (CyberArk/BeyondTrust)", dept:"Security", kat:"Keamanan Siber", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"2 Jam",rpo:"30 Menit",ret:"Rekaman sesi: 1 Thn; Log: 3 Thn", pic:"CISO / IT Security", lokasi:"DC Utama — HA Cluster (terpisah dari AD)", deskripsi:"Platform pengelolaan akses istimewa ke sistem kritikal. Merekam sesi admin, menyimpan password vault, just-in-time access, dan memastikan least privilege untuk semua akun privileged.", alasan_krit:"PAM mengelola akses ke semua sistem kritikal; downtime berarti admin tidak dapat mengakses sistem untuk pemeliharaan darurat.", alasan_sens:"Vault menyimpan semua password privileged; kompromi PAM = kontrol penuh seluruh infrastruktur IT."},
+  {no:91, nama:"Identity & Access Management (Azure AD / Okta)", dept:"Security", kat:"Keamanan Siber", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"1 Jam",rpo:"15 Menit",ret:"Log akses: 1 Thn + Arsip: 2 Thn", pic:"CISO / IT Security / IT Infrastructure", lokasi:"Cloud (Azure AD) + On-Premise AD Sync", deskripsi:"Platform manajemen identitas terpusat untuk SSO, MFA, conditional access, dan lifecycle management akun karyawan dan mitra. Seluruh akses sistem bergantung pada IAM.", alasan_krit:"Kegagalan IAM berarti tidak ada satu pun karyawan yang bisa login; total service outage seluruh perusahaan.", alasan_sens:"IAM menyimpan seluruh identitas digital karyawan dan policy akses; kompromi = akses ke semua sistem."},
+  {no:92, nama:"Hardware Security Module (HSM) & Key Management", dept:"Security", kat:"Keamanan Siber", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:3, rto:"1 Jam",rpo:"N/A (HA Active-Active)",ret:"Selama kunci aktif + 10 Thn (audit)", pic:"CISO / IT Security", lokasi:"DC Utama — HSM Dedicated (FIPS 140-2 Level 3)", deskripsi:"Hardware Security Module untuk penyimpanan dan pengelolaan kunci kriptografi (enkripsi data, penandatanganan digital, TLS certificate). Kunci tidak pernah meninggalkan HSM.", alasan_krit:"Semua enkripsi data bergantung pada kunci di HSM; kompromi atau kehilangan HSM berarti data terenkripsi tidak bisa dibaca.", alasan_sens:"HSM menyimpan master encryption key seluruh perusahaan; perlindungan fisik dan logis tertinggi diperlukan."},
+  {no:93, nama:"Sertifikat Digital SSL/TLS & PKI Internal", dept:"Security", kat:"Keamanan Siber", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"2 Jam",rpo:"1 Jam",ret:"Selama aktif + 5 Thn (audit trail)", pic:"CISO / IT Security / IT Infrastructure", lokasi:"Certificate Management (Venafi / DigiCert)", deskripsi:"Inventaris dan manajemen sertifikat SSL/TLS untuk semua domain, aplikasi, dan komunikasi internal (mTLS). Manajemen sertifikat yang buruk (expired) menyebabkan downtime layanan.", alasan_krit:"Sertifikat expired langsung menyebabkan downtime layanan digital; bank dan OJK tidak bisa terhubung secara aman.", alasan_sens:"Private key sertifikat harus dijaga ketat; bocor memungkinkan man-in-the-middle attack pada semua koneksi."},
+  {no:94, nama:"Vulnerability Management Platform (Tenable/Qualys)", dept:"Security", kat:"Keamanan Siber", sens:"Confidential", krit:"Kritikal", c:3,i:2,a:1, rto:"2 Hari",rpo:"1 Hari",ret:"Hasil scan: 3 Thn", pic:"CISO / IT Security Team", lokasi:"Cloud SaaS + On-Premise Scanner", deskripsi:"Platform scanning dan manajemen vulnerability seluruh aset IT secara periodik. Laporan berisi detail kerentanan aktif sistem yang sangat sensitif; diperlukan untuk audit ISO 27001 dan OJK.", alasan_krit:"Diperlukan untuk bukti kepatuhan ISO 27001 (Annex A.8.8) dan audit OJK; tidak tersedia = temuan audit.", alasan_sens:"Laporan vulnerability berisi detail CVE aktif sistem; bocor ke penyerang = peta jalan serangan."},
+  {no:95, nama:"Security Awareness Training Platform (KnowBe4)", dept:"Security", kat:"Keamanan Siber", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:1,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"Data pelatihan: 3 Thn", pic:"CISO / HR Learning & Development", lokasi:"Cloud SaaS (KnowBe4)", deskripsi:"Platform pelatihan kesadaran keamanan informasi untuk seluruh karyawan, termasuk simulasi phishing dan modul e-learning keamanan sesuai ISO 27001 Annex A.6.3.", alasan_krit:"Pelatihan dapat ditunda sementara tanpa dampak langsung ke operasional atau keamanan sistem.", alasan_sens:"Data hasil simulasi phishing bersifat internal SDM; bukan target prioritas penyerang."},
+  {no:96, nama:"Incident Response Plan & Security Playbook", dept:"Security", kat:"Dokumen / Informasi", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A",ret:"5 Thn atau sampai direvisi + 3 Thn", pic:"CISO / SOC Manager", lokasi:"SharePoint Keamanan — akses sangat terbatas + Salinan offline", deskripsi:"Dokumen prosedur respons insiden keamanan siber, playbook untuk berbagai skenario (ransomware, data breach, DDoS, insider threat), dan prosedur eskalasi krisis.", alasan_krit:"Dokumen ini diperlukan saat insiden terjadi; harus selalu tersedia termasuk secara offline saat sistem down.", alasan_sens:"Detail prosedur respons insiden memberikan penyerang informasi tentang kapabilitas deteksi dan respons perusahaan."},
+  {no:97, nama:"CCTV & Sistem Akses Fisik Data Center", dept:"Security", kat:"Keamanan Fisik", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"4 Jam",rpo:"N/A",ret:"Rekaman CCTV: 90 Hari; Log akses: 1 Thn", pic:"CISO / Facility Management", lokasi:"DC Utama — Sistem Fisik Dedicated", deskripsi:"Sistem CCTV dan akses kontrol fisik (kartu akses + biometrik) untuk area data center dan server room. Log akses fisik digunakan untuk investigasi insiden dan audit kepatuhan.", alasan_krit:"Tanpa akses kontrol fisik, siapapun dapat masuk ke ruang server; keamanan fisik adalah lapisan perlindungan fundamental.", alasan_sens:"Rekaman CCTV dan log akses mengandung informasi keamanan fisik yang tidak boleh diakses pihak tidak berwenang."},
+  {no:98, nama:"ISMS Policy Framework (ISO 27001 Policies)", dept:"Security", kat:"Dokumen / Informasi", sens:"Internal Use Only", krit:"Non-Kritikal", c:1,i:3,a:1, rto:"3 Hari",rpo:"N/A",ret:"Selama berlaku + 5 Thn", pic:"CISO / ISO 27001 Team", lokasi:"SharePoint Internal — seluruh karyawan dapat akses", deskripsi:"Dokumen kebijakan ISMS: Information Security Policy, AUP, Password Policy, Access Control Policy, dan semua prosedur ISO 27001 yang wajib diketahui seluruh karyawan.", alasan_krit:"Operasional masih berjalan tanpa dokumen ini tersedia sesaat; namun kepatuhan ISO 27001 terancam.", alasan_sens:"Kebijakan harus dapat diakses semua karyawan; integritas dokumen lebih penting dari kerahasiaannya."},
+  {no:99, nama:"Hasil Audit ISO 27001 & Audit Keamanan Internal", dept:"Security", kat:"Dokumen / Informasi", sens:"Confidential", krit:"Non-Kritikal", c:3,i:3,a:1, rto:"3 Hari",rpo:"1 Hari",ret:"5 Tahun", pic:"CISO / Internal Audit / Direksi", lokasi:"SharePoint Keamanan — akses sangat terbatas", deskripsi:"Laporan audit keamanan ISO 27001 (oleh BSI/SGS/TUV), audit internal ISMS, dan hasil tinjauan manajemen. Berisi temuan kelemahan yang sangat sensitif.", alasan_krit:"Diperlukan untuk renewal sertifikasi ISO 27001 dan audit OJK; hilang = risiko sertifikasi dicabut.", alasan_sens:"Temuan audit mengungkap kelemahan spesifik sistem; bocor ke penyerang memberikan peta eksploitasi."},
+  {no:100, nama:"Business Continuity Plan (BCP) & Disaster Recovery Plan", dept:"Security", kat:"Dokumen / Informasi", sens:"Confidential", krit:"Kritikal", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A",ret:"5 Thn atau sampai direvisi + 3 Thn", pic:"CISO / CTO / BCM Manager", lokasi:"SharePoint Manajemen + Salinan Offline Terenkripsi (offsite)", deskripsi:"Dokumen rencana kelangsungan bisnis dan pemulihan bencana IT. Mendetailkan prosedur aktivasi DR site, failover sistem, komunikasi krisis, dan pemulihan operasional pasca bencana.", alasan_krit:"Dokumen kritis yang harus tersedia justru saat sistem down (bencana); salinan offline wajib. Diperlukan untuk uji BCP tahunan.", alasan_sens:"BCP mengandung detail infrastruktur DR, prosedur aktivasi, dan daftar kontak krisis yang sangat sensitif."},
+];
+
+// ─── RENDER ────────────────────────────────────────
+function deptClass(dept) {
+  return dept.replace(/[^a-zA-Z]/g, '');
+}
+function sensClass(s) {
+  if (s === 'Confidential') return 'Confidential';
+  if (s === 'Restricted') return 'Restricted';
+  if (s === 'Internal Use Only') return 'Internal';
+  return 'Public';
+}
+function sensShort(s) {
+  if (s === 'Confidential') return 'Confidential';
+  if (s === 'Restricted') return 'Restricted';
+  if (s === 'Internal Use Only') return 'Internal Use Only';
+  return 'Public';
+}
+function scoreClass(n) { return n >= 3 ? 'score-3' : n === 2 ? 'score-2' : 'score-1'; }
+function totalClass(t) {
+  if (t === 9) return 'total-9';
+  if (t === 8) return 'total-8';
+  if (t === 7) return 'total-7';
+  if (t === 6) return 'total-6';
+  return 'total-low';
+}
+
+let expandedRow = null;
+
+function renderTable(filtered) {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+  document.getElementById('countDisplay').textContent = filtered.length;
+
+  filtered.forEach(a => {
+    const total = a.c + a.i + a.a;
+    const kritClass = a.krit === 'Kritikal' ? 'Kritikal' : 'NonKritikal';
+    const kritLabel = a.krit;
+
+    const tr = document.createElement('tr');
+    tr.dataset.no = a.no;
+    tr.innerHTML = `
+      <td class="no">${a.no}</td>
+      <td class="asset-name">${a.nama}</td>
+      <td class="dept-cell"><span class="dept-badge dept-${deptClass(a.dept)}">${a.dept}</span></td>
+      <td style="font-size:0.7rem;color:var(--muted);min-width:130px">${a.kat}</td>
+      <td><span class="sens-badge sens-${sensClass(a.sens)}">${sensShort(a.sens)}</span></td>
+      <td><span class="krit-badge krit-${kritClass}">${kritLabel}</span></td>
+      <td class="cia-cell"><span class="${scoreClass(a.c)}">${a.c}</span></td>
+      <td class="cia-cell"><span class="${scoreClass(a.i)}">${a.i}</span></td>
+      <td class="cia-cell"><span class="${scoreClass(a.a)}">${a.a}</span></td>
+      <td class="total-cell"><span class="${totalClass(total)}">${total}</span></td>
+      <td class="rto-cell">${a.rto}</td>
+      <td class="rpo-cell">${a.rpo}</td>
+      <td class="ret-cell">${a.ret}</td>
+      <td style="font-size:0.68rem;color:var(--muted);min-width:160px">${a.pic}</td>
+      <td style="text-align:center;width:24px"><span class="chevron">▼</span></td>
+    `;
+
+    tr.addEventListener('click', () => toggleExpand(tr, a));
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleExpand(tr, a) {
+  // close existing
+  if (expandedRow && expandedRow !== tr) {
+    const prev = document.querySelector('.expand-row');
+    if (prev) prev.remove();
+    if (expandedRow) expandedRow.classList.remove('expanded');
+    if (expandedRow === tr) { expandedRow = null; return; }
+  }
+
+  if (tr.classList.contains('expanded')) {
+    tr.classList.remove('expanded');
+    const next = tr.nextSibling;
+    if (next && next.classList && next.classList.contains('expand-row')) next.remove();
+    expandedRow = null;
+    return;
+  }
+
+  tr.classList.add('expanded');
+  expandedRow = tr;
+
+  const expTr = document.createElement('tr');
+  expTr.classList.add('expand-row');
+  expTr.innerHTML = `
+    <td colspan="15">
+      <div class="expand-content">
+        <div class="expand-field full">
+          <label>Deskripsi Aset</label>
+          <p>${a.deskripsi}</p>
+        </div>
+        <div class="expand-field">
+          <label>Alasan Kritikalitas</label>
+          <p>${a.alasan_krit}</p>
+        </div>
+        <div class="expand-field">
+          <label>Alasan Sensitivitas</label>
+          <p>${a.alasan_sens}</p>
+        </div>
+        <div class="expand-field">
+          <label>Lokasi / Format</label>
+          <p>${a.lokasi}</p>
+        </div>
+      </div>
+    </td>`;
+  tr.after(expTr);
+}
+
+// ─── FILTER LOGIC ────────────────────────────────────────
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const dept = document.getElementById('deptFilter').value;
+  const sens = document.getElementById('sensFilter').value;
+  const krit = document.getElementById('kritFilter').value;
+
+  return assets.filter(a => {
+    const matchQ = !q || a.nama.toLowerCase().includes(q) || a.dept.toLowerCase().includes(q) || a.kat.toLowerCase().includes(q);
+    const matchDept = !dept || a.dept === dept;
+    const matchSens = !sens || a.sens === sens;
+    const matchKrit = !krit || a.krit === krit;
+    return matchQ && matchDept && matchSens && matchKrit;
+  });
+}
+
+function applyFilters() {
+  expandedRow = null;
+  renderTable(getFiltered());
+}
+
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('deptFilter').value = '';
+  document.getElementById('sensFilter').value = '';
+  document.getElementById('kritFilter').value = '';
+  applyFilters();
+}
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+document.getElementById('deptFilter').addEventListener('change', applyFilters);
+document.getElementById('sensFilter').addEventListener('change', applyFilters);
+document.getElementById('kritFilter').addEventListener('change', applyFilters);
+
+// ─── STATS ────────────────────────────────────────
+function renderStats() {
+  const depts = {};
+  let krit = 0, nonkrit = 0;
+  assets.forEach(a => {
+    depts[a.dept] = (depts[a.dept] || 0) + 1;
+    if (a.krit === 'Kritikal') krit++; else nonkrit++;
+  });
+
+  const statsRow = document.getElementById('statsRow');
+  const deptItems = Object.entries(depts);
+  statsRow.innerHTML = `
+    <div class="stat"><div class="stat-num">${assets.length}</div><div class="stat-label">Total Aset</div></div>
+    <div class="stat"><div class="stat-num" style="color:#FF6B6B">${krit}</div><div class="stat-label">Kritikal</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--muted)">${nonkrit}</div><div class="stat-label">Non-Kritikal</div></div>
+    ${deptItems.map(([d,n]) => `<div class="stat"><div class="stat-num" style="font-size:0.9rem">${n}</div><div class="stat-label" style="font-size:0.6rem">${d}</div></div>`).join('')}
+  `;
+}
+
+renderStats();
+renderTable(assets);
+</script>
+</body>
+</html>

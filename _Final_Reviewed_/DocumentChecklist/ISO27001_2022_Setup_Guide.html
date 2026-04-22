@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Setup ISO 27001:2022 untuk CISO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            border-bottom: 3px solid #1e40af;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #1e40af;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        h2 {
+            color: #1e40af;
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1e40af;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #2563eb;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 25px;
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .subsection {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+        }
+        th {
+            background-color: #1e40af;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .highlight {
+            background-color: #fef08a;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .box {
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #eff6ff;
+            border-radius: 3px;
+        }
+        .important {
+            border-left: 4px solid #dc2626;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #fef2f2;
+            border-radius: 3px;
+        }
+        .checklist {
+            margin: 15px 0;
+        }
+        .checklist-item {
+            display: flex;
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: white;
+            border-radius: 3px;
+        }
+        .checklist-item input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        code {
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .code-block {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .timeline {
+            margin: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .timeline-marker {
+            min-width: 120px;
+            font-weight: 600;
+            color: #1e40af;
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 40px 0;
+            border-top: 2px dashed #ccc;
+            padding-top: 40px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 12px;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Panduan Implementasi ISO 27001:2022</h1>
+            <p class="subtitle">Information Security Management System (ISMS) - Practical Setup Guide for CISO</p>
+            <p style="margin-top: 10px; color: #666; font-size: 13px;">Versi: 1.0 | Tanggal: Maret 2026 | Status: Ready for Implementation</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <h2>📑 Daftar Isi</h2>
+        <div class="section">
+            <ol>
+                <li><a href="#intro">Pengenalan ISO 27001:2022</a></li>
+                <li><a href="#framework">Kerangka Kerja & Struktur</a></li>
+                <li><a href="#phase1">Fase 1: Persiapan & Assessment</a></li>
+                <li><a href="#phase2">Fase 2: Perencanaan & Desain</a></li>
+                <li><a href="#phase3">Fase 3: Implementasi</a></li>
+                <li><a href="#phase4">Fase 4: Monitoring & Improvement</a></li>
+                <li><a href="#14controls">14 Kontrol Utama & Implementasi</a></li>
+                <li><a href="#risks">Risk Management & Mitigation</a></li>
+                <li><a href="#documentation">Dokumentasi & Record Keeping</a></li>
+                <li><a href="#audit">Persiapan Audit Internal & Sertifikasi</a></li>
+            </ol>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <h2 id="intro">1. Pengenalan ISO 27001:2022</h2>
+        <div class="section">
+            <h3>1.1 Apa itu ISO 27001:2022?</h3>
+            <p>ISO 27001:2022 adalah standar internasional untuk Information Security Management System (ISMS). Standar ini menggantikan ISO 27001:2013 dan membawa perubahan signifikan dalam pendekatan keamanan informasi.</p>
+
+            <div class="box">
+                <strong>💡 Poin Penting:</strong> ISO 27001:2022 berfokus pada <strong>konteks organisasi</strong>, <strong>stakeholder management</strong>, dan <strong>risk-based approach</strong> yang lebih holistik.
+            </div>
+
+            <h3>1.2 Perubahan Utama dari Versi Sebelumnya</h3>
+            <table>
+                <tr>
+                    <th>Aspek</th>
+                    <th>ISO 27001:2013</th>
+                    <th>ISO 27001:2022</th>
+                </tr>
+                <tr>
+                    <td>Jumlah Kontrol</td>
+                    <td>114 kontrol</td>
+                    <td>93 kontrol (disederhanakan)</td>
+                </tr>
+                <tr>
+                    <td>Fokus Utama</td>
+                    <td>Compliance checklist</td>
+                    <td>Risk-based dan konteks organisasi</td>
+                </tr>
+                <tr>
+                    <td>Cloud & Outsourcing</td>
+                    <td>Terbatas</td>
+                    <td>Lebih detail dan komprehensif</td>
+                </tr>
+                <tr>
+                    <td>Supply Chain</td>
+                    <td>Minimal</td>
+                    <td>Fokus pada supply chain security</td>
+                </tr>
+                <tr>
+                    <td>Ukuran Organisasi</td>
+                    <td>Enterprise-centric</td>
+                    <td>Fleksibel untuk semua ukuran</td>
+                </tr>
+            </table>
+
+            <h3>1.3 Manfaat Implementasi</h3>
+            <ul>
+                <li><strong>Perlindungan Data:</strong> Melindungi informasi sensitif dari ancaman cyber</li>
+                <li><strong>Kredibilitas Bisnis:</strong> Meningkatkan kepercayaan klien dan partner</li>
+                <li><strong>Compliance:</strong> Memenuhi persyaratan regulasi (GDPR, PDP, dll)</li>
+                <li><strong>Efisiensi Operasional:</strong> Proses keamanan yang terstruktur dan efisien</li>
+                <li><strong>Keunggulan Kompetitif:</strong> Diferensiasi dalam tender dan partnership</li>
+                <li><strong>Risk Reduction:</strong> Mengurangi potensi kerugian dari security incidents</li>
+            </ul>
+        </div>
+
+        <!-- Section 2: Framework -->
+        <h2 id="framework">2. Kerangka Kerja & Struktur ISO 27001:2022</h2>
+        <div class="section">
+            <h3>2.1 Struktur Tingkat Tinggi (High Level Structure)</h3>
+            <p>ISO 27001:2022 menggunakan High Level Structure (HLS) yang sama dengan standar manajemen ISO lainnya:</p>
+
+            <div class="box">
+                <strong>Annex SL Framework:</strong>
+                <ol>
+                    <li><strong>Organisasi dan Konteks:</strong> Memahami organisasi Anda</li>
+                    <li><strong>Kepemimpinan:</strong> Komitmen dan dukungan manajemen</li>
+                    <li><strong>Perencanaan:</strong> Identifikasi risiko dan perencanaan strategis</li>
+                    <li><strong>Dukungan:</strong> Sumber daya, kompetensi, komunikasi, dokumentasi</li>
+                    <li><strong>Operasi:</strong> Implementasi dan pengendalian</li>
+                    <li><strong>Evaluasi Kinerja:</strong> Monitoring, measurement, audit, management review</li>
+                    <li><strong>Perbaikan:</strong> Peningkatan berkelanjutan</li>
+                </ol>
+            </div>
+
+            <h3>2.2 Organisasi Kontrol dalam ISO 27001:2022</h3>
+            <table>
+                <tr>
+                    <th>Area Kontrol</th>
+                    <th>Jumlah Kontrol</th>
+                    <th>Fokus Utama</th>
+                </tr>
+                <tr>
+                    <td>A.5 Organizational Controls</td>
+                    <td>7 kontrol</td>
+                    <td>Kebijakan, peran, accountability</td>
+                </tr>
+                <tr>
+                    <td>A.6 People Controls</td>
+                    <td>6 kontrol</td>
+                    <td>Awareness, training, exit management</td>
+                </tr>
+                <tr>
+                    <td>A.7 Physical Controls</td>
+                    <td>14 kontrol</td>
+                    <td>Physical security, perimeter, equipment</td>
+                </tr>
+                <tr>
+                    <td>A.8 Technical Controls</td>
+                    <td>32 kontrol</td>
+                    <td>Access control, cryptography, monitoring</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 3: Phase 1 -->
+        <h2 id="phase1">3. Fase 1: Persiapan & Assessment (0-4 minggu)</h2>
+        <div class="section">
+            <h3>3.1 Langkah-Langkah Awal</h3>
+
+            <div class="subsection">
+                <h4>3.1.1 Mendapatkan Dukungan Manajemen (C-Level)</h4>
+                <p>Langkah pertama dan paling kritis adalah mendapatkan executive sponsorship:</p>
+                <ul>
+                    <li>Presentasi kepada CEO/Board tentang business case</li>
+                    <li>Jelaskan ROI dan risk mitigation</li>
+                    <li>Butuh budget, resources, dan time commitment</li>
+                    <li>Tetapkan steering committee dengan C-level member</li>
+                </ul>
+
+                <div class="important">
+                    <strong>⚠️ KRITIS:</strong> Tanpa dukungan manajemen, implementasi akan gagal. Pastikan ISO 27001 adalah prioritas strategis organisasi.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>3.1.2 Bentuk Tim Project</h4>
+                <p>Struktur organisasi yang direkomendasikan:</p>
+                <ul>
+                    <li><strong>Steering Committee:</strong> CFO, COO, CIO, Head of HR</li>
+                    <li><strong>Information Security Officer (ISO):</strong> Lead implementasi</li>
+                    <li><strong>Process Owners:</strong> Mewakili setiap departemen</li>
+                    <li><strong>External Consultant:</strong> Opsional, membantu accelerate</li>
+                    <li><strong>Internal Audit Team:</strong> Verifikasi compliance</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h4>3.1.3 Conduct Current State Assessment</h4>
+                <p>Lakukan audit menyeluruh terhadap status keamanan saat ini:</p>
+                <ul>
+                    <li>Identify existing security policies dan procedures</li>
+                    <li>Assess infrastructure keamanan (hardware, software, network)</li>
+                    <li>Review access control dan user management</li>
+                    <li>Evaluate incident response capability</li>
+                    <li>Check existing documentation dan records</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Deliverable:</strong> Gap Analysis Report menunjukkan perbedaan antara current state dan ISO 27001:2022 requirements</p>
+            </div>
+
+            <h3>3.2 Define Scope ISMS</h3>
+            <div class="box">
+                <strong>📌 Scope Definition adalah kunci:</strong> Tentukan dengan jelas apa yang termasuk dan tidak termasuk dalam ISMS.
+            </div>
+
+            <p>Contoh scope definition:</p>
+            <div class="code-block">
+ISMS Scope untuk XYZ Bank:
+- Aplikasi Core Banking dan Internet Banking
+- Data center dan infrastructure di Jakarta
+- Semua pengguna internal (500 orang)
+- Partnership dengan payment gateway providers
+- DIKECUALIKAN: Remote office di daerah, legacy system yang deprecated
+            </div>
+
+            <h3>3.3 Tentukan ISMS Policy Framework</h3>
+            <ul>
+                <li>Information Security Policy (master policy)</li>
+                <li>Access Control Policy</li>
+                <li>Data Classification Policy</li>
+                <li>Incident Response Policy</li>
+                <li>Acceptable Use Policy</li>
+                <li>Change Management Policy</li>
+            </ul>
+
+            <h3>3.4 Timeline Fase 1</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">Minggu 1</div>
+                    <div class="timeline-content">Executive kickoff meeting, form governance structure</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">Minggu 2</div>
+                    <div class="timeline-content">Process mapping, stakeholder interviews, current state assessment</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">Minggu 3</div>
+                    <div class="timeline-content">Gap analysis, draft scope definition, policy framework planning</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">Minggu 4</div>
+                    <div class="timeline-content">Finalize gap analysis, present findings, get approval untuk Phase 2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Phase 2 -->
+        <h2 id="phase2">4. Fase 2: Perencanaan & Desain (4-8 minggu)</h2>
+        <div class="section">
+            <h3>4.1 Risk Assessment & Treatment</h3>
+
+            <div class="subsection">
+                <h4>4.1.1 Identifikasi Assets</h4>
+                <p>Langkah pertama dalam risk assessment:</p>
+                <ul>
+                    <li>Information assets (data, databases)</li>
+                    <li>Technology assets (servers, networks, applications)</li>
+                    <li>Physical assets (facilities, equipment)</li>
+                    <li>People/personnel</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h4>4.1.2 Identifikasi Threats & Vulnerabilities</h4>
+                <table>
+                    <tr>
+                        <th>Threat Type</th>
+                        <th>Contoh</th>
+                        <th>Severity</th>
+                    </tr>
+                    <tr>
+                        <td>Cyber Attacks</td>
+                        <td>Ransomware, malware, phishing</td>
+                        <td>CRITICAL</td>
+                    </tr>
+                    <tr>
+                        <td>Insider Threats</td>
+                        <td>Unauthorized access, data theft</td>
+                        <td>HIGH</td>
+                    </tr>
+                    <tr>
+                        <td>Physical Security</td>
+                        <td>Theft, unauthorized entry</td>
+                        <td>MEDIUM-HIGH</td>
+                    </tr>
+                    <tr>
+                        <td>System Failure</td>
+                        <td>Hardware failure, outage</td>
+                        <td>MEDIUM</td>
+                    </tr>
+                    <tr>
+                        <td>Compliance Breach</td>
+                        <td>Data exposure, violation</td>
+                        <td>HIGH</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="subsection">
+                <h4>4.1.3 Risk Evaluation & Treatment Planning</h4>
+                <p>Untuk setiap risk, tentukan treatment strategy:</p>
+                <ul>
+                    <li><strong>Mitigate:</strong> Implement control untuk reduce risk</li>
+                    <li><strong>Accept:</strong> Terima risk (dengan approval)</li>
+                    <li><strong>Avoid:</strong> Stop activity yang cause risk</li>
+                    <li><strong>Transfer:</strong> Transfer via insurance atau outsourcing</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Deliverable:</strong> Risk Register dengan semua identified risks, likelihood, impact, treatment plan</p>
+            </div>
+
+            <h3>4.2 Control Selection & Design</h3>
+            <p>Berdasarkan risk assessment, pilih controls yang diperlukan dari ISO 27001:2022 Annex A:</p>
+
+            <div class="box">
+                <strong>⚡ Best Practice:</strong> Jangan implement semua 93 kontrol. Lakukan risk-based selection. Organisasi yang berbeda akan memiliki kontrol yang berbeda berdasarkan risk profile mereka.
+            </div>
+
+            <h3>4.3 Develop ISMS Policies & Procedures</h3>
+            <p>Develop atau update comprehensive policies yang cover:</p>
+            <ul>
+                <li>Information Classification & Labeling</li>
+                <li>Access Control & User Management</li>
+                <li>Change Management</li>
+                <li>Incident Management</li>
+                <li>Business Continuity & Disaster Recovery</li>
+                <li>Supplier/Third-party Management</li>
+                <li>Audit & Monitoring</li>
+            </ul>
+
+            <h3>4.4 Design Technical & Organizational Controls</h3>
+            <div class="subsection">
+                <h4>Technical Controls (Examples):</h4>
+                <ul>
+                    <li>Multi-factor authentication (MFA)</li>
+                    <li>Encryption (data at rest & in transit)</li>
+                    <li>Firewalls & Intrusion Detection Systems</li>
+                    <li>Backup & disaster recovery systems</li>
+                    <li>Security monitoring & logging</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">Organizational Controls (Examples):</h4>
+                <ul>
+                    <li>Security awareness training program</li>
+                    <li>Incident response team & procedures</li>
+                    <li>Third-party security assessment</li>
+                    <li>Periodic security reviews</li>
+                    <li>Management review meetings</li>
+                </ul>
+            </div>
+
+            <h3>4.5 Develop Implementation Roadmap</h3>
+            <p>Create detailed roadmap untuk Phase 3:</p>
+            <ul>
+                <li>Quick wins (mudah, impact tinggi) - implement first</li>
+                <li>Medium-term initiatives (3-6 bulan)</li>
+                <li>Long-term strategic projects (6-12 bulan)</li>
+                <li>Budget allocation per initiative</li>
+                <li>Resource planning & assignment</li>
+            </ul>
+        </div>
+
+        <!-- Section 5: Phase 3 -->
+        <h2 id="phase3">5. Fase 3: Implementasi (8-24 minggu)</h2>
+        <div class="section">
+            <h3>5.1 Establish ISMS Documentation System</h3>
+            <p>Buat struktur dokumentasi yang terorganisir:</p>
+            <div class="code-block">
+Documentation Structure:
+├── Level 1: ISMS Charter & Scope
+├── Level 2: Information Security Policy
+├── Level 3: Procedures & Guidelines
+│   ├── Access Management Procedure
+│   ├── Change Management Procedure
+│   ├── Incident Response Procedure
+│   └── ...
+├── Level 4: Work Instructions & Forms
+│   ├── User Access Request Form
+│   ├── System Change Request Form
+│   └── ...
+└── Level 5: Records & Evidence
+    ├── Risk Assessment Records
+    ├── Audit Results
+    └── Training Records
+            </div>
+
+            <h3>5.2 Implement Technical Controls</h3>
+            <div class="subsection">
+                <h4>5.2.1 Priority Technical Controls</h4>
+                <ul>
+                    <li><strong>Access Control:</strong> Implement role-based access control (RBAC), segregation of duties</li>
+                    <li><strong>Authentication:</strong> Deploy MFA across all systems</li>
+                    <li><strong>Encryption:</strong> Encrypt sensitive data at rest dan in transit</li>
+                    <li><strong>Monitoring:</strong> Implement SIEM atau centralized logging</li>
+                    <li><strong>Backup:</strong> Establish robust backup & recovery procedures</li>
+                </ul>
+            </div>
+
+            <h3>5.3 Implement Organizational Controls</h3>
+            <ul>
+                <li>Launch security awareness campaign</li>
+                <li>Conduct mandatory security training (quarterly minimum)</li>
+                <li>Establish incident response team & hotline</li>
+                <li>Implement change advisory board (CAB)</li>
+                <li>Perform regular security audits (internal)</li>
+                <li>Conduct risk assessment reviews (semi-annual)</li>
+            </ul>
+
+            <h3>5.4 Monitor Implementation Progress</h3>
+            <table>
+                <tr>
+                    <th>Control</th>
+                    <th>Target Date</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                </tr>
+                <tr>
+                    <td>MFA Implementation</td>
+                    <td>End of Month 2</td>
+                    <td>On Track</td>
+                    <td>IT Director</td>
+                </tr>
+                <tr>
+                    <td>Data Encryption</td>
+                    <td>End of Month 3</td>
+                    <td>At Risk</td>
+                    <td>Security Ops</td>
+                </tr>
+                <tr>
+                    <td>Incident Response Plan</td>
+                    <td>End of Month 2</td>
+                    <td>Completed</td>
+                    <td>CISO</td>
+                </tr>
+            </table>
+
+            <h3>5.5 Change Management During Implementation</h3>
+            <div class="box">
+                <strong>💡 Tip:</strong> Implementasi ISO 27001 akan membuat perubahan signifikan dalam cara kerja. Manage change dengan hati-hati melalui change management formal, communication, dan training.
+            </div>
+
+            <h3>5.6 Stakeholder Engagement & Communication</h3>
+            <ul>
+                <li>Monthly steering committee meetings</li>
+                <li>Bi-weekly project status updates</li>
+                <li>Quarterly town halls untuk staff awareness</li>
+                <li>Regular communication tentang security incidents (lessons learned)</li>
+            </ul>
+        </div>
+
+        <!-- Section 6: Phase 4 -->
+        <h2 id="phase4">6. Fase 4: Monitoring & Improvement (Ongoing)</h2>
+        <div class="section">
+            <h3>6.1 Establish KPIs & Metrics</h3>
+            <table>
+                <tr>
+                    <th>KPI</th>
+                    <th>Target</th>
+                    <th>Frequency</th>
+                </tr>
+                <tr>
+                    <td>Security Incident Response Time</td>
+                    <td>&lt;2 hours untuk critical</td>
+                    <td>Monthly</td>
+                </tr>
+                <tr>
+                    <td>Access Control Compliance</td>
+                    <td>&gt;98%</td>
+                    <td>Quarterly</td>
+                </tr>
+                <tr>
+                    <td>Policy Compliance Rate</td>
+                    <td>&gt;95%</td>
+                    <td>Quarterly</td>
+                </tr>
+                <tr>
+                    <td>Training Completion Rate</td>
+                    <td>100% per tahun</td>
+                    <td>Quarterly</td>
+                </tr>
+                <tr>
+                    <td>Vulnerability Remediation Time</td>
+                    <td>&lt;30 hari untuk critical</td>
+                    <td>Monthly</td>
+                </tr>
+            </table>
+
+            <h3>6.2 Implement Continuous Monitoring</h3>
+            <ul>
+                <li>Real-time security monitoring via SIEM</li>
+                <li>Monthly vulnerability scans</li>
+                <li>Quarterly penetration tests</li>
+                <li>Regular access control reviews</li>
+                <li>Automated compliance checks</li>
+            </ul>
+
+            <h3>6.3 Internal Audit Program</h3>
+            <div class="subsection">
+                <h4>Audit Planning:</h4>
+                <ul>
+                    <li>Conduct internal audits minimum quarterly</li>
+                    <li>Audit setiap area controls dalam 12 bulan</li>
+                    <li>Use internal audit checklist based on ISO 27001:2022</li>
+                    <li>Maintain audit records & evidence</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">Audit Process:</h4>
+                <ol>
+                    <li>Plan audit scope & schedule</li>
+                    <li>Collect & review evidence</li>
+                    <li>Interview personnel</li>
+                    <li>Document findings & non-conformances</li>
+                    <li>Report kepada management</li>
+                    <li>Track corrective actions</li>
+                </ol>
+            </div>
+
+            <h3>6.4 Management Review</h3>
+            <p>Conduct formal management review minimum annually:</p>
+            <ul>
+                <li>Review ISMS performance & KPIs</li>
+                <li>Review risk assessment & treatment status</li>
+                <li>Review audit findings & corrective actions</li>
+                <li>Evaluate stakeholder feedback</li>
+                <li>Assess external & internal changes (regulatory, business, technology)</li>
+                <li>Determine improvement opportunities</li>
+                <li>Approve budget untuk ISMS improvements</li>
+            </ul>
+
+            <h3>6.5 Continuous Improvement Loop</h3>
+            <div class="box">
+                <strong>PDCA Model (Plan-Do-Check-Act):</strong>
+                <ul style="margin-top: 10px;">
+                    <li><strong>Plan:</strong> Design ISMS & controls</li>
+                    <li><strong>Do:</strong> Implement controls</li>
+                    <li><strong>Check:</strong> Monitor & measure performance</li>
+                    <li><strong>Act:</strong> Improve based on findings</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 7: 14 Controls -->
+        <h2 id="14controls">7. 14 Kontrol Utama ISO 27001:2022 & Implementasi</h2>
+        <div class="section">
+            <div class="box">
+                <strong>📌 Catatan:</strong> ISO 27001:2022 memiliki 93 kontrol. 14 kontrol berikut adalah yang paling critical dan sering diimplementasikan lebih dulu.
+            </div>
+
+            <h3>A.5: Organizational Controls (Contoh 4 Kontrol Penting)</h3>
+
+            <div class="subsection">
+                <h4>A.5.1 - Information Security Policies</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Establish dan maintain documented information security policies
+                    <br><br>
+                    <strong>Implementation Checklist:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Develop master Information Security Policy</li>
+                        <li>☐ Get board/executive approval</li>
+                        <li>☐ Communicate to all staff</li>
+                        <li>☐ Include ISO 27001:2022 scope & objectives</li>
+                        <li>☐ Define roles & responsibilities</li>
+                        <li>☐ Review & update annually</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.5.2 - Information Security Roles & Responsibilities</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Define dan assign security roles
+                    <br><br>
+                    <strong>Key Roles:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>CISO/Information Security Officer:</strong> Overall responsibility</li>
+                        <li><strong>Process Owners:</strong> Responsible untuk security in their function</li>
+                        <li><strong>IT Security Team:</strong> Implement & maintain technical controls</li>
+                        <li><strong>Data Protection Officer (DPO):</strong> If applicable for data protection</li>
+                        <li><strong>Internal Auditor:</strong> Verify compliance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.5.3 - Segregation of Duties</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Ensure segregation of duties to prevent unauthorized actions
+                    <br><br>
+                    <strong>Implementation Examples:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Requestor ≠ Approver ≠ Implementer (access requests)</li>
+                        <li>☐ Developer ≠ System Administrator (code deployment)</li>
+                        <li>☐ Finance requestor ≠ payment approver ≠ processor</li>
+                        <li>☐ Review segregation of duties in mission-critical systems</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>A.6: People Controls (Contoh 2 Kontrol Penting)</h3>
+
+            <div class="subsection">
+                <h4>A.6.1 - Screening & Onboarding</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Background checks & security training untuk new employees
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Conduct background check sebelum hire (sesuai regulasi)</li>
+                        <li>☐ Mandatory security awareness training sebelum access diberi</li>
+                        <li>☐ Signed acceptable use policy</li>
+                        <li>☐ Document training completion</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.6.2 - Security Awareness & Training</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Regular security training untuk semua staff
+                    <br><br>
+                    <strong>Training Program:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Mandatory annual training untuk all staff</li>
+                        <li>☐ Role-specific training (developer, admin, finance, HR)</li>
+                        <li>☐ Phishing simulation & awareness campaigns</li>
+                        <li>☐ New hire onboarding training</li>
+                        <li>☐ Training completion tracking & records</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>A.7: Physical Controls (Contoh 2 Kontrol Penting)</h3>
+
+            <div class="subsection">
+                <h4>A.7.1 - Physical Security Perimeter</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Protect facilities from unauthorized physical access
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Data center: Fencing, gates, guards, CCTV</li>
+                        <li>☐ Server rooms: Key card access, badge access logs</li>
+                        <li>☐ Office security: Reception, visitor logs, ID badges</li>
+                        <li>☐ Regular physical security audits</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.7.2 - Physical Asset Management</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Inventory dan protect physical assets
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Maintain asset inventory (servers, laptops, mobile devices)</li>
+                        <li>☐ Asset tagging & tracking system</li>
+                        <li>☐ Secure disposal of equipment (hard drive destruction)</li>
+                        <li>☐ Anti-theft measures</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>A.8: Technical Controls (Contoh 4 Kontrol Penting)</h3>
+
+            <div class="subsection">
+                <h4>A.8.2 - Access Control</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Grant access berdasarkan need-to-know principle
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Implement role-based access control (RBAC)</li>
+                        <li>☐ User provisioning & de-provisioning process</li>
+                        <li>☐ Regular access reviews (minimum quarterly)</li>
+                        <li>☐ Multi-factor authentication (MFA) untuk sensitive systems</li>
+                        <li>☐ Default deny principle untuk system access</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.8.3 - Cryptography</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Encrypt sensitive data
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Encryption at rest: Database encryption, file encryption, disk encryption</li>
+                        <li>☐ Encryption in transit: TLS/SSL untuk all communications</li>
+                        <li>☐ Key management: Secure key generation, storage, rotation</li>
+                        <li>☐ Document encryption strategy & key management policy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.8.10 - Information Security Event Logging</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Log dan monitor security-relevant events
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Implement SIEM (Security Information & Event Management)</li>
+                        <li>☐ Log collection from all systems (servers, firewalls, etc.)</li>
+                        <li>☐ Centralized log storage & analysis</li>
+                        <li>☐ Real-time alerting untuk suspicious activities</li>
+                        <li>☐ Log retention minimum 12 bulan</li>
+                        <li>☐ Regular log review & investigation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h4>A.8.16 - Incident Management</h4>
+                <div class="box">
+                    <strong>Requirement:</strong> Detect dan respond to security incidents
+                    <br><br>
+                    <strong>Implementation:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>☐ Develop incident response plan & procedures</li>
+                        <li>☐ Define incident classification & severity levels</li>
+                        <li>☐ Establish incident response team & hotline</li>
+                        <li>☐ Incident detection & notification process</li>
+                        <li>☐ Incident investigation & forensics procedures</li>
+                        <li>☐ Post-incident review & lessons learned</li>
+                        <li>☐ Maintain incident records for audit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Risk Management -->
+        <h2 id="risks">8. Risk Management & Mitigation Strategy</h2>
+        <div class="section">
+            <h3>8.1 Risk Assessment Process</h3>
+
+            <div class="subsection">
+                <h4>Step 1: Identify Assets</h4>
+                <ul>
+                    <li>Critical business systems & applications</li>
+                    <li>Sensitive data repositories</li>
+                    <li>Infrastructure components</li>
+                    <li>Key personnel & roles</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">Step 2: Identify Threats</h4>
+                <ul>
+                    <li>Cyber attacks (malware, ransomware, DDoS)</li>
+                    <li>Insider threats (disgruntled employees)</li>
+                    <li>Accidental data exposure (misconfiguration)</li>
+                    <li>Natural disasters (flood, earthquake)</li>
+                    <li>Third-party breaches</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">Step 3: Identify Vulnerabilities</h4>
+                <ul>
+                    <li>Outdated software & systems</li>
+                    <li>Weak access controls</li>
+                    <li>Lack of encryption</li>
+                    <li>Poor change management</li>
+                    <li>Limited monitoring capabilities</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">Step 4: Evaluate Risk</h4>
+                <p>Risk = Likelihood × Impact</p>
+                <div style="margin: 15px 0; padding: 10px; background-color: #f3f4f6; border-radius: 3px;">
+                    <strong>Example:</strong>
+                    <br>Threat: Ransomware attack
+                    <br>Asset: Customer database
+                    <br>Likelihood: Medium (3/5)
+                    <br>Impact: Critical (5/5) - $1M loss + regulatory fine
+                    <br><strong>Risk Score: 15/25 (HIGH RISK)</strong>
+                </div>
+            </div>
+
+            <h3>8.2 Risk Treatment Options</h3>
+            <table>
+                <tr>
+                    <th>Treatment Type</th>
+                    <th>Action</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><strong>Mitigate</strong></td>
+                    <td>Implement control to reduce risk</td>
+                    <td>Implement MFA to reduce password breach risk</td>
+                </tr>
+                <tr>
+                    <td><strong>Accept</strong></td>
+                    <td>Accept risk with documented approval</td>
+                    <td>Accept risk of legacy system compromise (planned for retirement)</td>
+                </tr>
+                <tr>
+                    <td><strong>Avoid</strong></td>
+                    <td>Eliminate activity causing risk</td>
+                    <td>Stop using insecure payment processing method</td>
+                </tr>
+                <tr>
+                    <td><strong>Transfer</strong></td>
+                    <td>Transfer risk via insurance or outsourcing</td>
+                    <td>Buy cyber insurance, outsource to managed security provider</td>
+                </tr>
+            </table>
+
+            <h3>8.3 Risk Register Template</h3>
+            <div class="code-block">
+Risk ID: R-001
+Description: Ransomware attack on customer database
+Asset Affected: Customer DB, Email System
+Threat: Cyber attack
+Vulnerability: Outdated patching process
+Likelihood: Medium (3/5)
+Impact: Critical (5/5)
+Current Controls: Basic antivirus, Firewall
+Risk Score: 15/25 (HIGH)
+Treatment: Mitigate
+Planned Controls: 
+  - Implement email filtering & anti-ransomware
+  - Automated patching process
+  - Daily incremental backup
+  - Incident response plan
+Target Completion: End Q2 2026
+Owner: IT Security Director
+Status: In Progress
+            </div>
+
+            <h3>8.4 Residual Risk Monitoring</h3>
+            <p>After implementing controls, monitor residual risk:</p>
+            <ul>
+                <li>Track residual risk score vs. risk appetite</li>
+                <li>Review risk treatment effectiveness quarterly</li>
+                <li>Adjust controls jika residual risk terlalu tinggi</li>
+                <li>Report to management review</li>
+            </ul>
+        </div>
+
+        <!-- Section 9: Documentation -->
+        <h2 id="documentation">9. Dokumentasi & Record Keeping</h2>
+        <div class="section">
+            <h3>9.1 Required Documentation</h3>
+            <table>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Purpose</th>
+                    <th>Review Frequency</th>
+                </tr>
+                <tr>
+                    <td>ISMS Charter</td>
+                    <td>Define scope & objectives</td>
+                    <td>Annually</td>
+                </tr>
+                <tr>
+                    <td>Risk Assessment Report</td>
+                    <td>Document risk evaluation</td>
+                    <td>Annually</td>
+                </tr>
+                <tr>
+                    <td>Control Procedures</td>
+                    <td>Define how to implement controls</td>
+                    <td>As needed</td>
+                </tr>
+                <tr>
+                    <td>Training Records</td>
+                    <td>Evidence of security training</td>
+                    <td>N/A (keep for audit)</td>
+                </tr>
+                <tr>
+                    <td>Incident Records</td>
+                    <td>Log all security incidents</td>
+                    <td>N/A (keep 3 years)</td>
+                </tr>
+                <tr>
+                    <td>Audit Reports</td>
+                    <td>Document internal audit findings</td>
+                    <td>N/A (keep for audit)</td>
+                </tr>
+            </table>
+
+            <h3>9.2 Document Control</h3>
+            <ul>
+                <li>Use document management system (SharePoint, Confluence, etc.)</li>
+                <li>Version control & change history</li>
+                <li>Approval workflows (draft → review → approved)</li>
+                <li>Distribution & access control</li>
+                <li>Annual review & update requirement</li>
+            </ul>
+
+            <h3>9.3 Records Management</h3>
+            <div class="box">
+                <strong>⚠️ Important:</strong> Keep records untuk minimum 3 tahun (sesuai kebanyakan regulasi). Akses hanya untuk authorized personnel.
+            </div>
+
+            <p style="margin-top: 15px;">Records to maintain:</p>
+            <ul>
+                <li>Risk assessment & risk register updates</li>
+                <li>Security training attendance</li>
+                <li>Access control reviews & user access logs</li>
+                <li>Incident reports & investigations</li>
+                <li>Internal audit findings & corrective actions</li>
+                <li>Management review minutes & decisions</li>
+                <li>System backup logs</li>
+                <li>Third-party audit reports</li>
+            </ul>
+        </div>
+
+        <!-- Section 10: Audit -->
+        <h2 id="audit">10. Persiapan Audit Internal & Sertifikasi</h2>
+        <div class="section">
+            <h3>10.1 Internal Audit Program</h3>
+
+            <div class="subsection">
+                <h4>10.1.1 Audit Planning</h4>
+                <ul>
+                    <li>Define audit scope based on risk profile</li>
+                    <li>Create 12-month audit plan (cover all areas)</li>
+                    <li>Assign qualified internal auditors</li>
+                    <li>Develop audit checklists based on ISO 27001:2022</li>
+                    <li>Schedule audits quarterly minimum</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">10.1.2 Audit Execution</h4>
+                <ul>
+                    <li><strong>Pre-audit:</strong> Notify auditee, gather documentation</li>
+                    <li><strong>Audit:</strong> Review documentation, interview staff, observe processes</li>
+                    <li><strong>Findings:</strong> Document non-conformances & opportunities for improvement</li>
+                    <li><strong>Report:</strong> Prepare audit report dengan findings & recommendations</li>
+                    <li><strong>Follow-up:</strong> Track corrective action completion</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">10.1.3 Audit Checklist Example</h4>
+                <div class="code-block">
+AUDIT CHECKLIST: Access Control (A.8.2)
+
+1. Access Control Policy
+   ☐ Policy exists & is documented
+   ☐ Policy covers user provisioning & de-provisioning
+   ☐ Policy defines authorization levels
+   ☐ Policy is approved & communicated
+
+2. User Access Management
+   ☐ Access request process is documented
+   ☐ All access requests are approved before provisioning
+   ☐ Access logs are maintained
+   ☐ Quarterly access reviews are conducted
+   ☐ De-provisioning is done within 5 days of termination
+
+3. Multi-Factor Authentication
+   ☐ MFA is implemented for sensitive systems
+   ☐ MFA is enforced for remote access
+   ☐ MFA is documented in policy
+
+4. Evidence Required:
+   ☐ Access policy document
+   ☐ Sample access request forms (5 recent)
+   ☐ Access review evidence (last quarter)
+   ☐ De-provisioning checklist samples
+   ☐ MFA configuration evidence
+                </div>
+            </div>
+
+            <h3>10.2 Certification Audit Preparation</h3>
+
+            <div class="subsection">
+                <h4>10.2.1 Choose Certification Body</h4>
+                <p>Select accredited certification body (examples):</p>
+                <ul>
+                    <li>Bureau Veritas (BV)</li>
+                    <li>TÜV Rheinland</li>
+                    <li>SGS</li>
+                    <li>DNV GL</li>
+                    <li>Local auditors (di Indonesia)</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">10.2.2 Pre-audit Readiness Assessment</h4>
+                <p>Conduct mock audit sebelum certification audit:</p>
+                <ul>
+                    <li>Internal audit review semua kontrol</li>
+                    <li>Identify & close gaps</li>
+                    <li>Ensure documentation is complete</li>
+                    <li>Prepare evidence untuk audit</li>
+                    <li>Conduct management review</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">10.2.3 Certification Audit Stages</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Stage 1</div>
+                        <div class="timeline-content">Documentation review (1-2 hari) - Auditor review policies, procedures, documentation</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Stage 2</div>
+                        <div class="timeline-content">Main audit (3-5 hari) - On-site audit of all controls, interviews, sampling</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Review</div>
+                        <div class="timeline-content">Findings & corrective actions - Address minor findings within 4-6 weeks</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Certificate</div>
+                        <div class="timeline-content">Issuance - Certificate valid for 3 years with annual surveillance audits</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>10.3 Audit Readiness Checklist</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <input type="checkbox"> Information Security Policy is documented & approved
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> Risk assessment is complete & documented
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> Kontrol telah diimplementasikan per risk assessment
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> All required procedures are documented
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> Evidence exists untuk semua kontrol (training records, audit logs, etc.)
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> Internal audits have been conducted
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> Management review telah dilakukan
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> Corrective actions untuk gaps telah dikerjakan
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> ISMS is operational minimal 2 bulan sebelum audit
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox"> All roles & responsibilities are defined & communicated
+                </div>
+            </div>
+
+            <h3>10.4 Post-Certification Maintenance</h3>
+            <ul>
+                <li>Conduct annual surveillance audits (certification body requirement)</li>
+                <li>Maintain internal audit program (quarterly minimum)</li>
+                <li>Keep documentation up-to-date</li>
+                <li>Manage corrective actions for audit findings</li>
+                <li>Continue management review & improvement</li>
+                <li>Renew certification after 3 years</li>
+            </ul>
+        </div>
+
+        <!-- Closing Section -->
+        <h2>Kesimpulan & Next Steps</h2>
+        <div class="section">
+            <p>Implementasi ISO 27001:2022 adalah journey, bukan destination. Untuk sukses:</p>
+            <ul>
+                <li><strong>Secure Executive Support:</strong> Dapatkan dukungan C-level sebagai first step</li>
+                <li><strong>Take Risk-Based Approach:</strong> Focus pada highest-risk areas dulu</li>
+                <li><strong>Document Everything:</strong> Maintain comprehensive records untuk audit</li>
+                <li><strong>Engage All Stakeholders:</strong> Security adalah tanggung jawab semua orang</li>
+                <li><strong>Continuous Improvement:</strong> ISMS is never "done" - always improving</li>
+                <li><strong>Allocate Resources:</strong> Budget & people yang cukup adalah critical</li>
+            </ul>
+
+            <div class="box" style="margin-top: 20px;">
+                <strong>🎯 Recommended Implementation Timeline:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>Phase 1 (Persiapan): 0-4 minggu</li>
+                    <li>Phase 2 (Perencanaan): 4-8 minggu</li>
+                    <li>Phase 3 (Implementasi): 8-24 minggu</li>
+                    <li>Phase 4 (Optimization): Ongoing</li>
+                    <li><strong>Total: 6-12 bulan untuk certification-ready</strong></li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 30px;">Key Resources</h3>
+            <ul>
+                <li>ISO 27001:2022 Standard (purchase dari ISO.org)</li>
+                <li>ISO 27002:2022 Implementation Guidance</li>
+                <li>External audit firms untuk consultation</li>
+                <li>Internal security team & stakeholders</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 CISO Guide - Information Security Management System Implementation</p>
+            <p>Document Version: 1.0 | Last Updated: March 2026</p>
+            <p style="margin-top: 10px; font-style: italic;">Panduan ini adalah untuk tujuan pembelajaran. Setiap organisasi harus menyesuaikan implementasi dengan risk profile & kebutuhan spesifik mereka.</p>
+        </div>
+    </div>
+</body>
+</html>

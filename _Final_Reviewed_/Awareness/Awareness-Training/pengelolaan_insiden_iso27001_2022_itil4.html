@@ -1,0 +1,438 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#100a18;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(226,75,74,0.1)}
+.hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:90px;height:90px;border-radius:50%;background:rgba(239,159,39,0.07)}
+.hero-badge{display:inline-block;background:rgba(226,75,74,0.18);border:1px solid rgba(226,75,74,0.35);color:#f87171;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#f87171}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#100a18;color:#f87171;border-color:#a32d2d}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-b{background:rgba(55,138,221,0.15);border:1.5px solid #378add;font-size:9px;color:#93c5fd;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-p{color:rgba(196,181,253,0.85)}.tx-p strong{color:#c4b5fd;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-p{color:#a78bfa}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-p{background:#7f77dd}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#f87171;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+.badge-p{background:rgba(127,119,221,0.15);color:#c4b5fd;border:1px solid rgba(127,119,221,0.25)}
+.badge-new{background:rgba(226,75,74,0.2);color:#f87171;border:1px solid rgba(226,75,74,0.4);font-weight:700}
+
+.sev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.sev-card{border-radius:10px;padding:11px 10px;border:1px solid var(--color-border-tertiary);text-align:center}
+.sev-level{font-size:18px;font-weight:500;margin-bottom:2px}
+.sev-name{font-size:11px;font-weight:500;margin-bottom:4px}
+.sev-desc{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;line-height:1.3}
+.sev-sla{font-size:10px;font-weight:500;padding:2px 6px;border-radius:6px;display:inline-block}
+
+.sev-crit{background:#1e0505;border-color:rgba(226,75,74,0.3)}
+.sev-crit .sev-level,.sev-crit .sev-sla{color:#f87171}
+.sev-crit .sev-name{color:#fca5a5}
+.sev-crit .sev-sla{background:rgba(226,75,74,0.12)}
+
+.sev-high{background:#1a0c02;border-color:rgba(239,159,39,0.3)}
+.sev-high .sev-level,.sev-high .sev-sla{color:#fbbf24}
+.sev-high .sev-name{color:#fde68a}
+.sev-high .sev-sla{background:rgba(239,159,39,0.12)}
+
+.sev-med{background:#061224;border-color:rgba(55,138,221,0.25)}
+.sev-med .sev-level,.sev-med .sev-sla{color:#60a5fa}
+.sev-med .sev-name{color:#93c5fd}
+.sev-med .sev-sla{background:rgba(55,138,221,0.12)}
+
+.sev-low{background:#061a12;border-color:rgba(29,158,117,0.2)}
+.sev-low .sev-level,.sev-low .sev-sla{color:#34d399}
+.sev-low .sev-name{color:#6ee7b7}
+.sev-low .sev-sla{background:rgba(29,158,117,0.12)}
+
+.fw-card{border-radius:12px;padding:14px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.fw-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--color-border-tertiary)}
+.fw-logo{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.fw-title{font-size:13px;font-weight:500}
+.fw-sub{font-size:10px;margin-top:1px}
+.fw-clause{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--color-border-tertiary)}
+.fw-clause:last-child{border-bottom:none}
+.fw-clause-id{font-size:10px;font-weight:500;width:80px;flex-shrink:0;padding-top:1px}
+.fw-clause-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+.fw-clause-desc strong{color:var(--color-text-primary);font-weight:500}
+
+.itil-practice{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--color-border-tertiary)}
+.itil-practice:last-child{border-bottom:none}
+.itil-practice-name{font-size:11px;font-weight:500;width:160px;flex-shrink:0;color:var(--color-text-primary);padding-top:1px}
+.itil-practice-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+
+.flow-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.flow-line{width:1px;height:10px;background:rgba(226,75,74,0.2);margin-left:14px}
+.flow-num{width:28px;height:28px;border-radius:50%;background:#791f1f;color:#fca5a5;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #a32d2d}
+.flow-body{flex:1}
+.flow-title{font-size:12px;font-weight:500;color:#f87171;margin-bottom:2px}
+.flow-desc{font-size:11px;color:rgba(252,165,165,0.65);line-height:1.4}
+
+.rca-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:10px;padding:12px;margin-bottom:8px}
+.rca-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rca-num{width:22px;height:22px;border-radius:6px;background:rgba(239,159,39,0.15);color:#fbbf24;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rca-title{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.rca-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.5;padding-left:30px}
+.rca-ex{font-size:10px;padding:4px 8px;border-radius:5px;margin-top:4px;margin-left:30px;background:rgba(239,159,39,0.07);border:1px solid rgba(239,159,39,0.15);color:rgba(253,230,138,0.75);font-style:italic}
+
+.footer{background:#100a18;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#f87171}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Incident Management · ISO/IEC 27001:2022 · ITIL 4</div>
+  <h1>Pengelolaan <span>Insiden Keamanan</span><br>Informasi</h1>
+  <p>Deteksi · Pelaporan · Respons · Investigasi · Root Cause Analysis · Tindakan Korektif · Lessons Learned</p>
+  <div class="hero-icon">🚨</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi & Framework</div>
+  <div class="tab" onclick="sw('alur')">Alur Respons Insiden</div>
+  <div class="tab" onclick="sw('rca')">RCA & Tindakan Korektif</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+
+  <div class="narasi-box">
+    <div class="narasi-label">Definisi insiden keamanan informasi</div>
+    <div class="narasi-text">Menurut <strong>ISO/IEC 27001:2022</strong>, insiden keamanan informasi adalah <strong>satu atau serangkaian kejadian keamanan yang tidak diinginkan atau tidak terduga yang memiliki kemungkinan signifikan untuk mengganggu operasi bisnis dan mengancam keamanan informasi</strong> (kerahasiaan, integritas, dan ketersediaan).<br><br>Penting untuk membedakan tiga istilah: <strong>Event</strong> adalah kejadian yang terekam di sistem atau jaringan. <strong>Incident</strong> adalah event yang terbukti atau diduga melanggar kebijakan keamanan. <strong>Problem</strong> (dalam ITIL) adalah akar penyebab dari satu atau lebih insiden. Setiap <strong>potensi insiden wajib dilaporkan</strong> — lebih baik salah lapor daripada membiarkan insiden berkembang tanpa penanganan.</div>
+  </div>
+
+  <div class="sec sc-r" style="margin-bottom:8px"><span class="dot dot-r"></span>Tingkat keparahan insiden — severity level</div>
+  <div class="sev-grid">
+    <div class="sev-card sev-crit">
+      <div class="sev-level">P1</div>
+      <div class="sev-name">Critical</div>
+      <div class="sev-desc">Operasional terhenti, data sangat sensitif bocor masif, regulasi dilanggar, reputasi terancam</div>
+      <div class="sev-sla">Respons &lt; 1 jam</div>
+    </div>
+    <div class="sev-card sev-high">
+      <div class="sev-level">P2</div>
+      <div class="sev-name">High</div>
+      <div class="sev-desc">Dampak signifikan ke sistem kritikal, risiko eskalasi tinggi, sebagian layanan terdampak</div>
+      <div class="sev-sla">Respons &lt; 4 jam</div>
+    </div>
+    <div class="sev-card sev-med">
+      <div class="sev-level">P3</div>
+      <div class="sev-name">Medium</div>
+      <div class="sev-desc">Dampak terbatas ke sistem non-kritikal, risiko terkendali, workaround tersedia</div>
+      <div class="sev-sla">Respons &lt; 24 jam</div>
+    </div>
+    <div class="sev-card sev-low">
+      <div class="sev-level">P4</div>
+      <div class="sev-name">Low</div>
+      <div class="sev-desc">Potensi insiden, ketidaksesuaian minor, belum berdampak nyata ke operasional</div>
+      <div class="sev-sla">Respons &lt; 72 jam</div>
+    </div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>ISO/IEC 27001:2022 — Annex A 6.8 & 5.24–5.28 (versi terbaru)</div>
+  <div class="fw-card" style="background:#051224;border-color:rgba(55,138,221,0.2)">
+    <div class="fw-header">
+      <div class="fw-logo" style="background:rgba(55,138,221,0.15)">📋</div>
+      <div>
+        <div class="fw-title" style="color:#93c5fd">ISO/IEC 27001:2022 — Klausul Terkait Pengelolaan Insiden</div>
+        <div class="fw-sub" style="color:rgba(147,197,253,0.6)">Versi 2022 menggantikan Annex A.16 dari versi 2013 — struktur diperbarui ke Annex A 5–8</div>
+      </div>
+    </div>
+    <div class="fw-clause">
+      <div class="fw-clause-id" style="color:#93c5fd">A 5.24 <span class="badge-new badge" style="margin-left:3px">Updated</span></div>
+      <div class="fw-clause-desc"><strong>Perencanaan & persiapan pengelolaan insiden keamanan informasi</strong> — Organisasi harus merencanakan dan mempersiapkan pengelolaan insiden dengan menetapkan peran, tanggung jawab, dan prosedur yang terdokumentasi. Termasuk membentuk tim respons insiden (CSIRT/IRT) yang terlatih dan siap.</div>
+    </div>
+    <div class="fw-clause">
+      <div class="fw-clause-id" style="color:#93c5fd">A 5.25 <span class="badge-new badge" style="margin-left:3px">Updated</span></div>
+      <div class="fw-clause-desc"><strong>Penilaian & pengambilan keputusan atas event keamanan informasi</strong> — Setiap event keamanan yang dilaporkan harus dinilai apakah merupakan insiden atau bukan, menggunakan kriteria klasifikasi yang sudah ditetapkan. Keputusan harus terdokumentasi.</div>
+    </div>
+    <div class="fw-clause">
+      <div class="fw-clause-id" style="color:#93c5fd">A 5.26 <span class="badge-new badge" style="margin-left:3px">Updated</span></div>
+      <div class="fw-clause-desc"><strong>Respons terhadap insiden keamanan informasi</strong> — Insiden yang telah dikonfirmasi harus direspons sesuai prosedur: containment (pembatasan), eradication (penghapusan ancaman), recovery (pemulihan), dan post-incident review.</div>
+    </div>
+    <div class="fw-clause">
+      <div class="fw-clause-id" style="color:#93c5fd">A 5.27 <span class="badge-new badge" style="margin-left:3px">Updated</span></div>
+      <div class="fw-clause-desc"><strong>Belajar dari insiden keamanan informasi</strong> — Pengetahuan yang diperoleh dari setiap insiden harus digunakan untuk memperkuat kontrol keamanan yang ada. Lessons learned harus didokumentasikan dan diterapkan secara nyata.</div>
+    </div>
+    <div class="fw-clause">
+      <div class="fw-clause-id" style="color:#93c5fd">A 5.28 <span class="badge-new badge" style="margin-left:3px">Updated</span></div>
+      <div class="fw-clause-desc"><strong>Pengumpulan bukti (evidence collection)</strong> — Bukti terkait insiden harus dikumpulkan, disimpan, dan dikelola dengan benar untuk keperluan investigasi forensik dan tindakan hukum bila diperlukan. Chain of custody harus dijaga.</div>
+    </div>
+    <div class="fw-clause">
+      <div class="fw-clause-id" style="color:#93c5fd">A 6.8 <span class="badge-new badge" style="margin-left:3px">Baru</span></div>
+      <div class="fw-clause-desc"><strong>Pelaporan event keamanan informasi oleh pegawai</strong> — Klausul baru di versi 2022: setiap pegawai wajib memiliki mekanisme untuk melaporkan event keamanan informasi yang mereka observasi, secepat mungkin melalui saluran yang tepat.</div>
+    </div>
+  </div>
+
+  <div class="sec sc-p" style="margin-bottom:8px"><span class="dot dot-p"></span>ITIL 4 — praktik manajemen insiden & masalah</div>
+  <div class="fw-card" style="background:#0e0a1e;border-color:rgba(127,119,221,0.2)">
+    <div class="fw-header">
+      <div class="fw-logo" style="background:rgba(127,119,221,0.15)">⚙️</div>
+      <div>
+        <div class="fw-title" style="color:#c4b5fd">ITIL 4 — Service Management Practices</div>
+        <div class="fw-sub" style="color:rgba(196,181,253,0.6)">Incident Management & Problem Management Practice</div>
+      </div>
+    </div>
+    <div class="itil-practice">
+      <div class="itil-practice-name" style="color:#c4b5fd">Incident Management</div>
+      <div class="itil-practice-desc">Meminimalkan dampak negatif insiden dengan <strong>memulihkan layanan normal sesegera mungkin</strong>. Fokus pada kecepatan respons dan pemulihan, bukan pada mencari akar penyebab — itu tugas Problem Management.</div>
+    </div>
+    <div class="itil-practice">
+      <div class="itil-practice-name" style="color:#c4b5fd">Problem Management</div>
+      <div class="itil-practice-desc">Mengurangi kemungkinan dan dampak insiden dengan <strong>mengidentifikasi akar penyebab yang sebenarnya</strong> dan mengelola known errors. Tiga fase: problem identification, problem control, dan error control.</div>
+    </div>
+    <div class="itil-practice">
+      <div class="itil-practice-name" style="color:#c4b5fd">Event Management</div>
+      <div class="itil-practice-desc">Memantau seluruh layanan dan infrastruktur secara sistematis, <strong>mendeteksi dan eskalasi kondisi yang bisa menjadi insiden</strong> sebelum berdampak ke pengguna. Monitoring proaktif adalah kuncinya.</div>
+    </div>
+    <div class="itil-practice">
+      <div class="itil-practice-name" style="color:#c4b5fd">Service Desk</div>
+      <div class="itil-practice-desc">Single point of contact untuk seluruh laporan insiden dari pengguna. <strong>Mencatat, mengklasifikasi, dan mendistribusikan</strong> insiden ke tim yang tepat berdasarkan kategori dan prioritas.</div>
+    </div>
+    <div class="itil-practice">
+      <div class="itil-practice-name" style="color:#c4b5fd">Continual Improvement</div>
+      <div class="itil-practice-desc">Setiap insiden adalah <strong>kesempatan untuk belajar dan memperbaiki</strong>. Lessons learned dari insiden harus diintegrasikan ke dalam proses, prosedur, dan kontrol yang ada secara berkelanjutan.</div>
+    </div>
+  </div>
+</div>
+
+<div id="p-alur" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Prinsip dasar alur respons insiden</div>
+    <div class="narasi-text">Alur pengelolaan insiden ini mengintegrasikan pendekatan <strong>ISO/IEC 27001:2022 (A 5.24–5.28)</strong> dengan <strong>praktik ITIL 4</strong>. Perbedaan kunci: ISO 27001 berfokus pada aspek keamanan informasi dan compliance, sementara ITIL 4 berfokus pada kecepatan pemulihan layanan dan kepuasan pengguna. Keduanya saling melengkapi dan harus berjalan beriringan.</div>
+  </div>
+
+  <div class="card card-r">
+    <div class="sec sc-r" style="margin-bottom:10px"><span class="dot dot-r"></span>Fase 1 — Identifikasi & Pelaporan (ISO A 6.8 + ITIL Event Mgmt)</div>
+    <div class="flow-step"><div class="flow-num">1</div><div class="flow-body"><div class="flow-title">Deteksi event keamanan</div><div class="flow-desc">Siapapun yang mendeteksi event mencurigakan — dari sistem monitoring, antivirus, log anomali, atau laporan pegawai — wajib segera melaporkan melalui saluran resmi yang telah ditetapkan (ticketing system, email IT Security, atau hotline insiden)</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">2</div><div class="flow-body"><div class="flow-title">Catat & dokumentasikan secara lengkap</div><div class="flow-desc">Rekam semua detail: waktu kejadian, sistem/data yang terdampak, siapa yang menemukan, bagaimana ditemukan, dan dampak awal yang terlihat. Jangan hapus atau ubah log apapun — ini adalah bukti forensik</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">3</div><div class="flow-body"><div class="flow-title">Klasifikasi & penilaian awal (ISO A 5.25)</div><div class="flow-desc">Tim IT Security menilai apakah event ini merupakan insiden keamanan, menentukan severity level (P1–P4), dan memastikan prioritas penanganan. Gunakan kriteria klasifikasi yang sudah ditetapkan, bukan intuisi semata</div></div></div>
+  </div>
+
+  <div class="card card-y">
+    <div class="sec sc-y" style="margin-bottom:10px"><span class="dot dot-y"></span>Fase 2 — Containment & Eradication (ISO A 5.26 + ITIL Incident Mgmt)</div>
+    <div class="flow-step"><div class="flow-num">4</div><div class="flow-body"><div class="flow-title">Containment — batasi dampak sesegera mungkin</div><div class="flow-desc">Ambil tindakan segera untuk mencegah insiden menyebar lebih jauh: isolasi sistem yang terinfeksi, blokir akun yang dikompromikan, cabut akses yang tidak sah, atau putuskan koneksi jaringan yang bermasalah. Prioritaskan menghentikan kerusakan lebih lanjut</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">5</div><div class="flow-body"><div class="flow-title">Eskalasi & notifikasi pihak terkait</div><div class="flow-desc">Untuk insiden P1/P2: eskalasi segera ke manajemen dan pihak terkait (Legal, Compliance, HR jika perlu). Jika melibatkan data pribadi pelanggan, pertimbangkan kewajiban notifikasi sesuai UU PDP dan regulasi yang berlaku (dalam 72 jam untuk GDPR-aligned)</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">6</div><div class="flow-body"><div class="flow-title">Eradication — hilangkan ancaman dari sistem</div><div class="flow-desc">Setelah insiden terkendali, hilangkan sumber ancaman secara menyeluruh: hapus malware, tutup celah keamanan yang dieksploitasi, reset kredensial yang dikompromikan, dan pastikan tidak ada backdoor yang tertinggal</div></div></div>
+  </div>
+
+  <div class="card card-g">
+    <div class="sec sc-g" style="margin-bottom:10px"><span class="dot dot-g"></span>Fase 3 — Recovery & Pemulihan (ITIL Service Restoration)</div>
+    <div class="flow-step"><div class="flow-num">7</div><div class="flow-body"><div class="flow-title">Recovery — pulihkan layanan secara aman</div><div class="flow-desc">Pulihkan sistem dan layanan dari backup yang terverifikasi bersih. Sebelum kembali ke production, pastikan sistem sudah di-patch, dikonfigurasi ulang, dan diuji. Jangan terburu-buru — recovery yang tergesa-gesa bisa membiarkan ancaman tetap aktif</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">8</div><div class="flow-body"><div class="flow-title">Verifikasi & monitoring pasca pemulihan</div><div class="flow-desc">Setelah layanan dipulihkan, lakukan monitoring intensif selama periode tertentu untuk memastikan insiden benar-benar tertangani dan tidak ada aktivitas mencurigakan yang tersisa. Konfirmasi kepada pengguna bahwa layanan sudah normal</div></div></div>
+  </div>
+
+  <div class="card card-b">
+    <div class="sec sc-b" style="margin-bottom:10px"><span class="dot dot-b"></span>Fase 4 — Post-Incident Review (ISO A 5.27–5.28 + ITIL Problem Mgmt)</div>
+    <div class="flow-step"><div class="flow-num">9</div><div class="flow-body"><div class="flow-title">Pengumpulan & preservasi bukti (ISO A 5.28)</div><div class="flow-desc">Kumpulkan dan amankan semua bukti forensik: log sistem, screenshot, rekaman jaringan, email, dan artefak lainnya. Jaga chain of custody agar bukti dapat digunakan untuk investigasi lebih lanjut atau proses hukum jika diperlukan</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">10</div><div class="flow-body"><div class="flow-title">Root Cause Analysis & lessons learned (ISO A 5.27)</div><div class="flow-desc">Lakukan analisis mendalam untuk menemukan akar penyebab sebenarnya — bukan hanya gejala permukaan. Gunakan metode 5 Whys, Fishbone, atau fault tree analysis. Dokumentasikan temuan dan rekomendasi perbaikan secara lengkap</div></div></div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><div class="flow-num">11</div><div class="flow-body"><div class="flow-title">Implementasi tindakan korektif & preventif</div><div class="flow-desc">Terapkan perbaikan yang direkomendasikan dari lessons learned — perbarui prosedur, perkuat kontrol keamanan, tingkatkan monitoring, atau lakukan pelatihan tambahan. Verifikasi efektivitas tindakan korektif dalam periode tertentu setelah implementasi</div></div></div>
+  </div>
+</div>
+
+<div id="p-rca" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa Root Cause Analysis (RCA) sangat penting?</div>
+    <div class="narasi-text">Menangani gejala insiden tanpa mencari akar penyebabnya ibarat mengobati demam tanpa mencari penyakitnya — insiden yang sama akan <strong>terulang kembali</strong>. Baik ISO/IEC 27001:2022 (A 5.27) maupun ITIL 4 (Problem Management) mewajibkan organisasi untuk <strong>belajar dari setiap insiden</strong> dan menerapkan perbaikan nyata yang mencegah pengulangan. RCA adalah proses yang terstruktur — bukan sesi menyalahkan orang.</div>
+  </div>
+
+  <div class="sec sc-y" style="margin-bottom:8px"><span class="dot dot-y"></span>Metode RCA yang umum digunakan</div>
+
+  <div class="rca-box">
+    <div class="rca-header"><div class="rca-num">01</div><div class="rca-title">5 Whys — tanya "Mengapa?" hingga akar ditemukan</div></div>
+    <div class="rca-desc">Teknik paling sederhana: mulai dari masalah permukaan, tanya "mengapa?" berulang kali (biasanya 5 kali) hingga menemukan akar penyebab yang sebenarnya. Hindari berhenti terlalu cepat di gejala.</div>
+    <div class="rca-ex">Contoh: Sistem down → Mengapa? Server restart → Mengapa? Disk penuh → Mengapa? Log tidak dibersihkan → Mengapa? Tidak ada automated cleanup → Mengapa? Tidak ada monitoring disk usage → Akar penyebab ditemukan</div>
+  </div>
+
+  <div class="rca-box">
+    <div class="rca-header"><div class="rca-num">02</div><div class="rca-title">Fishbone Diagram (Ishikawa) — analisis kategori penyebab</div></div>
+    <div class="rca-desc">Memetakan semua kemungkinan penyebab dalam kategori: People (SDM), Process (proses), Technology (teknologi), Environment (lingkungan), dan Policy (kebijakan). Cocok untuk insiden kompleks dengan banyak faktor berkontribusi.</div>
+    <div class="rca-ex">Contoh kategorisasi: People → tidak ada awareness training. Process → tidak ada prosedur patch management. Technology → sistem tidak ter-update. Policy → tidak ada kebijakan wajib update.</div>
+  </div>
+
+  <div class="rca-box">
+    <div class="rca-header"><div class="rca-num">03</div><div class="rca-title">Timeline Analysis — rekonstruksi kronologi kejadian</div></div>
+    <div class="rca-desc">Rekonstruksi urutan kejadian secara kronologis berdasarkan log, laporan, dan bukti yang ada. Membantu memahami bagaimana insiden berkembang, di mana deteksi seharusnya terjadi, dan di mana kontrol gagal bekerja.</div>
+    <div class="rca-ex">Contoh: T+0 malware masuk via email → T+2h penyebaran lateral → T+6h data dieksfiltrasi → T+24h baru terdeteksi. Temuan: gap di deteksi dan monitoring real-time.</div>
+  </div>
+
+  <div class="sec sc-y" style="margin-bottom:8px"><span class="dot dot-y"></span>Tiga jenis tindakan yang harus dihasilkan dari RCA</div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y" style="margin-bottom:8px"><span class="dot dot-y"></span>Tindakan korektif</div>
+      <div class="it"><div class="ck ck-y">C</div><div class="tx tx-y"><strong>Perbaiki masalah yang sudah terjadi</strong> — tutup celah keamanan, perbaiki konfigurasi yang salah, perbarui prosedur yang tidak memadai</div></div>
+      <div class="it"><div class="ck ck-y">C</div><div class="tx tx-y"><strong>Tetapkan PIC dan deadline</strong> yang jelas untuk setiap tindakan korektif yang diidentifikasi</div></div>
+      <div class="it"><div class="ck ck-y">C</div><div class="tx tx-y"><strong>Verifikasi efektivitas</strong> tindakan korektif setelah diimplementasikan — pastikan masalah benar-benar tertangani</div></div>
+    </div>
+    <div class="card card-b">
+      <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Tindakan preventif</div>
+      <div class="it"><div class="ck ck-b">P</div><div class="tx tx-b"><strong>Cegah insiden serupa di masa depan</strong> — perkuat kontrol, tingkatkan monitoring, atau perbarui kebijakan yang relevan</div></div>
+      <div class="it"><div class="ck ck-b">P</div><div class="tx tx-b"><strong>Evaluasi apakah risiko serupa ada</strong> di sistem lain yang belum terdampak — proaktif sebelum insiden berikutnya</div></div>
+      <div class="it"><div class="ck ck-b">P</div><div class="tx tx-b"><strong>Update threat model dan risk register</strong> berdasarkan pola insiden yang terjadi secara berkala</div></div>
+    </div>
+  </div>
+
+  <div class="card card-g">
+    <div class="sec sc-g"><span class="dot dot-g"></span>Lessons learned — wajib didokumentasikan & disebarkan (ISO A 5.27)</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan dalam laporan insiden</strong> yang lengkap — apa yang terjadi, timeline, dampak, tindakan yang diambil, dan rekomendasi</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Bagikan lessons learned</strong> ke seluruh tim yang relevan — bukan hanya IT Security, tapi juga divisi yang terdampak</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update prosedur dan runbook</strong> berdasarkan pengalaman nyata dari insiden yang terjadi</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan sebagai bahan awareness training</strong> — insiden nyata (yang dianonimkan) adalah materi training paling efektif</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan tren insiden</strong> ke manajemen secara berkala — tren adalah sinyal awal risiko yang berkembang</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Simpan sebagai referensi</strong> untuk audit internal dan eksternal ISO 27001 — bukti continual improvement</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kewajiban setiap pegawai (ISO A 6.8)</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan segera</strong> setiap event atau potensi insiden keamanan — jangan tunggu yakin dulu, lebih baik lapor dan ternyata bukan insiden</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan saluran pelaporan resmi</strong> — ticketing system, email IT Security, atau hotline insiden yang ditetapkan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Catat semua detail</strong> — waktu, sistem terdampak, apa yang dilihat/dialami, dan tindakan yang sudah dilakukan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Jangan hapus atau modifikasi</strong> bukti apapun — screenshot, log, email, atau file yang berkaitan dengan insiden</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kooperatif dengan investigasi</strong> — berikan informasi yang dibutuhkan tim IT Security secara lengkap dan jujur</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kewajiban tim IT Security & manajemen</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Respons sesuai SLA</strong> berdasarkan severity — P1 dalam 1 jam, P2 dalam 4 jam, P3 dalam 24 jam</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan seluruh proses</strong> penanganan insiden — dari deteksi hingga penutupan — secara lengkap dan akurat</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan post-incident review</strong> untuk setiap insiden P1 dan P2, serta insiden berulang di semua level</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update prosedur dan kontrol</strong> berdasarkan lessons learned dari setiap insiden yang terjadi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan simulasi insiden (tabletop exercise)</strong> secara berkala untuk memastikan kesiapan tim respons</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Dokumentasi yang wajib dibuat</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Incident ticket / laporan insiden</strong> — dengan nomor unik, timestamp, klasifikasi, dan status penanganan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Evidence log</strong> — daftar semua bukti yang dikumpulkan, lokasi penyimpanan, dan chain of custody</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporan RCA</strong> — akar penyebab, timeline, dampak, tindakan korektif, dan PIC beserta deadline</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporan lessons learned</strong> — rekomendasi perbaikan dan bukti implementasinya untuk kebutuhan audit</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kesiapan proaktif sebelum insiden terjadi</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan prosedur respons insiden</strong> terdokumentasi, mudah diakses, dan diperbarui secara berkala</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Latih tim IRT (Incident Response Team)</strong> secara reguler melalui tabletop exercise dan simulasi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan backup data</strong> rutin berjalan dan telah diuji pemulihannya — backup yang tidak diuji bukan backup</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan monitoring dan alerting</strong> di semua sistem kritikal untuk deteksi dini sebelum menjadi insiden besar</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan saat insiden terjadi</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>sembunyikan atau tunda pelaporan</strong> insiden — semakin cepat dilaporkan, semakin kecil dampaknya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>coba tangani sendiri</strong> insiden keamanan tanpa melibatkan tim IT Security yang berwenang</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>hapus, modifikasi, atau overwrite</strong> log dan file yang mungkin menjadi bukti forensik insiden</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>matikan atau restart sistem</strong> yang terdampak sebelum mendapat instruksi dari tim IT Security — bisa menghilangkan bukti volatile</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>sebarkan informasi insiden</strong> ke luar jalur resmi — termasuk media sosial, grup chat pribadi, atau media sebelum mendapat otorisasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>bayar ransom</strong> tanpa persetujuan manajemen dan konsultasi dengan pihak berwenang — tidak ada jaminan data dikembalikan</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan pasca insiden</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>tutup insiden tanpa post-incident review</strong> — insiden yang tidak dianalisis akan berulang</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>hanya tangani gejala</strong> tanpa mencari akar penyebab sebenarnya melalui RCA yang proper</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>simpan lessons learned hanya untuk diri sendiri</strong> — wajib dibagikan ke semua pihak yang relevan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan tindakan korektif</strong> yang sudah diidentifikasi — pantau implementasinya hingga selesai</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>pulihkan sistem dari backup</strong> yang belum diverifikasi bersih — bisa menginfeksi ulang sistem yang baru dipulihkan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>anggap insiden selesai</strong> hanya karena layanan sudah pulih — pastikan akar penyebab sudah diatasi</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan dalam budaya pelaporan</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>hukum atau salahkan individu</strong> yang melaporkan insiden dengan itikad baik — ini akan membuat orang takut melapor</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>menciptakan budaya ketakutan</strong> melapor — setiap insiden adalah kesempatan belajar, bukan ajang menyalahkan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan insiden "under the radar"</strong> karena khawatir reputasi — semakin lama disembunyikan, semakin besar dampaknya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>normalisasi insiden kecil</strong> — insiden berulang meski kecil adalah sinyal masalah sistemik yang lebih besar</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan dalam persiapan & kesiapan</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tidak memiliki Incident Response Plan</strong> yang terdokumentasi — tanpa rencana, respons akan kacau dan lambat</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>skip latihan dan simulasi</strong> respons insiden — kemampuan tim tidak terbentuk hanya dari membaca prosedur</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan backup tidak diuji</strong> — backup yang tidak pernah diuji pemulihan adalah false sense of security</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>menganggap insiden tidak akan terjadi</strong> — pertanyaannya bukan "apakah" tapi "kapan" — dan apakah kita siap</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Deteksi cepat · Respons tepat · Belajar tuntas · Perbaiki nyata"</span></div>
+    <div class="footer-sub">ISO/IEC 27001:2022 (A 5.24–5.28, A 6.8) · ITIL 4 Incident & Problem Management Practice</div>
+  </div>
+  <div class="footer-right">SMKI — Incident Management<br>Awareness Program 2024</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','alur','rca','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

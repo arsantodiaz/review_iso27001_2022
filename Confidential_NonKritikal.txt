@@ -1,0 +1,28 @@
+[Data Karyawan] — TEPAT: Berisi data pribadi (alamat, kontak, dll) yang wajib dilindungi (Confidential), namun hilangnya sebagian data ini tidak akan melumpuhkan operasional perusahaan secara total (Non-Kritikal). Tapi ini dianggap krital saat adanya kebocoran data yang bisa mengakibatkan adanya denda bagi perusahaan.
+
+[Data Nasabah] — SALAH. Data nasabah adalah aset Kritikal. Kebocoran atau hilangnya data nasabah berakibat pada sanksi hukum berat (UU PDP/OJK), tuntutan ganti rugi, dan hilangnya kepercayaan publik yang bisa menghentikan bisnis seketika.
+
+[Data Absensi Karyawan] — TEPAT: Berisi informasi personal (jam masuk/pulang) yang bersifat rahasia secara internal (Confidential), namun jika data ini hilang, operasional utama perusahaan tetap bisa berjalan (Non-Kritikal).
+
+[Data Internal Training Karyawan] — TEPAT: Berisi catatan kompetensi dan nilai pelatihan individu yang wajib dijaga kerahasiaannya (Confidential), tetapi hilangnya data ini hanya bersifat administratif dan tidak melumpuhkan bisnis (Non-Kritikal).
+
+[Data Nasabah] — SALAH. Data nasabah adalah aset Kritikal. Kebocoran data ini berdampak langsung pada sanksi hukum berat (UU PDP), denda regulasi (OJK/BI), dan hilangnya kepercayaan publik yang dapat menghentikan bisnis secara permanen.
+
+[Data Karyawan] — TEPAT. Berisi data pribadi yang wajib dilindungi (Confidential), namun hilangnya data ini biasanya bersifat administratif dan tidak melumpuhkan operasional inti perusahaan secara instan (Non-Kritikal).
+
+
+[Data Absensi Karyawan] — TEPAT: Mengandung data pribadi dan pola kehadiran (Confidential), namun jika data ini hilang atau rusak, perusahaan masih bisa menjalankan operasional intinya (Non-Kritikal).
+
+[Data Gaji Internal (Non-Executive Level)] — TEPAT: Bersifat rahasia bagi individu dan perusahaan (Confidential). Untuk level non-eksekutif, meskipun penting secara administrasi, hilangnya data ini tidak akan melumpuhkan kelangsungan bisnis secara sistemik (Non-Kritikal).
+
+
+Data Slip Gaji Karyawan - Confidential - Non-Kritikal >> Sudah sesuai karena data gaji mengandung informasi pribadi (PII) yang bersifat rahasia secara personal, namun jika aksesnya terganggu sementara, operasional inti perusahaan tetap bisa berjalan.
+
+Aset Informasi - Notulen Rapat - Confidential - Non-Kritikal >> Sudah sesuai karena catatan rapat internal sering kali membahas strategi atau keputusan manajemen yang bersifat rahasia, tetapi ketiadaan dokumen ini tidak akan menghentikan proses bisnis utama secara mendadak.
+
+
+Aset Informasi - Claim Ratio Perusahaan - Confidential - Kritikal >> Klasifikasi salah karena data rasio klaim merupakan indikator kesehatan finansial dan performa bisnis utama yang sangat sensitif sekaligus vital; jika bocor, dapat merusak kepercayaan pasar/pemangku kepentingan, dan jika hilang, perusahaan kehilangan basis data untuk mitigasi risiko asuransi. Sesuai prinsip ISO 27001, data yang menjadi inti bisnis bersifat Kritikal, bukan Non-Kritikal.
+
+Dokumen Laporan Keuangan - Departemen Keuangan - Confidential - Non Kritikal >> Sudah sesuai karena mengandung rahasia finansial sensitif namun kehilangan dokumen tidak menghentikan operasional bisnis secara langsung. Aset ini menjadi Kritikal jika berupa database transaksi real-time yang diperlukan untuk menjalankan aktivitas keuangan harian.
+
+

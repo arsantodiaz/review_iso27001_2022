@@ -1,0 +1,363 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#0a0a18;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(212,83,126,0.1)}
+.hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:90px;height:90px;border-radius:50%;background:rgba(127,119,221,0.07)}
+.hero-badge{display:inline-block;background:rgba(212,83,126,0.18);border:1px solid rgba(212,83,126,0.35);color:#f472b6;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#f472b6}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#0a0a18;color:#f472b6;border-color:#993556}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-pk{background:#18050f;border-color:rgba(212,83,126,0.2)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-pk{background:rgba(212,83,126,0.15);border:1.5px solid #d4537e;font-size:9px;color:#f472b6;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-pk{color:rgba(244,114,182,0.85)}.tx-pk strong{color:#f9a8d4;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-pk{color:#f472b6}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-pk{background:#d4537e}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#f472b6;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+.badge-pk{background:rgba(212,83,126,0.15);color:#f472b6;border:1px solid rgba(212,83,126,0.25)}
+
+.lifecycle{display:flex;flex-direction:column;gap:0}
+.lc-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.lc-num{width:28px;height:28px;border-radius:50%;background:#72243e;color:#f9a8d4;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #993556}
+.lc-line{width:1px;height:10px;background:rgba(212,83,126,0.2);margin-left:14px}
+.lc-body{flex:1}
+.lc-title{font-size:12px;font-weight:500;color:#f472b6;margin-bottom:2px}
+.lc-desc{font-size:11px;color:rgba(244,114,182,0.65);line-height:1.4}
+
+.risk-table{width:100%;border-collapse:collapse;font-size:11px}
+.risk-table th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:6px 8px;text-align:left;border-bottom:1px solid var(--color-border-tertiary);letter-spacing:.04em;text-transform:uppercase}
+.risk-table td{padding:7px 8px;border-bottom:1px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-secondary);font-size:11px;line-height:1.4}
+.risk-table tr:last-child td{border-bottom:none}
+.risk-table .dept{font-weight:500;color:var(--color-text-primary)}
+
+.contract-item{border-radius:10px;padding:12px 14px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);margin-bottom:8px}
+.ci-header{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.ci-num{width:20px;height:20px;border-radius:5px;background:rgba(212,83,126,0.15);color:#f472b6;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-title{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.ci-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.5;padding-left:28px}
+
+.risk-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.risk-name{font-size:11px;color:var(--color-text-secondary);flex:1}
+.risk-bar-w{width:110px;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;flex-shrink:0}
+.risk-bar{height:100%;border-radius:3px}
+.rb-r{background:#e24b4a}.rb-y{background:#ef9f27}.rb-g{background:#1d9e75}
+.risk-lbl{font-size:10px;font-weight:500;width:72px;text-align:right;flex-shrink:0}
+.pct-r{color:#f87171}.pct-y{color:#fbbf24}.pct-g{color:#34d399}
+
+.footer{background:#0a0a18;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#f472b6}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Supplier & Supply Chain Security</div>
+  <h1>Pengelolaan <span>Pemasok (Supplier)</span><br>& Keamanan Rantai Pasok</h1>
+  <p>Supplier onboarding · NDA · Awareness · Monitoring kinerja · Supply chain risk · Third-party security</p>
+  <div class="hero-icon">🤝</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi & Konsep</div>
+  <div class="tab" onclick="sw('lifecycle')">Siklus Supplier</div>
+  <div class="tab" onclick="sw('kontrak')">Kontrak & NDA</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa keamanan supplier & supply chain sangat kritis?</div>
+    <div class="narasi-text">Organisasi tidak beroperasi sendirian. Setiap vendor, pemasok, kontraktor, dan mitra yang berinteraksi dengan sistem, data, atau proses bisnis kita adalah <strong>perpanjangan dari permukaan serangan</strong> (attack surface) organisasi. Penyerang yang tidak bisa menembus pertahanan organisasi secara langsung akan mencari celah melalui <strong>pihak ketiga yang lebih lemah</strong>.<br><br>Serangan supply chain seperti kasus SolarWinds (2020) membuktikan bahwa <strong>satu pemasok yang dikompromikan bisa berdampak ke ribuan organisasi</strong> sekaligus. Keamanan kita hanya sekuat rantai paling lemah — dan jika kita tidak mengelola supplier dengan benar, justru kita sendiri yang menciptakan titik lemah itu.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Tiga pilar pengelolaan supplier yang aman</div>
+    <div class="narasi-text"><strong>1. Seleksi & Due Diligence</strong> — Sebelum mengikat kontrak, lakukan penilaian keamanan terhadap calon supplier. Apakah mereka punya kebijakan keamanan informasi? Apakah mereka sudah tersertifikasi (ISO 27001, SOC 2)? Bagaimana mereka mengelola data pelanggan mereka sendiri?<br><br><strong>2. Kontrak & Perjanjian yang Ketat</strong> — Semua persyaratan keamanan harus tertuang secara eksplisit dalam kontrak — bukan hanya di NDA, tapi juga di klausul keamanan, hak audit, insiden response, dan konsekuensi pelanggaran.<br><br><strong>3. Monitoring Berkelanjutan</strong> — Hubungan dengan supplier tidak berhenti di penandatanganan kontrak. Lakukan progress meeting berkala, review kinerja keamanan, dan audit jika diperlukan. Supplier yang kinerja keamanannya menurun harus segera ditangani.</div>
+  </div>
+
+  <div class="sec sc-pk" style="margin-bottom:8px"><span class="dot dot-pk"></span>Risiko keamanan dari supplier yang tidak dikelola</div>
+  <div class="card card-pk" style="margin-bottom:10px">
+    <div class="risk-row"><span class="risk-name">Supply chain attack melalui software supplier</span><div class="risk-bar-w"><div class="risk-bar rb-r" style="width:95%"></div></div><span class="risk-lbl pct-r">Sangat Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Kebocoran data via akses supplier yang tidak terkontrol</span><div class="risk-bar-w"><div class="risk-bar rb-r" style="width:88%"></div></div><span class="risk-lbl pct-r">Sangat Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Data bocor melalui sub-kontraktor supplier</span><div class="risk-bar-w"><div class="risk-bar rb-r" style="width:82%"></div></div><span class="risk-lbl pct-r">Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Supplier tidak patuh regulasi (GDPR, UU PDP)</span><div class="risk-bar-w"><div class="risk-bar rb-y" style="width:72%"></div></div><span class="risk-lbl pct-y">Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Akses supplier tidak dicabut setelah kontrak berakhir</span><div class="risk-bar-w"><div class="risk-bar rb-y" style="width:68%"></div></div><span class="risk-lbl pct-y">Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Supplier tidak punya incident response plan</span><div class="risk-bar-w"><div class="risk-bar rb-y" style="width:60%"></div></div><span class="risk-lbl pct-y">Sedang</span></div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Supply chain attack — ancaman yang sering diremehkan</div>
+    <div class="narasi-text">Serangan rantai pasok terjadi ketika penyerang <strong>mengkompromikan supplier atau vendor</strong> untuk kemudian menggunakan akses atau kepercayaan tersebut untuk menyerang organisasi target. Contoh nyata:<br><br>• <strong>SolarWinds (2020)</strong> — penyerang menyisipkan malware ke update software yang didistribusikan ke 18.000+ organisasi termasuk pemerintah AS<br>• <strong>NotPetya (2017)</strong> — menyebar melalui software akuntansi yang dikompromikan di Ukraina, menyebabkan kerugian miliaran dolar global<br>• <strong>CCleaner Attack (2017)</strong> — tools populer yang dikompromikan untuk menyebarkan backdoor ke jutaan pengguna<br><br>Pertahanan terbaik: <strong>verifikasi, batasi, dan pantau</strong> setiap akses yang diberikan kepada supplier.</div>
+  </div>
+
+</div>
+
+<div id="p-lifecycle" class="panel">
+  <div class="sec sc-pk" style="margin-bottom:8px"><span class="dot dot-pk"></span>Siklus pengelolaan supplier — dari seleksi hingga offboarding</div>
+
+  <div class="card card-pk" style="margin-bottom:10px">
+    <div class="lifecycle">
+      <div class="lc-step">
+        <div class="lc-num">1</div>
+        <div class="lc-body">
+          <div class="lc-title">Seleksi & Due Diligence <span class="badge badge-pk" style="margin-left:6px">Sebelum kontrak</span></div>
+          <div class="lc-desc">Evaluasi postur keamanan calon supplier — tanyakan sertifikasi keamanan (ISO 27001, SOC 2), kebijakan privasi, cara pengelolaan data, dan riwayat insiden keamanan. Lakukan security questionnaire untuk supplier dengan akses ke sistem atau data sensitif. Nilai apakah supplier menggunakan sub-kontraktor dan bagaimana mereka mengelolanya.</div>
+        </div>
+      </div>
+      <div class="lc-line"></div>
+      <div class="lc-step">
+        <div class="lc-num">2</div>
+        <div class="lc-body">
+          <div class="lc-title">Kontrak & Penandatanganan NDA <span class="badge badge-y" style="margin-left:6px">Wajib sebelum akses</span></div>
+          <div class="lc-desc">Sebelum supplier diberikan akses apapun ke sistem, data, atau fasilitas — NDA dan kontrak dengan klausul keamanan lengkap harus ditandatangani. Klausul harus mencakup: kewajiban kerahasiaan, standar keamanan yang harus dipenuhi, hak audit, prosedur pelaporan insiden, dan konsekuensi pelanggaran.</div>
+        </div>
+      </div>
+      <div class="lc-line"></div>
+      <div class="lc-step">
+        <div class="lc-num">3</div>
+        <div class="lc-body">
+          <div class="lc-title">Onboarding & Awareness Keamanan <span class="badge badge-b" style="margin-left:6px">Hari pertama</span></div>
+          <div class="lc-desc">Berikan awareness keamanan informasi kepada seluruh personel supplier yang akan berinteraksi dengan sistem atau data organisasi. Ini mencakup: kebijakan keamanan yang berlaku, prosedur akses, larangan dan sanksi, serta cara melaporkan insiden. Dokumentasikan bahwa awareness telah diberikan dan dipahami.</div>
+        </div>
+      </div>
+      <div class="lc-line"></div>
+      <div class="lc-step">
+        <div class="lc-num">4</div>
+        <div class="lc-body">
+          <div class="lc-title">Pemberian Akses Terbatas & Terkontrol <span class="badge badge-y" style="margin-left:6px">Least privilege</span></div>
+          <div class="lc-desc">Berikan akses hanya ke sistem dan data yang benar-benar dibutuhkan untuk scope pekerjaan — tidak lebih. Buat akun khusus supplier yang bisa dipantau dan dicabut kapan saja. Gunakan segmentasi jaringan agar akses supplier tidak bisa lateral ke sistem lain. Aktifkan MFA untuk semua akun supplier.</div>
+        </div>
+      </div>
+      <div class="lc-line"></div>
+      <div class="lc-step">
+        <div class="lc-num">5</div>
+        <div class="lc-body">
+          <div class="lc-title">Monitoring & Progress Meeting Berkala <span class="badge badge-g" style="margin-left:6px">Ongoing</span></div>
+          <div class="lc-desc">Lakukan progress meeting secara berkala untuk memonitor kinerja dan kepatuhan keamanan supplier. Review log akses supplier secara reguler. Pantau apakah ada perubahan di pihak supplier (pergantian personel, akuisisi, insiden keamanan) yang bisa mempengaruhi risiko. Dokumentasikan setiap pertemuan dan tindak lanjutnya.</div>
+        </div>
+      </div>
+      <div class="lc-line"></div>
+      <div class="lc-step">
+        <div class="lc-num">6</div>
+        <div class="lc-body">
+          <div class="lc-title">Review Kesesuaian Hasil Pekerjaan <span class="badge badge-g" style="margin-left:6px">Per deliverable</span></div>
+          <div class="lc-desc">Setiap deliverable dari supplier harus direview kesesuaiannya dengan perjanjian dan spesifikasi keamanan yang telah ditetapkan. Untuk software atau sistem yang dikembangkan supplier, lakukan security testing sebelum diintegrasikan. Jangan terima deliverable yang tidak memenuhi standar keamanan yang disyaratkan.</div>
+        </div>
+      </div>
+      <div class="lc-line"></div>
+      <div class="lc-step">
+        <div class="lc-num">7</div>
+        <div class="lc-body">
+          <div class="lc-title">Offboarding Supplier <span class="badge badge-r" style="margin-left:6px">Kritikal</span></div>
+          <div class="lc-desc">Saat kontrak berakhir atau hubungan diputus: cabut semua akses sistem pada hari yang sama, minta pengembalian atau penghapusan data yang diberikan, verifikasi bahwa tidak ada data yang masih tersimpan di pihak supplier, dokumentasikan seluruh proses offboarding. Kewajiban kerahasiaan dalam NDA tetap berlaku setelah kontrak berakhir.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-kontrak" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa NDA saja tidak cukup?</div>
+    <div class="narasi-text">NDA (Non-Disclosure Agreement) melindungi kerahasiaan informasi, tetapi <strong>tidak mengatur bagaimana supplier mengelola keamanan informasi tersebut</strong>. Dibutuhkan klausul keamanan yang lebih komprehensif dalam perjanjian — biasanya disebut <strong>Information Security Agreement (ISA)</strong> atau <strong>Data Processing Agreement (DPA)</strong> — yang secara eksplisit mengatur standar keamanan yang harus dipenuhi supplier.</div>
+  </div>
+
+  <div class="sec sc-pk" style="margin-bottom:8px"><span class="dot dot-pk"></span>Klausul keamanan yang wajib ada dalam kontrak supplier</div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">01</div><div class="ci-title">Kewajiban kerahasiaan & NDA</div></div>
+    <div class="ci-desc">Seluruh informasi yang diterima dari organisasi bersifat rahasia dan tidak boleh dibagikan ke pihak lain tanpa persetujuan tertulis. Kewajiban ini tetap berlaku setelah kontrak berakhir (biasanya 3–5 tahun atau selamanya untuk data sangat sensitif).</div>
+  </div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">02</div><div class="ci-title">Standar keamanan minimum yang harus dipenuhi</div></div>
+    <div class="ci-desc">Tentukan standar keamanan minimum yang wajib dipenuhi supplier — misalnya ISO 27001, SOC 2, atau persyaratan spesifik seperti enkripsi data, kebijakan password, dan patch management. Supplier harus membuktikan kepatuhan secara berkala.</div>
+  </div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">03</div><div class="ci-title">Pembatasan sub-kontraktor</div></div>
+    <div class="ci-desc">Supplier harus mendapat persetujuan tertulis sebelum menggunakan sub-kontraktor yang akan berinteraksi dengan data atau sistem organisasi. Sub-kontraktor harus tunduk pada persyaratan keamanan yang sama dengan supplier utama.</div>
+  </div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">04</div><div class="ci-title">Kewajiban pelaporan insiden keamanan</div></div>
+    <div class="ci-desc">Supplier wajib melaporkan insiden keamanan yang berpotensi berdampak pada data atau sistem organisasi dalam batas waktu yang ditentukan (biasanya 24–72 jam). Termasuk insiden di sistem supplier sendiri yang mungkin mempengaruhi data yang mereka kelola untuk kita.</div>
+  </div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">05</div><div class="ci-title">Hak audit & assessment</div></div>
+    <div class="ci-desc">Organisasi berhak melakukan audit keamanan terhadap supplier, baik secara langsung maupun melalui pihak ketiga yang ditunjuk, untuk memverifikasi kepatuhan terhadap persyaratan keamanan yang disepakati. Supplier harus kooperatif dan menyediakan akses yang diperlukan.</div>
+  </div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">06</div><div class="ci-title">Prosedur pengembalian & penghapusan data</div></div>
+    <div class="ci-desc">Saat kontrak berakhir, supplier wajib mengembalikan atau menghapus semua data organisasi secara permanen dalam waktu yang ditentukan, dan menyediakan bukti penghapusan yang dapat diverifikasi (certificate of destruction).</div>
+  </div>
+
+  <div class="contract-item">
+    <div class="ci-header"><div class="ci-num">07</div><div class="ci-title">Sanksi & konsekuensi pelanggaran</div></div>
+    <div class="ci-desc">Tentukan secara eksplisit konsekuensi jika supplier melanggar persyaratan keamanan — mulai dari denda, pemutusan kontrak, hingga kewajiban mengganti kerugian akibat insiden yang terjadi karena kelalaian supplier.</div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Checklist sebelum onboard supplier</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>NDA dan kontrak</strong> dengan klausul keamanan lengkap sudah ditandatangani</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Security questionnaire</strong> sudah diisi dan dievaluasi hasilnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Awareness keamanan</strong> sudah diberikan ke seluruh personel supplier</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Akun & akses</strong> sudah dibuat dengan prinsip least privilege dan MFA aktif</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Jadwal monitoring</strong> dan progress meeting sudah ditetapkan</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Checklist saat offboard supplier</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Semua akses sistem</strong> dicabut di hari yang sama dengan tanggal berakhirnya kontrak</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Data dikembalikan atau dihapus</strong> dan supplier menyediakan bukti penghapusan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Akun VPN, email, dan sistem</strong> dinonaktifkan dan dihapus</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Seluruh proses offboarding</strong> didokumentasikan secara tertulis</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ingatkan kembali</strong> kewajiban kerahasiaan yang tetap berlaku setelah kontrak berakhir</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Seleksi & due diligence</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan security assessment</strong> terhadap calon supplier sebelum kontrak ditandatangani</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Minta bukti sertifikasi keamanan</strong> (ISO 27001, SOC 2) atau hasil audit keamanan terbaru</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kategorikan supplier</strong> berdasarkan tingkat akses dan risiko — perlakukan berbeda sesuai kategorinya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tanyakan pengelolaan sub-kontraktor</strong> — pastikan rantai keamanan tidak putus di level berikutnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Nilai rencana respons insiden</strong> supplier — apakah mereka punya prosedur jika terjadi kebocoran data?</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Awareness & onboarding</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Berikan awareness keamanan</strong> kepada seluruh personel supplier sebelum akses diberikan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan bahwa awareness telah diterima</strong> — minta tanda tangan atau konfirmasi tertulis</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Refresh awareness secara berkala</strong> — minimal setahun sekali atau saat ada perubahan kebijakan penting</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Berikan aturan akses fisik</strong> yang jelas — area mana yang boleh dan tidak boleh diakses supplier</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Monitoring & review kinerja</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan progress meeting berkala</strong> — jadwalkan dan dokumentasikan setiap pertemuan dengan supplier</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Review log akses supplier</strong> secara berkala — deteksi pola akses yang tidak wajar atau di luar jam kerja</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan audit berkala</strong> untuk supplier dengan akses ke data sangat sensitif</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Review deliverable terhadap spesifikasi keamanan</strong> yang disepakati sebelum menerima hasil pekerjaan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Monitor berita & insiden keamanan</strong> yang melibatkan supplier — reaksi cepat jika ada indikasi kompromi</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Akses & kontrol teknis</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Buat akun supplier yang terisolasi</strong> — pisahkan dari akun internal, mudah dipantau dan dicabut</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan MFA</strong> untuk semua akun supplier yang mengakses sistem internal</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Batasi waktu akses</strong> — akses hanya aktif saat jam kerja atau saat dibutuhkan, bukan 24/7</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dampingi supplier</strong> saat mengakses sistem atau area kritikal — jangan biarkan tanpa pengawasan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Cabut akses segera</strong> setelah kontrak berakhir atau ketika ada personel supplier yang berganti</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan sebelum & saat onboarding</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>berikan akses sistem apapun</strong> kepada supplier sebelum NDA dan kontrak keamanan ditandatangani</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>skip security assessment</strong> karena supplier sudah dikenal atau sudah lama bekerja sama</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>berikan akses lebih luas</strong> dari yang dibutuhkan untuk scope pekerjaan mereka</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>izinkan supplier akses 24/7</strong> jika scope pekerjaan tidak membutuhkannya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan supplier membawa sub-kontraktor</strong> tanpa persetujuan dan penilaian keamanan terlebih dahulu</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan selama masa kontrak</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan supplier tanpa pengawasan</strong> saat mengakses area atau sistem kritikal</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>berikan data lebih dari yang diperlukan</strong> — prinsip data minimization berlaku untuk supplier</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan perubahan di pihak supplier</strong> — pergantian kepemilikan, PHK massal, atau insiden di sisi mereka adalah sinyal risiko</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>terima deliverable tanpa review keamanan</strong> — terutama untuk software atau sistem yang akan diintegrasikan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>skip progress meeting</strong> — monitoring aktif adalah cara paling efektif mendeteksi masalah lebih awal</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan saat offboarding supplier</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tunda pencabutan akses</strong> setelah kontrak berakhir — satu hari pun sudah menjadi risiko</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>lupa cabut akses VPN, email, sistem, dan badge</strong> fisik sekaligus — jangan sampai ada yang terlewat</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan data organisasi</strong> tetap tersimpan di pihak supplier tanpa konfirmasi penghapusan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan dokumentasi offboarding</strong> — tanpa rekam jejak yang jelas, sulit membuktikan kepatuhan saat audit</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait supply chain</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>install software dari supplier</strong> tanpa melalui security review dan pengujian terlebih dahulu</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan update keamanan</strong> dari software supplier — patch bisa menutup kerentanan kritis</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>percaya begitu saja</strong> pada sertifikasi supplier — verifikasi validity dan cakupan sertifikasinya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan satu supplier jadi single point of failure</strong> tanpa rencana kontingensi jika terjadi insiden di pihak mereka</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Keamanan kita hanya sekuat rantai paling lemah — kelola supplier seketat kamu mengelola sistem internal"</span></div>
+    <div class="footer-sub">Verifikasi, batasi, pantau, dan cabut akses supplier secara konsisten sepanjang siklus hubungan kerja</div>
+  </div>
+  <div class="footer-right">SMKI — Supplier Security<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','lifecycle','kontrak','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

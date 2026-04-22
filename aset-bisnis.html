@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventaris Aset — Departemen Bisnis | PT Asuransi Jiwa</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F5F0;
+  --bg2: #EEEAE2;
+  --bg3: #E4DFD4;
+  --card: #FFFFFF;
+  --border: #D5CFBF;
+  --text: #1C1A15;
+  --muted: #7A7264;
+  --navy: #1A2744;
+  --gold: #B8960C;
+  --gold2: #D4A843;
+  --gold3: #F5D77A;
+
+  /* dept colors */
+  --hc:     #2E7D6E;
+  --hc-bg:  rgba(46,125,110,0.10);
+  --gaf:    #6B4F9E;
+  --gaf-bg: rgba(107,79,158,0.10);
+  --legal:  #A0421D;
+  --legal-bg:rgba(160,66,29,0.10);
+  --mkt:    #1565C0;
+  --mkt-bg: rgba(21,101,192,0.10);
+  --claim:  #C62828;
+  --claim-bg:rgba(198,40,40,0.10);
+  --cs:     #00695C;
+  --cs-bg:  rgba(0,105,92,0.10);
+  --risk:   #4527A0;
+  --risk-bg:rgba(69,39,160,0.10);
+
+  /* sens */
+  --s-conf: #B71C1C;
+  --s-conf-bg: rgba(183,28,28,0.08);
+  --s-rest: #E65100;
+  --s-rest-bg: rgba(230,81,0,0.08);
+  --s-int:  #1565C0;
+  --s-int-bg:  rgba(21,101,192,0.08);
+  --s-pub:  #2E7D32;
+  --s-pub-bg:  rgba(46,125,50,0.08);
+
+  /* krit */
+  --k-yes: #6A1B9A;
+  --k-yes-bg: rgba(106,27,154,0.08);
+  --k-no:  #546E7A;
+  --k-no-bg:  rgba(84,110,122,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ──────────────────────────────── */
+.header {
+  background: var(--navy);
+  padding: 2rem 2.5rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold3) 50%, var(--gold) 100%);
+}
+.header::before {
+  content: 'ASET';
+  position: absolute;
+  right: 1.5rem; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.03);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+}
+
+.header-inner { max-width: 1700px; margin: 0 auto; }
+.header-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 0.6rem;
+}
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+  line-height: 1.15;
+}
+.header h1 em { color: var(--gold3); font-style: normal; }
+.header-sub { color: rgba(255,255,255,0.45); font-size: 0.78rem; font-weight: 300; margin-bottom: 1.4rem; }
+
+.stats-row { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+.stat-chip {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 0.45rem 0.9rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.stat-chip .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--gold3);
+  line-height: 1;
+}
+.stat-chip .lbl { font-size: 0.62rem; color: rgba(255,255,255,0.4); line-height: 1.3; }
+
+/* ── CONTROLS ──────────────────────────────── */
+.controls {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 2.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(28,26,21,0.06);
+}
+.controls-inner {
+  max-width: 1700px; margin: 0 auto;
+  display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;
+}
+.ctrl-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+input.search {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  padding: 0.42rem 0.85rem;
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 0.77rem;
+  width: 210px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+input.search:focus { border-color: var(--gold); background: #fff; }
+input.search::placeholder { color: var(--muted); }
+
+select.sel {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  padding: 0.42rem 0.8rem;
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 0.72rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+select.sel:focus { border-color: var(--gold); }
+select.sel option { background: var(--bg2); }
+
+.btn-reset {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  color: var(--muted);
+  padding: 0.42rem 0.75rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  font-family: 'Sora', sans-serif;
+  transition: all 0.2s;
+}
+.btn-reset:hover { border-color: var(--gold); color: var(--gold); }
+
+.ctrl-count {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.ctrl-count b { color: var(--navy); font-weight: 600; }
+
+/* ── MAIN ──────────────────────────────── */
+.main { max-width: 1700px; margin: 0 auto; padding: 1.5rem 2.5rem 4rem; }
+
+.table-wrap {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(28,26,21,0.06);
+  overflow-x: auto;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.74rem; }
+
+thead { background: var(--navy); }
+thead th {
+  padding: 0.72rem 0.85rem;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  border-right: 1px solid rgba(255,255,255,0.05);
+  white-space: nowrap;
+  cursor: pointer;
+}
+thead th:last-child { border-right: none; }
+thead th:hover { color: var(--gold3); }
+
+/* DEPT GROUP ROW */
+tr.group-header td {
+  background: var(--bg2);
+  padding: 0.55rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  cursor: default;
+}
+
+tbody tr.data-row {
+  background: var(--card);
+  border-bottom: 1px solid rgba(213,207,191,0.5);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+tbody tr.data-row:hover { background: #FDFBF6; }
+tbody tr.data-row.expanded { background: #FDFAF3; }
+
+tbody td { padding: 0.6rem 0.85rem; vertical-align: middle; }
+
+td.no-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--border);
+  width: 34px;
+  text-align: center;
+}
+td.name-cell {
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--navy);
+  min-width: 210px;
+  max-width: 270px;
+  line-height: 1.35;
+}
+td.kat-cell {
+  font-size: 0.67rem;
+  color: var(--muted);
+  min-width: 130px;
+  line-height: 1.35;
+}
+
+/* dept badge */
+.dbadge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.d-HC     { background: var(--hc-bg);    color: var(--hc); }
+.d-GAF    { background: var(--gaf-bg);   color: var(--gaf); }
+.d-Legal  { background: var(--legal-bg); color: var(--legal); }
+.d-Mkt    { background: var(--mkt-bg);   color: var(--mkt); }
+.d-Claim  { background: var(--claim-bg); color: var(--claim); }
+.d-CS     { background: var(--cs-bg);    color: var(--cs); }
+.d-Risk   { background: var(--risk-bg);  color: var(--risk); }
+
+/* sens badge */
+.sbadge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.59rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+.s-C { background: var(--s-conf-bg); color: var(--s-conf); border: 1px solid rgba(183,28,28,0.15); }
+.s-R { background: var(--s-rest-bg); color: var(--s-rest); border: 1px solid rgba(230,81,0,0.15); }
+.s-I { background: var(--s-int-bg);  color: var(--s-int);  border: 1px solid rgba(21,101,192,0.15); }
+.s-P { background: var(--s-pub-bg);  color: var(--s-pub);  border: 1px solid rgba(46,125,50,0.15); }
+
+/* krit badge */
+.kbadge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.59rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.k-Y { background: var(--k-yes-bg); color: var(--k-yes); border: 1px solid rgba(106,27,154,0.15); }
+.k-N { background: var(--k-no-bg);  color: var(--k-no);  border: 1px solid rgba(84,110,122,0.15); }
+
+/* CIA */
+.cia-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-align: center;
+  width: 28px;
+}
+.c1 { color: #2E7D32; }
+.c2 { color: #F57C00; }
+.c3 { color: var(--s-conf); }
+
+.total-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  width: 36px;
+}
+.t9 { color: var(--s-conf); }
+.t8 { color: #D84315; }
+.t7 { color: #F57C00; }
+.t6 { color: #9E9D24; }
+.t-lo { color: var(--muted); }
+
+.rto-c, .rpo-c {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #1565C0;
+  white-space: nowrap;
+  min-width: 70px;
+}
+.ret-c { font-size: 0.68rem; color: var(--muted); min-width: 130px; line-height: 1.3; }
+.pic-c { font-size: 0.68rem; color: var(--muted); min-width: 160px; line-height: 1.3; }
+
+.chev { color: var(--border); font-size: 0.6rem; transition: transform 0.2s; display: inline-block; }
+.expanded .chev { transform: rotate(180deg); color: var(--gold); }
+
+/* EXPAND DETAIL */
+.expand-row td { padding: 0; cursor: default; }
+.expand-panel {
+  background: linear-gradient(135deg, #FFFEF8 0%, #FDFAF0 100%);
+  border-top: 1.5px solid rgba(184,150,12,0.2);
+  padding: 1.1rem 1.5rem 1.1rem 3rem;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  gap: 1rem;
+}
+.ep-field label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.ep-field p {
+  font-size: 0.76rem;
+  color: var(--navy);
+  line-height: 1.55;
+}
+.ep-field.full { grid-column: 1 / -1; }
+
+/* NO RESULT */
+.no-res {
+  text-align: center; padding: 3rem; color: var(--muted); font-size: 0.85rem;
+  background: var(--card);
+}
+
+@media (max-width: 900px) {
+  .expand-panel { grid-template-columns: 1fr; }
+  .header, .controls, .main { padding-left: 1rem; padding-right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">// ISO/IEC 27001:2022 — Asset Management Register · Departemen Bisnis</div>
+    <h1>Inventaris Aset <em>Departemen Bisnis</em></h1>
+    <div class="header-sub">PT Asuransi Jiwa Indonesia · HC · GAF · Legal · Marketing Retail · Klaim · Customer Service · Risk Model</div>
+    <div class="stats-row" id="statsRow"></div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="controls-inner">
+    <span class="ctrl-label">Filter</span>
+    <input type="text" class="search" id="searchBox" placeholder="🔍 Cari nama aset...">
+    <select class="sel" id="deptSel">
+      <option value="">Semua Departemen</option>
+      <option value="HC">Human Capital (HC)</option>
+      <option value="GAF">General Affairs & Facilities</option>
+      <option value="Legal">Legal</option>
+      <option value="Marketing Retail">Marketing Retail</option>
+      <option value="Klaim">Klaim</option>
+      <option value="Customer Service">Customer Service</option>
+      <option value="Risk Model">Risk Model & Aktuaria</option>
+    </select>
+    <select class="sel" id="sensSel">
+      <option value="">Semua Sensitivitas</option>
+      <option value="C">Confidential</option>
+      <option value="R">Restricted</option>
+      <option value="I">Internal Use Only</option>
+      <option value="P">Public</option>
+    </select>
+    <select class="sel" id="kritSel">
+      <option value="">Semua Kritikalitas</option>
+      <option value="Y">Kritikal</option>
+      <option value="N">Non-Kritikal</option>
+    </select>
+    <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
+    <div class="ctrl-count">Tampil <b id="countEl">0</b> / 105 aset</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nama Aset</th>
+          <th>Departemen</th>
+          <th>Kategori Aset</th>
+          <th>Sensitivitas</th>
+          <th>Kritikalitas</th>
+          <th title="Confidentiality">C</th>
+          <th title="Integrity">I</th>
+          <th title="Availability">A</th>
+          <th>CIA</th>
+          <th>RTO</th>
+          <th>RPO</th>
+          <th>Retensi</th>
+          <th>Pemilik / PIC</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tBody"></tbody>
+    </table>
+    <div class="no-res" id="noRes" style="display:none">Tidak ada aset yang cocok dengan filter.</div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA — 105 ASET DEPARTEMEN BISNIS
+═══════════════════════════════════════════════════════ */
+const assets = [
+
+/* ── HC — HUMAN CAPITAL (15) ───────────────────────── */
+{no:1,  dept:"HC", nama:"Database Karyawan & Data Personalia", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam", ret:"10 Thn (UU Ketenagakerjaan)",
+  pic:"Kepala Divisi HC / HRGA Manager",
+  lok:"HRIS Cloud + Backup Lokal DC Utama",
+  desk:"Seluruh data karyawan aktif dan non-aktif: data pribadi (NIK, NPWP, rekening gaji), riwayat jabatan, rekam kerja, absensi, dan status kepegawaian. Dikelola dalam sistem HRIS.",
+  krit_alasan:"Payroll bulanan dan pelaporan BPJS bergantung pada data ini; error atau kehilangan data menghentikan pembayaran gaji dan menimbulkan risiko hukum ketenagakerjaan.",
+  sens_alasan:"Mengandung data pribadi karyawan yang dilindungi UU PDP No.27/2022; bocor menimbulkan pelanggaran hukum dan potensi penyalahgunaan identitas karyawan."},
+
+{no:2,  dept:"HC", nama:"Sistem Penggajian & Payroll (HRIS Payroll Module)", kat:"Aplikasi Bisnis",
+  sens:"C", krit:"Y", c:3,i:3,a:3, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn (pajak & ketenagakerjaan)",
+  pic:"HC Manager / Kepala Keuangan",
+  lok:"HRIS Cloud (SAP SuccessFactors / MyHRMS)",
+  desk:"Modul payroll yang menghitung dan memproses gaji, tunjangan, potongan BPJS, pajak PPh 21, lembur, dan insentif bulanan seluruh karyawan. Terintegrasi dengan sistem keuangan.",
+  krit_alasan:"Pembayaran gaji karyawan adalah kewajiban hukum bulanan. Kegagalan sistem payroll menghentikan proses gaji dan berisiko tuntutan hukum ketenagakerjaan.",
+  sens_alasan:"Berisi nominal gaji semua karyawan yang sangat sensitif; bocor dapat menimbulkan konflik internal dan dimanfaatkan kompetitor untuk headhunting."},
+
+{no:3,  dept:"HC", nama:"Rekam Medis & Data Benefit Kesehatan Karyawan", kat:"Data / Database",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"10 Thn (UU PDP & Kesehatan)",
+  pic:"HC Manager / Vendor Asuransi Grup",
+  lok:"Sistem Vendor Asuransi Grup + File HC",
+  desk:"Data klaim BPJS dan asuransi kesehatan grup karyawan, riwayat penggunaan benefit medis, rekam sakit, dan data tanggungan keluarga karyawan.",
+  krit_alasan:"Proses verifikasi klaim kesehatan dapat dilakukan manual sementara; tidak menghentikan operasional utama perusahaan.",
+  sens_alasan:"Data medis karyawan adalah kategori data sensitif tertinggi per UU PDP; akses mutlak hanya untuk HC dan unit medis terkait."},
+
+{no:4,  dept:"HC", nama:"Kontrak Kerja & Perjanjian Kerja Sama (PKS) Karyawan", kat:"Dokumen / Legal",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"1 Hari", ret:"Masa kerja + 10 Thn",
+  pic:"HC Manager / Legal",
+  lok:"DMS (Document Management System) + Arsip Fisik Terkunci",
+  desk:"Kontrak kerja PKWT/PKWTT, perjanjian kerahasiaan (NDA), perjanjian non-compete, dan PKS dengan tenaga alih daya. Dokumen legal yang mengikat secara hukum.",
+  krit_alasan:"Diperlukan saat sengketa ketenagakerjaan dan audit OJK; tidak tersedianya dokumen ini melemahkan posisi hukum perusahaan.",
+  sens_alasan:"Mengandung klausul rahasia dan kompensasi individual karyawan yang sangat sensitif secara hukum dan internal."},
+
+{no:5,  dept:"HC", nama:"Data Kinerja & Penilaian Karyawan (KPI & Appraisal)", kat:"Data / Dokumen",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"5 Thn",
+  pic:"HC Manager / Atasan Langsung",
+  lok:"HRIS Modul Performance / SharePoint HC",
+  desk:"Dokumen dan data penilaian kinerja tahunan, hasil review 360°, catatan coaching, dan rencana pengembangan individu (IDP) seluruh karyawan.",
+  krit_alasan:"Proses promosi dan kenaikan gaji tidak tergantung pada aksesibilitas real-time; bersifat periodik tahunan.",
+  sens_alasan:"Data penilaian kinerja sangat sensitif secara personal; bocor dapat menimbulkan konflik antar karyawan atau klaim diskriminasi."},
+
+{no:6,  dept:"HC", nama:"Database Pelatihan & Sertifikasi (LMS)", kat:"Aplikasi Bisnis",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"5 Thn",
+  pic:"HC — L&D Manager",
+  lok:"Cloud SaaS LMS (Moodle/Cornerstone)",
+  desk:"Platform Learning Management System untuk pelatihan wajib (AML, kepatuhan OJK, K3), sertifikasi AAJI, dan program pengembangan kompetensi karyawan.",
+  krit_alasan:"Pelatihan dapat dilakukan secara offline sementara; tidak menghentikan operasional bisnis.",
+  sens_alasan:"Konten pelatihan dan rekam pelatihan karyawan bersifat internal; tidak mengandung data nasabah atau keuangan."},
+
+{no:7,  dept:"HC", nama:"Rekrutmen & Seleksi Kandidat (ATS System)", kat:"Aplikasi Bisnis",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"Kandidat tidak lolos: 2 Thn; Karyawan: 10 Thn",
+  pic:"HC — Talent Acquisition",
+  lok:"Cloud SaaS ATS (Workday/Talenta)",
+  desk:"Sistem Applicant Tracking System yang mengelola proses rekrutmen: lamaran masuk, screening, jadwal interview, hasil psikotes, dan riwayat rekrutmen kandidat.",
+  krit_alasan:"Rekrutmen bersifat tidak urgent real-time; proses dapat dilakukan manual via email sementara.",
+  sens_alasan:"Berisi data pribadi pelamar (CV, hasil tes, riwayat gaji) yang dilindungi UU PDP; pengelolaan harus hati-hati terhadap data pihak ketiga."},
+
+{no:8,  dept:"HC", nama:"Kebijakan & Peraturan Perusahaan (PP / PKB)", kat:"Dokumen / Kebijakan",
+  sens:"I", krit:"N", c:1,i:3,a:1, rto:"3 Hari",rpo:"N/A", ret:"Berlaku + 5 Thn setelah revisi",
+  pic:"HC Manager / Direksi / Legal",
+  lok:"SharePoint Internal + Papan Pengumuman Digital",
+  desk:"Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), kebijakan cuti, kebijakan seragam, kode etik karyawan, dan prosedur disiplin. Wajib diketahui seluruh karyawan.",
+  krit_alasan:"Karyawan sudah mengetahui aturan; tidak tersedianya dokumen ini sesaat tidak menghentikan operasional.",
+  sens_alasan:"Integritas lebih penting dari kerahasiaan; dokumen harus diketahui karyawan namun tidak untuk publik eksternal."},
+
+{no:9,  dept:"HC", nama:"Dokumen Izin Kerja & Tenaga Asing (RPTKA/KITAS)", kat:"Dokumen / Legal",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"Masa berlaku + 5 Thn",
+  pic:"HC Manager / Legal / Direktur",
+  lok:"Arsip Fisik Terkunci + DMS HC",
+  desk:"Dokumen izin penggunaan tenaga kerja asing (RPTKA), KITAS, IMTA, dan semua perizinan ketenagakerjaan yang wajib dipenuhi sesuai peraturan Kemnaker RI.",
+  krit_alasan:"Kegagalan memenuhi persyaratan tenaga kerja asing dapat mengakibatkan sanksi dan deportasi yang mengganggu operasional.",
+  sens_alasan:"Dokumen legal sensitif yang tidak boleh diakses publik; penyalahgunaan informasi dapat digunakan untuk ancaman atau pemerasan."},
+
+{no:10, dept:"HC", nama:"Struktur Organisasi & Job Architecture", kat:"Dokumen / Informasi",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"5 Thn atau sampai revisi + 2 Thn",
+  pic:"HC Manager / CEO Office",
+  lok:"SharePoint Internal HC",
+  desk:"Dokumen struktur organisasi, job description, job grading, dan job architecture seluruh posisi. Mencerminkan hierarki, span of control, dan sistem klasifikasi jabatan.",
+  krit_alasan:"Dokumen referensi; tidak tersedianya sesaat tidak menghentikan operasional.",
+  sens_alasan:"Informasi jabatan dan level kompensasi bersifat internal; bocor ke publik dapat memicu pendekatan kompetitor untuk merekrut karyawan."},
+
+{no:11, dept:"HC", nama:"Data Benefit & Pensiun Karyawan", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"Seumur hidup + 10 Thn",
+  pic:"HC Manager / Keuangan / Dana Pensiun",
+  lok:"HRIS + Sistem DPLK Mitra",
+  desk:"Data iuran BPJS Ketenagakerjaan, DPLK, program pensiun manfaat pasti, manfaat pesangon, dan catatan iuran jangka panjang karyawan yang mempengaruhi hak hari tua.",
+  krit_alasan:"Data pensiun adalah hak keuangan jangka panjang karyawan; error atau kehilangan data berimplikasi hukum seumur hidup.",
+  sens_alasan:"Data keuangan pensiunan sangat sensitif per UU No.13/2003 dan UU PDP; kesalahan pengelolaan berpotensi gugatan hukum."},
+
+{no:12, dept:"HC", nama:"Laporan Audit Ketenagakerjaan & Wajib Lapor", kat:"Dokumen / Regulasi",
+  sens:"R", krit:"Y", c:2,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"7 Thn",
+  pic:"HC Manager / Legal",
+  lok:"Arsip HC + DMS",
+  desk:"Laporan Wajib Lapor Ketenagakerjaan (Wajib Lapor Naker), laporan BPJS periodik, dan hasil audit ketenagakerjaan dari Dinas Tenaga Kerja. Wajib disimpan dan tersedia saat inspeksi.",
+  krit_alasan:"Diperlukan saat inspeksi mendadak Disnaker; tidak tersedianya laporan langsung menjadi temuan pelanggaran.",
+  sens_alasan:"Laporan ini mengungkap detail tenaga kerja perusahaan; akses terbatas HC dan Legal."},
+
+{no:13, dept:"HC", nama:"Roster & Jadwal Kerja Karyawan (Shift Management)", kat:"Data / Aplikasi",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"3 Thn",
+  pic:"HC — Admin Operasional",
+  lok:"HRIS / Aplikasi Attendance",
+  desk:"Jadwal kerja, roster shift, pengaturan tukar jadwal, dan data lembur seluruh karyawan. Penting untuk operasional kantor dan kepatuhan jam kerja sesuai UU.",
+  krit_alasan:"Jadwal dapat dikelola manual sementara; dampak ke operasional bersifat minor.",
+  sens_alasan:"Data jadwal internal; tidak mengandung informasi sensitif bisnis atau nasabah."},
+
+{no:14, dept:"HC", nama:"Dokumen Investigasi Disiplin & Sengketa Karyawan", kat:"Dokumen / Legal",
+  sens:"C", krit:"N", c:3,i:3,a:1, rto:"3 Hari",rpo:"N/A", ret:"10 Thn (potensi litigasi)",
+  pic:"HC Manager / Legal / Direktur",
+  lok:"Arsip Fisik Terkunci + DMS HC (akses sangat terbatas)",
+  desk:"Berkas investigasi pelanggaran disiplin, Surat Peringatan (SP), berita acara PHK, risalah perundingan bipartit, dan dokumentasi penyelesaian sengketa ketenagakerjaan.",
+  krit_alasan:"Dokumen historis; tidak menghentikan operasional namun krusial untuk pertahanan hukum jika ada gugatan PHI.",
+  sens_alasan:"Berisi informasi sensitif tentang karyawan tertentu; bocor dapat melanggar privasi dan memperburuk hubungan industrial."},
+
+{no:15, dept:"HC", nama:"Succession Plan & Talent Pool Data", kat:"Dokumen / Informasi",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"5 Thn",
+  pic:"Kepala HC / CEO / Direksi",
+  lok:"SharePoint Direksi — akses sangat terbatas",
+  desk:"Dokumen perencanaan suksesi untuk posisi kunci, identifikasi high-potential talent (HiPo), kandidat internal untuk promosi, dan strategi talent retention jangka panjang.",
+  krit_alasan:"Succession planning bersifat strategis jangka panjang; tidak menghentikan operasional jika sesaat tidak tersedia.",
+  sens_alasan:"Mengandung penilaian potensi individu karyawan yang sangat sensitif; bocor dapat menimbulkan kecemburuan dan gangguan budaya organisasi."},
+
+/* ── GAF — GENERAL AFFAIRS & FACILITIES (14) ───── */
+{no:16, dept:"GAF", nama:"Dokumen Kepemilikan & Sewa Gedung / Aset Properti", kat:"Dokumen / Legal",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"Selama kepemilikan/sewa + 10 Thn",
+  pic:"Kepala GAF / Legal / CFO",
+  lok:"Arsip Fisik (Safety Deposit Box Notaris) + DMS",
+  desk:"Sertifikat HGB/HM, perjanjian sewa kantor pusat dan cabang, IMB/PBG, dokumen kepemilikan aset properti perusahaan, dan asuransi properti.",
+  krit_alasan:"Dokumen kepemilikan properti adalah bukti hak hukum perusahaan; tidak tersedianya dapat menimbulkan sengketa kepemilikan.",
+  sens_alasan:"Mengandung nilai aset dan detail properti yang sensitif secara finansial; tidak boleh diketahui pihak yang tidak berwenang."},
+
+{no:17, dept:"GAF", nama:"Sistem Manajemen Gedung (BMS/BAS)", kat:"Sistem / Infrastruktur Fisik",
+  sens:"R", krit:"Y", c:2,i:3,a:3, rto:"2 Jam",rpo:"1 Jam", ret:"Log: 1 Thn; Konfigurasi: Selama aktif",
+  pic:"Kepala GAF / Building Manager",
+  lok:"Server BMS — Gedung Kantor Pusat",
+  desk:"Building Management System yang mengontrol AC sentral, akses kontrol pintu, CCTV, lift, dan sistem kelistrikan gedung. Terintegrasi dengan panel keamanan fisik.",
+  krit_alasan:"Kegagalan BMS dapat menyebabkan lingkungan kerja tidak kondusif atau risiko keamanan fisik gedung (akses tak terkontrol).",
+  sens_alasan:"Konfigurasi akses kontrol gedung sangat sensitif; bocor memberi celah bagi intrusi fisik."},
+
+{no:18, dept:"GAF", nama:"Inventaris Aset Fisik & Fixed Asset Register", kat:"Data / Dokumen",
+  sens:"R", krit:"N", c:2,i:3,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"10 Thn (akuntansi aset)",
+  pic:"Kepala GAF / Keuangan",
+  lok:"Sistem ERP Aset / Spreadsheet Terstruktur",
+  desk:"Daftar lengkap aset fisik perusahaan beserta nilai perolehan, akumulasi depresiasi, lokasi, kondisi, dan penanggung jawab. Wajib diaudit tahunan oleh akuntan publik.",
+  krit_alasan:"Rekonsiliasi aset dapat dilakukan dengan data snapshot; tidak menghentikan operasional bisnis inti.",
+  sens_alasan:"Nilai aset perusahaan adalah informasi keuangan material yang tidak boleh diketahui publik sebelum pengungkapan resmi."},
+
+{no:19, dept:"GAF", nama:"Kontrak & SLA Vendor / Supplier Fasilitas", kat:"Dokumen / Legal",
+  sens:"R", krit:"N", c:2,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"Masa kontrak + 7 Thn",
+  pic:"Kepala GAF / Procurement / Legal",
+  lok:"DMS + Arsip GAF",
+  desk:"Kontrak dengan vendor kebersihan, keamanan, katering, IT hardware, telekomunikasi, dan jasa lainnya. Mencakup SLA, harga, syarat pembayaran, dan klausul penalti.",
+  krit_alasan:"Layanan vendor dapat terus berjalan berdasarkan kesepakatan lisan sementara kontrak dicari; bukan operasional kritikal.",
+  sens_alasan:"Harga negosiasi dan terms kontrak adalah informasi komersial sensitif yang tidak boleh diketahui vendor lain."},
+
+{no:20, dept:"GAF", nama:"Sistem CCTV & Akses Kontrol Gedung", kat:"Sistem / Keamanan Fisik",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"N/A", ret:"Rekaman CCTV: 90 Hari; Log akses: 1 Thn",
+  pic:"Kepala GAF / Security Manager",
+  lok:"Server NVR Gedung + Control Room",
+  desk:"Sistem CCTV IP dan akses kontrol berbasis kartu/biometrik untuk seluruh area kantor, pintu masuk utama, brankas, dan area terbatas. Rekaman disimpan untuk investigasi insiden.",
+  krit_alasan:"Sistem keamanan fisik kritikal untuk melindungi aset dan personel; kegagalan membuka risiko intrusi fisik.",
+  sens_alasan:"Rekaman CCTV dan log akses personel sangat sensitif untuk investigasi insiden dan privasi karyawan."},
+
+{no:21, dept:"GAF", nama:"Polis Asuransi Properti & Aset Perusahaan", kat:"Dokumen / Asuransi",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"Masa berlaku + 10 Thn",
+  pic:"Kepala GAF / CFO / Legal",
+  lok:"Arsip Fisik (Safety Deposit Box) + DMS GAF",
+  desk:"Polis asuransi properti (fire, earthquake, flood), asuransi kendaraan operasional, asuransi pengiriman uang, dan public liability perusahaan.",
+  krit_alasan:"Polis harus tersedia saat pengajuan klaim; tidak tersedianya saat bencana dapat menghambat pemulihan kerugian besar.",
+  sens_alasan:"Nilai pertanggungan dan detail aset dalam polis adalah informasi finansial material yang tidak boleh diketahui publik."},
+
+{no:22, dept:"GAF", nama:"Dokumen Perizinan Operasional (SIUP, TDP, UPL/UKL)", kat:"Dokumen / Regulasi",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"Selama berlaku + 5 Thn",
+  pic:"Kepala GAF / Legal / Compliance",
+  lok:"Arsip Fisik + DMS Compliance",
+  desk:"Perizinan operasional perusahaan dari berbagai instansi: OJK (izin usaha asuransi), izin lingkungan (UKL-UPL), izin gangguan, dan perizinan operasional kantor cabang.",
+  krit_alasan:"Izin OJK wajib ada dan valid; tidak tersedianya atau kedaluwarsa langsung membuat operasional tidak legal.",
+  sens_alasan:"Dokumen izin dapat diakses karyawan yang berkepentingan; tidak mengandung data sangat sensitif namun harus terjaga integritasnya."},
+
+{no:23, dept:"GAF", nama:"Data Kendaraan Operasional Dinas", kat:"Data / Dokumen",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"Masa pakai + 5 Thn",
+  pic:"Kepala GAF",
+  lok:"Sistem Armada / Spreadsheet GAF",
+  desk:"Data kendaraan operasional perusahaan (mobil direksi, operasional kantor), STNK, BPKB, jadwal servis, dan rekap biaya BBM. Mencakup kendaraan milik dan leasing.",
+  krit_alasan:"Pengelolaan kendaraan tidak mempengaruhi operasional bisnis utama; bersifat administratif.",
+  sens_alasan:"Data kendaraan internal tidak mengandung informasi bisnis atau nasabah yang sensitif."},
+
+{no:24, dept:"GAF", nama:"Dokumen Perjanjian Keamanan Fisik (Security Guard SLA)", kat:"Dokumen / Kontrak",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"Masa kontrak + 5 Thn",
+  pic:"Kepala GAF / Security Manager",
+  lok:"DMS GAF",
+  desk:"Perjanjian dengan perusahaan jasa pengamanan (Satpam/Security), SLA jumlah personel, prosedur keamanan, dan SOP penanganan insiden fisik di seluruh lokasi kantor.",
+  krit_alasan:"Layanan keamanan fisik adalah kritikal; kegagalan koordinasi tanpa dokumen kontrak membahayakan keselamatan karyawan dan aset.",
+  sens_alasan:"SOP keamanan internal tidak boleh diketahui pihak luar; detail prosedur dapat dimanfaatkan oleh pihak yang ingin melakukan intrusi."},
+
+{no:25, dept:"GAF", nama:"Prosedur Keselamatan & Kesehatan Kerja (K3)", kat:"Dokumen / Regulasi",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"Berlaku + 3 Thn setelah revisi",
+  pic:"Kepala GAF / K3 Officer / HC",
+  lok:"SharePoint Internal + Papan Pengumuman",
+  desk:"Dokumen SMK3, prosedur evakuasi darurat, denah evakuasi, SOP penanganan kecelakaan kerja, dan program audit K3 periodik. Wajib per UU No.1/1970 dan Permenaker.",
+  krit_alasan:"Prosedur K3 harus tersedia untuk keselamatan jiwa karyawan; tidak tersedianya saat darurat membahayakan keselamatan.",
+  sens_alasan:"Dokumen harus diketahui semua karyawan; integritas prosedur lebih penting dari kerahasiaannya."},
+
+{no:26, dept:"GAF", nama:"Laporan Pemeliharaan Gedung & Infrastruktur Fisik", kat:"Dokumen / Operasional",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"3 Thn",
+  pic:"Kepala GAF / Building Maintenance",
+  lok:"Sistem CMMS / Folder GAF",
+  desk:"Rekap pemeliharaan preventif dan korektif seluruh aset gedung: AC, lift, genset, plumbing, dan perangkat kelistrikan. Mencakup jadwal inspeksi dan histori perbaikan.",
+  krit_alasan:"Laporan historis; pemeliharaan dapat dijadwal ulang tanpa laporan lama tersedia sesaat.",
+  sens_alasan:"Informasi teknis gedung internal; tidak mengandung data sensitif bisnis atau nasabah."},
+
+{no:27, dept:"GAF", nama:"Anggaran & Realisasi GAF (CAPEX/OPEX Fasilitas)", kat:"Data / Dokumen",
+  sens:"R", krit:"N", c:2,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"7 Thn (akuntansi)",
+  pic:"Kepala GAF / CFO",
+  lok:"ERP Keuangan / SharePoint Keuangan",
+  desk:"Anggaran tahunan dan realisasi pengeluaran operasional fasilitas: sewa gedung, listrik, air, pemeliharaan, ATK, dan biaya umum lainnya. Dikonsolidasi dalam laporan keuangan.",
+  krit_alasan:"Anggaran dikelola periodik; tidak menghentikan operasional jika sesaat tidak tersedia.",
+  sens_alasan:"Informasi anggaran perusahaan adalah data keuangan internal yang tidak boleh diketahui publik atau kompetitor."},
+
+{no:28, dept:"GAF", nama:"Pengelolaan Arsip Fisik & Dokumen Perusahaan (Records Mgmt)", kat:"Sistem / Operasional",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"2 Hari",rpo:"1 Hari", ret:"Sesuai jadwal retensi tiap dokumen",
+  pic:"Kepala GAF / Records Manager",
+  lok:"Ruang Arsip + Sistem Indeks Digital",
+  desk:"Sistem pengelolaan arsip fisik dokumen perusahaan: pengindeksan, peminjaman, pengembalian, dan pemusnahan dokumen sesuai jadwal retensi yang ditetapkan. Mendukung audit internal dan eksternal.",
+  krit_alasan:"Arsip fisik diperlukan untuk audit OJK, litigasi, dan pembuktian hukum; tidak terkelola dengan baik berisiko temuan audit.",
+  sens_alasan:"Arsip berisi dokumen lintas departemen yang beragam tingkat sensitivitasnya; pengelolaan akses harus terkontrol."},
+
+{no:29, dept:"GAF", nama:"SOP Pengadaan Barang & Jasa (Procurement Policy)", kat:"Dokumen / Kebijakan",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"Berlaku + 3 Thn",
+  pic:"Kepala GAF / Procurement / Internal Audit",
+  lok:"SharePoint Internal / Intranet",
+  desk:"Kebijakan dan prosedur pengadaan barang dan jasa, termasuk threshold nilai pengadaan, prosedur tender, daftar vendor approved, dan prosedur evaluasi vendor.",
+  krit_alasan:"SOP referensi; pengadaan darurat masih bisa dilakukan atas persetujuan direksi sementara SOP dicari.",
+  sens_alasan:"SOP pengadaan mengungkap kebijakan internal harga dan vendor; sebaiknya tidak diketahui publik namun bukan target sensitif tinggi."},
+
+/* ── LEGAL (14) ────────────────────────────────────── */
+{no:30, dept:"Legal", nama:"Perjanjian Polis & Klausul Produk Asuransi (Policy Form)", kat:"Dokumen / Legal",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 10 Thn",
+  pic:"Kepala Legal / Kepala Aktuaria",
+  lok:"DMS Legal + Arsip Fisik Master Polis",
+  desk:"Polis standar, klausul, dan endorsement produk asuransi jiwa yang telah mendapat persetujuan OJK. Merupakan dasar hukum hubungan perusahaan dengan nasabah.",
+  krit_alasan:"Polis standar yang sah harus tersedia saat sengketa klaim atau audit OJK; tidak tersedianya melemahkan posisi hukum.",
+  sens_alasan:"Klausul polis adalah IP komersial yang tidak boleh diketahui kompetitor; juga mengandung komitmen hukum perusahaan."},
+
+{no:31, dept:"Legal", nama:"Izin Usaha Perasuransian (IUJP OJK)", kat:"Dokumen / Regulasi",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Selama berlaku + 10 Thn",
+  pic:"Kepala Legal / Compliance / Direksi",
+  lok:"Arsip Fisik (Safety Deposit Box) + DMS Compliance",
+  desk:"Izin Usaha yang diterbitkan OJK untuk menjalankan usaha asuransi jiwa, termasuk semua perubahan dan perpanjangan izin. Wajib ditampilkan di tempat usaha.",
+  krit_alasan:"Izin usaha wajib valid; kadaluarsa atau pencabutan langsung menghentikan seluruh operasional perusahaan.",
+  sens_alasan:"Dokumen izin dapat diakses publik di website OJK; integritasnya lebih penting dari kerahasiaannya."},
+
+{no:32, dept:"Legal", nama:"Dokumen Perkara & Litigasi Aktif (Gugatan & Sengketa)", kat:"Dokumen / Legal",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Selesai perkara + 10 Thn",
+  pic:"Kepala Legal / Kuasa Hukum Eksternal",
+  lok:"Arsip Fisik Terkunci + DMS Legal (akses sangat terbatas)",
+  desk:"Berkas perkara aktif di pengadilan (gugatan klaim, sengketa nasabah, PHI karyawan, sengketa vendor), surat kuasa, memori gugatan/jawaban, dan korespondensi hukum.",
+  krit_alasan:"Berkas perkara kritikal untuk pembelaan hukum; kehilangan berkas dapat mengakibatkan kekalahan perkara dan kerugian finansial besar.",
+  sens_alasan:"Strategi pembelaan hukum sangat rahasia; bocor ke pihak lawan secara langsung melemahkan posisi perusahaan."},
+
+{no:33, dept:"Legal", nama:"Perjanjian Reinsuransi & Treaty (Reinsurance Agreement)", kat:"Dokumen / Kontrak",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 10 Thn",
+  pic:"Kepala Legal / Kepala Reinsuransi / CFO",
+  lok:"Arsip Fisik Terkunci + DMS Legal",
+  desk:"Perjanjian treaty dan facultative dengan perusahaan reasuransi (Munich Re, Swiss Re, dll). Mengatur batas retensi, jenis produk yang di-cover, dan klausul pembayaran klaim.",
+  krit_alasan:"Perjanjian reinsuransi menentukan sejauh mana risiko dapat ditransfer; tidak tersedianya menghambat proses klaim reasuransi.",
+  sens_alasan:"Struktur dan harga reasuransi adalah informasi strategis dan komersial yang sangat sensitif."},
+
+{no:34, dept:"Legal", nama:"Kontrak Kerja Sama Distribusi & Bancassurance", kat:"Dokumen / Kontrak",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 7 Thn",
+  pic:"Kepala Legal / Kepala Marketing / Direksi",
+  lok:"DMS Legal + Arsip Fisik",
+  desk:"Perjanjian distribusi dengan bank mitra (bancassurance), broker asuransi, agregator digital, dan mitra distribusi lainnya. Mencakup komisi, eksklusivitas, dan klausul terminasi.",
+  krit_alasan:"Kontrak distribusi adalah dasar hukum pendapatan utama; tidak tersedianya saat sengketa merugikan posisi hukum perusahaan.",
+  sens_alasan:"Komisi dan syarat eksklusivitas distribusi adalah informasi komersial paling sensitif; bocor ke kompetitor berdampak kompetitif signifikan."},
+
+{no:35, dept:"Legal", nama:"Prosedur Kepatuhan & Regulatory Compliance Calendar", kat:"Dokumen / Regulasi",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"3 Thn + diperbarui tiap tahun",
+  pic:"Kepala Legal / Compliance / Direksi",
+  lok:"SharePoint Legal + Compliance + Kalender Digital",
+  desk:"Kalender dan checklist kewajiban pelaporan regulasi: laporan OJK bulanan/triwulanan/tahunan, laporan pajak SPT, laporan BPJS, FATCA/CRS, dan AML/CFT reporting.",
+  krit_alasan:"Keterlambatan pelaporan regulasi langsung berimbas pada sanksi OJK; kalender ini adalah panduan operasional kepatuhan kritikal.",
+  sens_alasan:"Detail kewajiban regulasi bersifat internal; tidak boleh diketahui pihak luar agar tidak dieksploitasi untuk social engineering."},
+
+{no:36, dept:"Legal", nama:"Dokumentasi AML/CFT & Program APU-PPT", kat:"Dokumen / Regulasi",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"10 Thn (POJK 18/2023)",
+  pic:"Kepala Compliance / Legal / Direktur Kepatuhan",
+  lok:"DMS Compliance — akses sangat terbatas",
+  desk:"Dokumen program anti pencucian uang (APU) dan pencegahan pendanaan terorisme (PPT): kebijakan CDD/EDD, laporan STR ke PPATK, laporan CTR, dan blacklist screening.",
+  krit_alasan:"Program APU-PPT wajib per POJK; tidak tersedianya prosedur atau laporan adalah pelanggaran regulasi serius.",
+  sens_alasan:"Laporan STR ke PPATK sangat rahasia; bocor dapat membahayakan penyelidikan dan melanggar kerahasiaan hukum."},
+
+{no:37, dept:"Legal", nama:"Pendapat Hukum & Legal Opinion Internal", kat:"Dokumen / Legal",
+  sens:"C", krit:"N", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"7 Thn",
+  pic:"Kepala Legal",
+  lok:"DMS Legal — akses sangat terbatas",
+  desk:"Pendapat hukum internal atas rencana produk baru, aksi korporasi, sengketa yang akan datang, dan interpretasi regulasi. Termasuk legal opinion dari firma hukum eksternal.",
+  krit_alasan:"Legal opinion bersifat advisory; tidak tersedianya sesaat tidak menghentikan operasional.",
+  sens_alasan:"Legal opinion mengandung analisis kelemahan dan risiko hukum perusahaan yang sangat sensitif; bocor ke pihak lawan di litigasi sangat merugikan."},
+
+{no:38, dept:"Legal", nama:"Register HAKI (Merek, Hak Cipta, Paten)", kat:"Dokumen / Legal",
+  sens:"R", krit:"Y", c:2,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"Selama berlaku + 10 Thn",
+  pic:"Kepala Legal",
+  lok:"DMS Legal + Arsip Fisik (Sertifikat HAKI)",
+  desk:"Sertifikat merek dagang, hak cipta software internal, nama domain, dan paten terdaftar atas produk atau proses bisnis inovatif perusahaan. Terdaftar di DJKI.",
+  krit_alasan:"Sertifikat HAKI harus tersedia untuk pembuktian kepemilikan saat sengketa; tidak tersedianya melemahkan klaim kepemilikan.",
+  sens_alasan:"Daftar HAKI terdaftar bersifat publik di DJKI; namun detail strategi perlindungan IP bersifat restricted."},
+
+{no:39, dept:"Legal", nama:"Notulen RUPS & Dokumen Korporasi (Akta Perusahaan)", kat:"Dokumen / Korporasi",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Seumur hidup perusahaan",
+  pic:"Kepala Legal / Sekretaris Perusahaan / Direktur",
+  lok:"Arsip Fisik Notaris + DMS Legal",
+  desk:"Akta pendirian, anggaran dasar (AD/ART), notulen RUPS Tahunan/Luar Biasa, SK Kemenkumham, dan semua perubahan akta korporasi. Dokumen eksistensi legal perusahaan.",
+  krit_alasan:"Akta korporasi adalah bukti eksistensi legal perusahaan; diperlukan untuk setiap transaksi material dan pendaftaran regulasi.",
+  sens_alasan:"Keputusan RUPS dan susunan kepemilikan adalah informasi korporasi sensitif yang hanya boleh diketahui pihak yang berwenang."},
+
+{no:40, dept:"Legal", nama:"Perjanjian Kerahasiaan / NDA dengan Mitra & Vendor", kat:"Dokumen / Kontrak",
+  sens:"C", krit:"N", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"Berlaku + 7 Thn",
+  pic:"Kepala Legal",
+  lok:"DMS Legal",
+  desk:"NDA/MoU dengan vendor IT, konsultan, mitra distribusi, dan pihak ketiga yang mendapatkan akses data atau informasi perusahaan. Menjadi dasar hukum kerahasiaan informasi.",
+  krit_alasan:"NDA bersifat dokumentasi legal; tidak tersedianya sesaat tidak menghentikan operasional.",
+  sens_alasan:"NDA yang bocor mengungkap dengan siapa perusahaan berbagi informasi sensitif; list mitra yang diproteksi NDA adalah informasi bisnis sensitif."},
+
+{no:41, dept:"Legal", nama:"Laporan Kepatuhan & Matriks Risiko Hukum", kat:"Dokumen / Regulasi",
+  sens:"C", krit:"Y", c:3,i:2,a:1, rto:"2 Hari",rpo:"N/A", ret:"7 Thn",
+  pic:"Kepala Legal / Compliance / Direktur Kepatuhan",
+  lok:"DMS Compliance — akses terbatas",
+  desk:"Laporan status kepatuhan regulasi, matriks risiko hukum perusahaan, dan laporan tindak lanjut atas temuan OJK. Disampaikan ke Direksi dan Dewan Komisaris secara periodik.",
+  krit_alasan:"Diperlukan untuk rapat Direksi dan pelaporan ke OJK; tidak tersedianya dapat dianggap kelemahan tata kelola.",
+  sens_alasan:"Matriks risiko hukum mengungkap area kelemahan perusahaan; sangat berbahaya jika diketahui pihak yang berperkara."},
+
+{no:42, dept:"Legal", nama:"SOP Penanganan Pengaduan Nasabah (Dispute Resolution)", kat:"Dokumen / Prosedur",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 3 Thn",
+  pic:"Kepala Legal / Kepala CS",
+  lok:"SharePoint Internal / Intranet",
+  desk:"Prosedur penanganan pengaduan nasabah sesuai POJK 61/2020, mulai penerimaan, investigasi, hingga eskalasi ke BMAI atau OJK. Wajib tersedia dan dipatuhi seluruh tim.",
+  krit_alasan:"Prosedur penanganan pengaduan yang tidak dijalankan benar berisiko sanksi OJK dan eskalasi ke mediasi regulasi.",
+  sens_alasan:"SOP internal tidak boleh diketahui pihak luar agar tidak dimanfaatkan untuk mengeksploitasi celah prosedur."},
+
+{no:43, dept:"Legal", nama:"Dokumen Corporate Governance (Pedoman GCG Perusahaan)", kat:"Dokumen / Korporasi",
+  sens:"I", krit:"N", c:1,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"Berlaku + 5 Thn",
+  pic:"Sekretaris Perusahaan / Legal / Direksi",
+  lok:"Website Perusahaan + SharePoint Internal",
+  desk:"Pedoman GCG (Good Corporate Governance), piagam komite audit, piagam komite risiko, kode etik direktur dan komisaris, dan kebijakan anti gratifikasi/korupsi.",
+  krit_alasan:"Dokumen GCG wajib tersedia untuk audit OJK dan rating GCG; integritas sangat penting.",
+  sens_alasan:"Sebagian dokumen GCG wajib dipublikasikan; integritas lebih penting dari kerahasiaannya."},
+
+/* ── MARKETING RETAIL (12) ────────────────────────── */
+{no:44, dept:"Marketing Retail", nama:"Database Prospek & Lead Nasabah Potensial", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:2,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"5 Thn atau hingga kontak menjadi nasabah",
+  pic:"Kepala Marketing / CRM Manager",
+  lok:"CRM Platform (Salesforce/HubSpot) + Cloud",
+  desk:"Database prospek yang dikumpulkan dari berbagai kanal (event, digital marketing, referral agen). Berisi data kontak, preferensi produk, status follow-up, dan riwayat interaksi.",
+  krit_alasan:"Data prospek adalah pipeline pendapatan masa depan; kehilangan data berarti kehilangan potensi penjualan yang sedang diproses.",
+  sens_alasan:"Data kontak dan preferensi prospek dilindungi UU PDP; bocor ke kompetitor langsung merugikan pipeline penjualan."},
+
+{no:45, dept:"Marketing Retail", nama:"Strategi & Rencana Pemasaran Tahunan (Marketing Plan)", kat:"Dokumen / Strategi",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"5 Thn",
+  pic:"Kepala Marketing / CMO / Direksi",
+  lok:"SharePoint Marketing — akses terbatas Direksi",
+  desk:"Rencana pemasaran tahunan mencakup target segmen, strategi produk, anggaran kampanye, KPI marketing, strategi pricing, dan inisiatif kompetitif.",
+  krit_alasan:"Dokumen strategis; tidak tersedianya sesaat tidak menghentikan aktivitas marketing yang sudah berjalan.",
+  sens_alasan:"Strategi marketing adalah informasi kompetitif paling sensitif; bocor ke kompetitor secara langsung merugikan posisi pasar."},
+
+{no:46, dept:"Marketing Retail", nama:"Materi Iklan & Konten Marketing (Approved Materials)", kat:"Aset Digital / Kreatif",
+  sens:"I", krit:"N", c:1,i:3,a:1, rto:"3 Hari",rpo:"N/A", ret:"5 Thn (bukti kepatuhan iklan OJK)",
+  pic:"Kepala Marketing / Brand Manager",
+  lok:"Digital Asset Management (DAM) / SharePoint Marketing",
+  desk:"Materi iklan yang sudah mendapat persetujuan OJK (brosur, video, banner digital, script iklan TV/radio). Wajib disimpan sebagai bukti kepatuhan iklan asuransi per POJK.",
+  krit_alasan:"Materi iklan yang sudah approve tidak memerlukan aksesibilitas real-time; bersifat arsip kepatuhan.",
+  sens_alasan:"Materi iklan dapat dipublikasikan ke publik setelah disetujui OJK; integritas (tidak diubah post-approval) lebih penting dari kerahasiaannya."},
+
+{no:47, dept:"Marketing Retail", nama:"Data Kinerja Penjualan (Sales Performance Dashboard)", kat:"Data / Informasi",
+  sens:"C", krit:"Y", c:3,i:2,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"5 Thn",
+  pic:"Kepala Marketing / Kepala Keagenan / CFO",
+  lok:"BI Platform (Power BI/Tableau) + DWH",
+  desk:"Dashboard real-time dan laporan kinerja penjualan per produk, per region, per agen, dan per kanal distribusi. Mencakup data APE, AFYP, persistency ratio, dan tren penjualan.",
+  krit_alasan:"Manajemen memerlukan data penjualan untuk keputusan harian; ketidaktersediaan mengurangi kemampuan manajerial.",
+  sens_alasan:"Data penjualan per agen dan per produk adalah informasi komersial sangat sensitif; bocor ke kompetitor memberi keunggulan kompetitif."},
+
+{no:48, dept:"Marketing Retail", nama:"Materi Penjualan Agen (Sales Kit & Illustration Tool)", kat:"Aplikasi / Dokumen",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Berlaku + 5 Thn (regulasi ilustrasi OJK)",
+  pic:"Kepala Marketing / Kepala Keagenan",
+  lok:"Portal Agen Online + Mobile App Agen",
+  desk:"Sales kit digital, alat ilustrasi manfaat produk, proposal otomatis, dan presentasi produk yang digunakan agen saat bertemu prospek. Harus selalu akurat dan up-to-date.",
+  krit_alasan:"Agen tidak dapat melakukan presentasi penjualan yang compliant tanpa sales kit; penjualan terhenti.",
+  sens_alasan:"Struktur produk dan ilustrasi manfaat yang belum dipublikasi adalah IP komersial; tidak boleh diketahui kompetitor sebelum launch."},
+
+{no:49, dept:"Marketing Retail", nama:"Data Segmentasi & Profil Nasabah (Customer Analytics)", kat:"Data / Analitik",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"2 Hari",rpo:"1 Hari", ret:"5 Thn",
+  pic:"Kepala Marketing / CDO",
+  lok:"DWH + BI Platform + CRM",
+  desk:"Segmentasi nasabah berdasarkan demografi, perilaku, nilai polis, dan skor propensity to buy. Digunakan untuk personalisasi kampanye dan cross-selling produk.",
+  krit_alasan:"Segmentasi bersifat analitik periodik; penjualan dapat tetap berjalan tanpa data segmentasi terkini sesaat.",
+  sens_alasan:"Profil nasabah yang terdetail adalah data PII yang dilindungi UU PDP; tidak boleh digunakan di luar tujuan yang diizinkan nasabah."},
+
+{no:50, dept:"Marketing Retail", nama:"Anggaran & Realisasi Biaya Pemasaran", kat:"Data / Dokumen",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"2 Hari",rpo:"N/A", ret:"7 Thn (akuntansi)",
+  pic:"Kepala Marketing / CFO",
+  lok:"ERP Keuangan / SharePoint Keuangan",
+  desk:"Anggaran marketing tahunan terperinci per program, realisasi pengeluaran iklan, event, sponsorship, dan efisiensi biaya per lead. Data sangat sensitif secara kompetitif.",
+  krit_alasan:"Pengeluaran marketing tidak menghentikan operasional bisnis inti; dikelola periodik.",
+  sens_alasan:"Jumlah investasi marketing mengungkap prioritas strategi perusahaan; tidak boleh diketahui kompetitor atau publik."},
+
+{no:51, dept:"Marketing Retail", nama:"Perjanjian Sponsorship & Kemitraan Brand", kat:"Dokumen / Kontrak",
+  sens:"R", krit:"N", c:2,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"Berlaku + 5 Thn",
+  pic:"Kepala Marketing / Legal",
+  lok:"DMS Marketing / DMS Legal",
+  desk:"Kontrak sponsorship event, perjanjian co-branding, kesepakatan endorser/KOL, dan kerja sama program loyalitas. Mencakup hak penggunaan logo dan klausul eksklusivitas.",
+  krit_alasan:"Perjanjian bersifat periodik; tidak tersedianya sesaat tidak menghentikan program yang berjalan.",
+  sens_alasan:"Nilai sponsorship dan nama endorser sebelum publikasi adalah informasi sensitif; bocor dapat menggagalkan negosiasi."},
+
+{no:52, dept:"Marketing Retail", nama:"Laporan Riset Pasar & Analisis Kompetitor", kat:"Dokumen / Analitik",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"3 Thn",
+  pic:"Kepala Marketing / Kepala Produk",
+  lok:"SharePoint Marketing — akses terbatas",
+  desk:"Laporan riset pasar (survey nasabah, focus group discussion), analisis produk kompetitor, dan laporan tren industri asuransi jiwa. Digunakan untuk pengembangan produk baru.",
+  krit_alasan:"Riset pasar bersifat referensial; tidak menghentikan operasional.",
+  sens_alasan:"Temuan riset dan analisis kompetitor adalah informasi strategis sangat sensitif; bocor ke kompetitor sangat merugikan."},
+
+{no:53, dept:"Marketing Retail", nama:"Program Loyalitas Nasabah & Voucher Digital", kat:"Aplikasi / Data",
+  sens:"R", krit:"N", c:2,i:3,a:1, rto:"1 Hari",rpo:"8 Jam", ret:"Data transaksi: 5 Thn",
+  pic:"Kepala Marketing / Kepala CS",
+  lok:"Platform Loyalitas + CRM",
+  desk:"Program reward dan loyalitas untuk nasabah aktif, manajemen poin, penerbitan dan redeem voucher digital, serta program referral. Data transaksi poin bersifat finansial.",
+  krit_alasan:"Program loyalitas pendukung retensi; tidak tersedianya sesaat tidak menghentikan bisnis inti.",
+  sens_alasan:"Data poin dan voucher bernilai finansial; manipulasi data berpotensi kerugian finansial langsung."},
+
+{no:54, dept:"Marketing Retail", nama:"Profil & Data Kinerja Agen Asuransi (AAJI Licensed)", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Masa aktif agen + 7 Thn (regulasi OJK)",
+  pic:"Kepala Keagenan / Kepala Marketing Retail",
+  lok:"Sistem Core Keagenan + DB Operasional",
+  desk:"Data lengkap agen aktif dan tidak aktif: nomor agen, kode AAJI, status lisensi, data pribadi, rekening komisi, production record, persistency, dan rekam pelanggaran etik.",
+  krit_alasan:"Data agen adalah fondasi operasional saluran distribusi utama; kegagalan akses menghentikan proses komisi dan penerbitan polis melalui agen.",
+  sens_alasan:"Data komisi, production record, dan rekam pelanggaran agen sangat sensitif secara personal dan komersial."},
+
+{no:55, dept:"Marketing Retail", nama:"Dokumen Persetujuan Produk OJK & SEOJK Produk", kat:"Dokumen / Regulasi",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Selama produk berlaku + 10 Thn",
+  pic:"Kepala Produk / Legal / Aktuaria",
+  lok:"DMS Legal + DMS Produk",
+  desk:"Surat persetujuan OJK atas setiap produk asuransi, termasuk desain produk, ilustrasi, dan klausul yang disetujui. Wajib ada sebelum produk dipasarkan.",
+  krit_alasan:"Pemasaran produk tanpa persetujuan OJK adalah pelanggaran berat; dokumen harus selalu tersedia untuk audit.",
+  sens_alasan:"Dokumen approval bersifat regulasi; integritas lebih penting dari kerahasiaannya."},
+
+/* ── KLAIM (15) ────────────────────────────────────── */
+{no:56, dept:"Klaim", nama:"Database Klaim Aktif & Historis Nasabah", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:3, rto:"1 Jam",rpo:"30 Menit", ret:"10 Thn (POJK & ketentuan asuransi)",
+  pic:"Kepala Divisi Klaim / IT",
+  lok:"Sistem Core Klaim + Oracle DB — DC Utama",
+  desk:"Database semua pengajuan klaim: klaim jiwa, klaim kecelakaan, klaim TPD, dan klaim rawat inap/rawat jalan. Berisi data medis, dokumen pendukung, dan keputusan klaim.",
+  krit_alasan:"Proses klaim nasabah bergantung total pada database ini; kegagalan menghentikan pembayaran klaim dan melanggar hak nasabah.",
+  sens_alasan:"Berisi data medis dan financial nasabah kategori sensitif tertinggi per UU PDP; bocor menimbulkan sanksi hukum besar."},
+
+{no:57, dept:"Klaim", nama:"Sistem Manajemen Klaim (Claims Processing System)", kat:"Aplikasi Bisnis",
+  sens:"C", krit:"Y", c:3,i:3,a:3, rto:"2 Jam",rpo:"30 Menit", ret:"10 Thn",
+  pic:"Kepala Klaim / IT Core System",
+  lok:"Server Aplikasi — DC Utama + DR Site",
+  desk:"Platform pemrosesan klaim end-to-end: intake pengajuan, verifikasi kelengkapan, penilaian medis, approval workflow bertingkat, pembayaran, dan penolakan beserta alasannya.",
+  krit_alasan:"Inti operasional divisi klaim; downtime langsung menghentikan semua proses klaim dan mempengaruhi reputasi layanan.",
+  sens_alasan:"Sistem klaim berisi data medis dan keputusan finansial nasabah; akses sangat terbatas pada staf klaim terotorisasi."},
+
+{no:58, dept:"Klaim", nama:"Rekam Medis & Surat Keterangan Dokter (SKD) Digital", kat:"Data / Dokumen",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn minimum (UU Kesehatan)",
+  pic:"Kepala Klaim / Dokter Klaim / Aktuaria",
+  lok:"DMS Klaim — server terenkripsi + DC Utama",
+  desk:"Scan dokumen medis nasabah: rekam medis, surat keterangan dokter, hasil laboratorium, laporan autopsi, dan resume medis yang digunakan sebagai dasar penilaian klaim.",
+  krit_alasan:"Dokumen medis adalah bukti dasar keputusan klaim; tidak tersedianya menghentikan proses persetujuan klaim.",
+  sens_alasan:"Rekam medis adalah data paling sensitif dalam asuransi jiwa; dilindungi UU PDP, UU Kesehatan, dan kode etik kedokteran."},
+
+{no:59, dept:"Klaim", nama:"Laporan Investigasi Klaim (Fraud Investigation Report)", kat:"Dokumen / Investigasi",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"N/A", ret:"10 Thn (potensi litigasi)",
+  pic:"Kepala Klaim / Investigator / Legal",
+  lok:"DMS Klaim — akses sangat terbatas",
+  desk:"Laporan investigasi untuk kasus klaim yang dicurigai fraud: observasi lapangan, wawancara saksi, analisis dokumen, dan rekomendasi keputusan klaim.",
+  krit_alasan:"Diperlukan untuk pertahanan hukum saat nasabah menggugat penolakan klaim; hilang melemahkan posisi perusahaan.",
+  sens_alasan:"Berisi nama terduga pelaku fraud, metode investigasi, dan sumber informasi yang sangat sensitif secara hukum dan keselamatan investigator."},
+
+{no:60, dept:"Klaim", nama:"Data Cadangan IBNR & Cadangan Klaim (Reserve)", kat:"Data / Aktuaria",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam", ret:"10 Thn",
+  pic:"Kepala Klaim / Chief Actuary / CFO",
+  lok:"Sistem Aktuaria + ERP Keuangan",
+  desk:"Data dan kalkulasi cadangan klaim IBNR (Incurred But Not Reported), cadangan klaim dalam proses, dan cadangan klaim tertunda. Mempengaruhi langsung laporan keuangan PSAK 74.",
+  krit_alasan:"Cadangan klaim yang tidak akurat mempengaruhi laporan keuangan dan kepatuhan PSAK 74/OJK; berdampak material ke perusahaan.",
+  sens_alasan:"Data cadangan adalah informasi keuangan material yang tidak boleh bocor sebelum publikasi laporan keuangan."},
+
+{no:61, dept:"Klaim", nama:"Daftar Rekanan Rumah Sakit & Provider Medis", kat:"Data / Dokumen",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Berlaku + 5 Thn",
+  pic:"Kepala Klaim / Provider Management",
+  lok:"Sistem Klaim + Portal Provider",
+  desk:"Daftar rumah sakit rekanan, klinik, laboratorium, dan dokter panel. Mencakup tarif INA-CBGs yang disepakati, limit tagihan, dan status akreditasi.",
+  krit_alasan:"Agen verifikasi tidak dapat memproses klaim cashless tanpa daftar provider; downtime menghentikan layanan klaim cashless.",
+  sens_alasan:"Tarif yang disepakati dengan provider adalah informasi komersial sensitif yang tidak boleh diketahui provider lain."},
+
+{no:62, dept:"Klaim", nama:"SOP Klaim & Panduan Keputusan Klaim (Claims Guidelines)", kat:"Dokumen / Prosedur",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 5 Thn",
+  pic:"Kepala Klaim / Legal / Aktuaria",
+  lok:"SharePoint Klaim + Intranet",
+  desk:"Panduan keputusan klaim: kriteria akseptasi/penolakan per jenis klaim, tabel pengecualian, panduan diagnosa (ICD-10), limit klaim per kondisi, dan prosedur eskalasi.",
+  krit_alasan:"Staf klaim tidak dapat membuat keputusan konsisten tanpa panduan; risiko inkonsistensi dan gugatan nasabah meningkat.",
+  sens_alasan:"Panduan keputusan klaim mengungkap detail kebijakan akseptasi; bocor dapat dimanfaatkan nasabah atau pihak ketiga untuk memanipulasi klaim."},
+
+{no:63, dept:"Klaim", nama:"Register Klaim Reasuransi (Reinsurance Claim Register)", kat:"Data / Dokumen",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"8 Jam",rpo:"4 Jam", ret:"10 Thn",
+  pic:"Kepala Klaim / Reinsuransi / CFO",
+  lok:"Sistem Klaim + Reinsuransi",
+  desk:"Data klaim yang diajukan ke perusahaan reasuransi (recovery klaim): daftar cession klaim, status pembayaran recovery, dan rekap klaim yang melebihi retensi sendiri.",
+  krit_alasan:"Keterlambatan recovery dari reasuradur berdampak pada cash flow pembayaran klaim nasabah.",
+  sens_alasan:"Data klaim reasuransi berisi informasi finansial dan medis yang hanya boleh diketahui pihak yang terlibat dalam perjanjian treaty."},
+
+{no:64, dept:"Klaim", nama:"Laporan Klaim Berkala ke OJK & Manajemen", kat:"Dokumen / Laporan",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn (regulasi OJK)",
+  pic:"Kepala Klaim / Compliance / CFO",
+  lok:"Sistem Pelaporan OJK + SharePoint Klaim",
+  desk:"Laporan statistik klaim bulanan/triwulanan ke OJK: jumlah klaim masuk, disetujui, ditolak, claim ratio, waktu proses, dan laporan klaim bermasalah.",
+  krit_alasan:"Pelaporan klaim ke OJK wajib dan tepat waktu; keterlambatan adalah pelanggaran regulasi.",
+  sens_alasan:"Claim ratio dan data penolakan adalah informasi bisnis material yang sangat sensitif; bocor mempengaruhi reputasi dan rating perusahaan."},
+
+{no:65, dept:"Klaim", nama:"Dokumen Persetujuan & Penolakan Klaim (Keputusan Klaim)", kat:"Dokumen / Legal",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn + masa kadaluarsa tuntutan hukum",
+  pic:"Kepala Klaim / Legal",
+  lok:"DMS Klaim — server terenkripsi",
+  desk:"Surat keputusan klaim (approval dan penolakan beserta alasan), voucher pembayaran klaim, kuitansi, dan korespondensi dengan nasabah terkait keputusan klaim.",
+  krit_alasan:"Dokumen keputusan klaim adalah bukti hukum atas kewajiban yang telah dipenuhi atau dasar pembelaan saat gugatan.",
+  sens_alasan:"Data individual klaim berisi informasi keuangan dan medis nasabah yang sangat sensitif per UU PDP."},
+
+{no:66, dept:"Klaim", nama:"Data Statistik Fraud Klaim & Blacklist", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Permanen (keamanan bisnis)",
+  pic:"Kepala Klaim / Investigator / CISO",
+  lok:"Database Fraud — server terenkripsi (akses sangat terbatas)",
+  desk:"Database nasabah/provider yang teridentifikasi melakukan fraud klaim, pola modus operandi fraud yang terdeteksi, dan laporan koordinasi anti-fraud dengan AAUI.",
+  krit_alasan:"Database fraud digunakan untuk screening klaim masuk; kegagalan akses meningkatkan risiko lolosnya klaim fraudulent.",
+  sens_alasan:"Informasi tentang terdeteksinya fraud dan daftar pelaku adalah data sangat sensitif secara hukum; bocor dapat memicu ancaman keselamatan investigator."},
+
+{no:67, dept:"Klaim", nama:"Perjanjian Mitra Investigator Klaim (IME Provider)", kat:"Dokumen / Kontrak",
+  sens:"R", krit:"N", c:2,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"Berlaku + 5 Thn",
+  pic:"Kepala Klaim / Legal",
+  lok:"DMS Klaim / DMS Legal",
+  desk:"Perjanjian dengan dokter pemeriksa independen (IME), firma investigasi, dan lembaga forensik yang digunakan untuk investigasi klaim. Mencakup tarif, kerahasiaan, dan kualifikasi.",
+  krit_alasan:"Investigasi klaim dapat dilakukan dengan penyedia lain sementara kontrak dicari; tidak kritikal real-time.",
+  sens_alasan:"Nama dan metode investigator harus dirahasiakan untuk melindungi integritas investigasi."},
+
+{no:68, dept:"Klaim", nama:"Laporan Hasil Mediasi & Putusan BMAI/BPSK", kat:"Dokumen / Legal",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"10 Thn",
+  pic:"Kepala Klaim / Legal",
+  lok:"DMS Legal + Arsip Klaim",
+  desk:"Dokumen hasil mediasi BMAI (Badan Mediasi Asuransi Indonesia), putusan BPSK, dan perjanjian perdamaian dengan nasabah yang bersengketa. Memiliki kekuatan hukum mengikat.",
+  krit_alasan:"Putusan mediasi bersifat mengikat; tidak tersedianya saat eksekusi putusan menimbulkan masalah hukum.",
+  sens_alasan:"Isi perdamaian dan nilai kompensasi sangat sensitif; bocor dapat menimbulkan ekspektasi yang tidak realistis dari nasabah lain."},
+
+{no:69, dept:"Klaim", nama:"Formulir Pengajuan Klaim & Dokumen Intake", kat:"Dokumen / Operasional",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn",
+  pic:"Kepala Klaim",
+  lok:"DMS Klaim + Portal Digital Klaim",
+  desk:"Formulir FPKJ (Formulir Pengajuan Klaim Jiwa) beserta semua dokumen pendukung yang diterima dari nasabah: akta kematian, KTP, dan surat keterangan lainnya.",
+  krit_alasan:"Intake klaim yang terganggu menghentikan proses klaim baru masuk; kewajiban perusahaan terhadap nasabah terhenti.",
+  sens_alasan:"Dokumen intake berisi data pribadi nasabah dan keluarga (ahli waris) yang dilindungi UU PDP."},
+
+{no:70, dept:"Klaim", nama:"Dashboard & KPI Klaim Real-Time", kat:"Data / Aplikasi",
+  sens:"R", krit:"Y", c:2,i:2,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Data: 3 Thn",
+  pic:"Kepala Klaim / CFO",
+  lok:"BI Platform + Data Warehouse",
+  desk:"Dashboard operasional klaim real-time: jumlah klaim pending, turn-around time, backlog per staf, claim ratio harian, dan alert klaim melebihi authority limit.",
+  krit_alasan:"Manajer klaim tidak dapat memantau beban kerja dan mencegah backlog tanpa dashboard; risiko SLA klaim terlambat meningkat.",
+  sens_alasan:"Data operasional klaim bersifat internal manajemen; tidak untuk diketahui nasabah atau pihak luar."},
+
+/* ── CUSTOMER SERVICE (12) ────────────────────────── */
+{no:71, dept:"Customer Service", nama:"Sistem Manajemen Interaksi Nasabah (CRM/Omnichannel)", kat:"Aplikasi Bisnis",
+  sens:"C", krit:"Y", c:3,i:3,a:3, rto:"2 Jam",rpo:"1 Jam", ret:"Log interaksi: 5 Thn; Data nasabah: sesuai polis",
+  pic:"Kepala CS / Chief Digital Officer",
+  lok:"Cloud CRM + CC Platform — DC Utama",
+  desk:"Platform omnichannel yang mengintegrasikan semua kanal interaksi nasabah: telepon (call center), email, live chat, WhatsApp, dan media sosial. Berisi riwayat lengkap interaksi.",
+  krit_alasan:"Seluruh layanan nasabah bergantung pada sistem ini; downtime berarti tidak ada satu pun pertanyaan/keluhan nasabah yang dapat ditangani secara terstruktur.",
+  sens_alasan:"Berisi riwayat lengkap interaksi nasabah termasuk informasi sensitif yang disampaikan saat kontak; dilindungi UU PDP."},
+
+{no:72, dept:"Customer Service", nama:"Database Pengaduan Nasabah & Tiket Keluhan", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"5 Thn (POJK 61/2020)",
+  pic:"Kepala CS / Legal / Compliance",
+  lok:"CRM Platform + Database CS",
+  desk:"Register dan riwayat semua pengaduan nasabah: nomor tiket, jenis keluhan, status penanganan, jawaban yang diberikan, dan eskalasi ke divisi lain atau OJK.",
+  krit_alasan:"Rekap pengaduan wajib dilaporkan ke OJK periodik; tidak tersedianya data berarti pelanggaran kewajiban pelaporan.",
+  sens_alasan:"Isi pengaduan mengandung informasi sensitif nasabah dan potensi isu hukum yang tidak boleh diketahui pihak tidak berwenang."},
+
+{no:73, dept:"Customer Service", nama:"Rekaman Percakapan Call Center (Voice Recording)", kat:"Data / Rekaman",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"1 Thn (minimal, POJK & hukum pembuktian)",
+  pic:"Kepala CS / Legal",
+  lok:"Server Recording Call Center — DC Utama",
+  desk:"Rekaman audio seluruh percakapan agen CS dengan nasabah. Digunakan untuk quality monitoring, pelatihan, dan bukti hukum jika terjadi sengketa atas informasi yang diberikan.",
+  krit_alasan:"Rekaman diperlukan sebagai bukti hukum jika nasabah mengklaim menerima informasi yang salah dari CS.",
+  sens_alasan:"Rekaman mengandung percakapan sensitif nasabah termasuk informasi keuangan dan medis; harus dilindungi ketat."},
+
+{no:74, dept:"Customer Service", nama:"Skrip & Knowledge Base CS (CS Knowledge Management)", kat:"Dokumen / Sistem",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Berlaku + 2 Thn",
+  pic:"Kepala CS / Training CS",
+  lok:"Intranet CS / Knowledge Management System",
+  desk:"Skrip jawaban standar, FAQ produk, panduan penanganan keluhan, prosedur eskalasi, dan update informasi produk terbaru untuk digunakan oleh agen CS.",
+  krit_alasan:"Tanpa knowledge base, agen CS tidak dapat menjawab pertanyaan nasabah secara akurat; risiko kesalahan informasi meningkat signifikan.",
+  sens_alasan:"Panduan internal CS tidak boleh diketahui nasabah karena mengungkap batas-batas informasi yang dapat dan tidak dapat diberikan."},
+
+{no:75, dept:"Customer Service", nama:"Data Survey Kepuasan Nasabah (NPS/CSAT Data)", kat:"Data / Analitik",
+  sens:"R", krit:"N", c:2,i:2,a:1, rto:"2 Hari",rpo:"1 Hari", ret:"3 Thn",
+  pic:"Kepala CS / Marketing",
+  lok:"Platform Survey (SurveyMonkey/Medallia) + DWH",
+  desk:"Hasil survei NPS (Net Promoter Score), CSAT, dan CES dari nasabah. Mencakup rating individual dan komentar kualitatif yang berisi nama dan informasi nasabah.",
+  krit_alasan:"Survei bersifat analitik periodik; tidak menghentikan layanan CS sehari-hari.",
+  sens_alasan:"Komentar individual nasabah dalam survei berisi informasi pribadi dan opini; tidak boleh dibagikan tanpa anonimisasi."},
+
+{no:76, dept:"Customer Service", nama:"SLA & KPI Call Center (Service Level Agreement Ops)", kat:"Data / Dokumen",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"4 Jam",rpo:"N/A", ret:"3 Thn",
+  pic:"Kepala CS / Operations",
+  lok:"Dashboard CC + Laporan Operasional",
+  desk:"Target dan realisasi SLA operasional call center: Average Speed of Answer (ASA), Abandon Rate, Average Handle Time (AHT), First Call Resolution (FCR), dan SL 80/20.",
+  krit_alasan:"Monitoring SLA real-time diperlukan untuk pengelolaan beban kerja; tanpanya kepala CS tidak bisa mengelola antrian dan eskalasi.",
+  sens_alasan:"Data operasional CC bersifat internal; tidak mengandung data nasabah individual."},
+
+{no:77, dept:"Customer Service", nama:"Portal Layanan Mandiri (E-Service Nasabah)", kat:"Aplikasi Web",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Log transaksi: 5 Thn",
+  pic:"Kepala CS / IT Digital",
+  lok:"Cloud (AWS) + Integrasi Core System",
+  desk:"Portal web self-service untuk nasabah: cek status polis, unduh dokumen, perubahan data, permintaan layanan, dan pengajuan klaim sederhana tanpa harus menghubungi CS.",
+  krit_alasan:"Nasabah dapat menghubungi CS melalui telepon jika portal down, namun beban call center meningkat drastis.",
+  sens_alasan:"Portal mengautentikasi nasabah dan berisi data polis; kerentanan keamanan portal berpotensi akses tidak sah ke data nasabah."},
+
+{no:78, dept:"Customer Service", nama:"Laporan Penanganan Pengaduan ke OJK (SIPADU)", kat:"Dokumen / Regulasi",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"5 Thn (POJK 61/2020)",
+  pic:"Kepala CS / Legal / Compliance",
+  lok:"Portal SIPADU OJK + Arsip Internal",
+  desk:"Laporan bulanan penanganan pengaduan nasabah yang disampaikan ke OJK melalui SIPADU. Mencakup jumlah, jenis, dan status penyelesaian pengaduan.",
+  krit_alasan:"Laporan ke OJK wajib dan tepat waktu; tidak ada toleransi keterlambatan tanpa risiko sanksi.",
+  sens_alasan:"Data agregat pengaduan adalah informasi sensitif bisnis; bocornya detail pengaduan spesifik melanggar privasi nasabah."},
+
+{no:79, dept:"Customer Service", nama:"Prosedur Penanganan Nasabah Rentan (Vulnerable Customer)", kat:"Dokumen / Prosedur",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 3 Thn",
+  pic:"Kepala CS / Compliance",
+  lok:"Intranet CS",
+  desk:"Prosedur khusus penanganan nasabah rentan: lansia, penyandang disabilitas, nasabah dengan literasi keuangan rendah, dan nasabah dalam situasi duka (klaim jiwa). Sesuai POJK.",
+  krit_alasan:"Kegagalan mengikuti prosedur nasabah rentan berpotensi melanggar regulasi POJK perlindungan konsumen.",
+  sens_alasan:"Prosedur internal perlu dijaga integritasnya namun tidak mengandung data nasabah yang sensitif."},
+
+{no:80, dept:"Customer Service", nama:"Riwayat & Catatan Interaksi Nasabah Individual (Interaction History)", kat:"Data / Database",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"5 Thn",
+  pic:"Kepala CS",
+  lok:"CRM Platform — database nasabah",
+  desk:"Riwayat lengkap setiap interaksi nasabah dengan perusahaan: pertanyaan, keluhan, permintaan layanan, dan catatan agen CS. Digunakan untuk konteks saat nasabah menghubungi kembali.",
+  krit_alasan:"Tanpa riwayat interaksi, agen CS harus memverifikasi ulang dari awal setiap kali nasabah menghubungi; kualitas layanan turun signifikan.",
+  sens_alasan:"Riwayat interaksi berisi informasi pribadi yang disampaikan nasabah dalam percakapan; dilindungi UU PDP."},
+
+{no:81, dept:"Customer Service", nama:"Materi Training CS & Sertifikasi (AASI/Internal)", kat:"Dokumen / SDM",
+  sens:"I", krit:"N", c:1,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"3 Thn",
+  pic:"Kepala CS / HC L&D",
+  lok:"LMS + SharePoint CS",
+  desk:"Modul pelatihan dan materi sertifikasi untuk agen CS: product knowledge, teknik komunikasi, prosedur penanganan keluhan, dan kompetensi regulasi (POJK perlindungan konsumen).",
+  krit_alasan:"Training bersifat investasi kompetensi; tidak tersedianya sesaat tidak menghentikan operasional CS.",
+  sens_alasan:"Materi training adalah IP internal; tidak mengandung data nasabah yang sensitif."},
+
+{no:82, dept:"Customer Service", nama:"Data Verifikasi Identitas Nasabah (CDD/KYC CS)", kat:"Data / Kepatuhan",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn (POJK AML/CFT)",
+  pic:"Kepala CS / Compliance",
+  lok:"Sistem CRM + Core System",
+  desk:"Prosedur dan data hasil verifikasi identitas nasabah yang dilakukan oleh CS saat permintaan layanan sensitif (perubahan data, PARP, klaim). Mendukung kepatuhan AML/CFT.",
+  krit_alasan:"Verifikasi identitas wajib dilakukan sebelum melayani permintaan perubahan data atau klaim; kegagalan berisiko fraud.",
+  sens_alasan:"Data identitas nasabah yang dikumpulkan dalam CDD adalah PII yang dilindungi UU PDP dan ketentuan AML/CFT."},
+
+/* ── RISK MODEL & AKTUARIA (13) ──────────────────── */
+{no:83, dept:"Risk Model", nama:"Model Aktuaria Cadangan Teknis (PSAK 74/IFRS 17)", kat:"Data / Model Aktuaria",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"10 Thn",
+  pic:"Chief Actuary / CFO",
+  lok:"Server Aktuaria — DC Utama (Terenkripsi)",
+  desk:"Model perhitungan cadangan teknis per produk: Best Estimate of Liability (BEL), Risk Adjustment, dan Contractual Service Margin (CSM) sesuai PSAK 74/IFRS 17. Dasar laporan keuangan.",
+  krit_alasan:"Laporan keuangan PSAK 74 dan pelaporan OJK bergantung pada model ini; salah model = salah cadangan = laporan keuangan material error.",
+  sens_alasan:"Model aktuaria adalah IP dan fondasi bisnis perusahaan; bocor ke kompetitor memberi keunggulan kompetitif dan memungkinkan re-engineering produk."},
+
+{no:84, dept:"Risk Model", nama:"Tabel Mortalita & Morbiditas Proprietary (Pengalaman)", kat:"Data / IP Aktuaria",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"10 Thn",
+  pic:"Chief Actuary",
+  lok:"Server Aktuaria — DC Utama (Akses Sangat Terbatas)",
+  desk:"Tabel mortalita dan morbiditas berbasis pengalaman klaim perusahaan sendiri, dimodifikasi dari TMI (Tabel Mortalita Indonesia). Mencerminkan profil risiko spesifik portofolio.",
+  krit_alasan:"Semua penetapan premi dan evaluasi risiko menggunakan tabel ini; tabel yang salah atau usang menyebabkan mispricing produk.",
+  sens_alasan:"Tabel pengalaman adalah IP paling berharga dalam perusahaan asuransi jiwa; mencerminkan ratusan miliar data klaim selama bertahun-tahun."},
+
+{no:85, dept:"Risk Model", nama:"Model Pricing Produk Asuransi (Actuarial Pricing Tool)", kat:"Data / Model Aktuaria",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"Selama produk berlaku + 10 Thn",
+  pic:"Chief Actuary / Kepala Produk",
+  lok:"Sistem Aktuaria + Spreadsheet Terproteksi",
+  desk:"Model pricing untuk setiap produk asuransi: asumsi mortalita, morbiditas, lapse, biaya, investasi, dan margin keuntungan. Digunakan untuk penetapan premi dan revisi premi.",
+  krit_alasan:"Penetapan premi produk baru dan revisi premi bergantung pada model ini; error menyebabkan produk tidak profitable.",
+  sens_alasan:"Model pricing adalah IP utama; bocor memungkinkan kompetitor memperkirakan struktur biaya dan margin perusahaan."},
+
+{no:86, dept:"Risk Model", nama:"Laporan Appointed Actuary ke Direksi & OJK", kat:"Dokumen / Regulasi",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"10 Thn (OJK)",
+  pic:"Appointed Actuary / Chief Actuary / Direktur",
+  lok:"DMS Aktuaria — akses sangat terbatas",
+  desk:"Laporan aktuaria resmi Appointed Actuary kepada Direksi dan OJK: kecukupan cadangan teknis, solvabilitas (MMBR), dan opini atas laporan keuangan dari sudut pandang aktuaria.",
+  krit_alasan:"Laporan Appointed Actuary adalah kewajiban regulasi OJK; tidak diserahkan tepat waktu berisiko sanksi serius.",
+  sens_alasan:"Berisi opini independen atas kondisi keuangan perusahaan yang material; bocor sebelum publikasi berpotensi market-sensitive."},
+
+{no:87, dept:"Risk Model", nama:"Model ERM (Enterprise Risk Management) & Matriks Risiko", kat:"Dokumen / Model",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"7 Thn",
+  pic:"Chief Risk Officer / Direksi",
+  lok:"SharePoint Risk — akses sangat terbatas",
+  desk:"Kerangka ERM perusahaan, heat map risiko, matriks risiko per proses bisnis, key risk indicator (KRI), dan laporan risk appetite statement yang disetujui Dewan Komisaris.",
+  krit_alasan:"Dokumen ERM diperlukan untuk rapat Direksi dan audit OJK tentang pengelolaan risiko; tidak tersedianya adalah kelemahan governance.",
+  sens_alasan:"Matriks risiko mengungkap detail kelemahan internal; bocor ke pihak luar sangat berbahaya dan dapat dieksploitasi."},
+
+{no:88, dept:"Risk Model", nama:"Laporan ORSA (Own Risk & Solvency Assessment)", kat:"Dokumen / Regulasi",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"10 Thn (POJK)",
+  pic:"Chief Actuary / CRO / Direksi",
+  lok:"DMS Aktuaria + Compliance",
+  desk:"Laporan ORSA tahunan sesuai POJK: proyeksi solvabilitas 3 tahun ke depan, stress testing, skenario bencana, dan penilaian kecukupan modal dalam berbagai kondisi.",
+  krit_alasan:"ORSA adalah kewajiban regulasi OJK bagi perusahaan asuransi; tidak ada ORSA = sanksi administratif.",
+  sens_alasan:"ORSA mengandung proyeksi kondisi keuangan dan skenario bencana yang sangat material dan market-sensitive."},
+
+{no:89, dept:"Risk Model", nama:"Model Stress Testing & Analisis Skenario Risiko", kat:"Data / Model",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"7 Thn",
+  pic:"CRO / Chief Actuary",
+  lok:"Sistem Aktuaria + Spreadsheet Risk",
+  desk:"Model stress testing portofolio investasi dan asuransi: skenario pandemi, krisis ekonomi, kenaikan mortalita, dan kombinasi risiko. Digunakan dalam ORSA dan laporan OJK.",
+  krit_alasan:"Stress testing periodik; tidak tersedianya sesaat tidak menghentikan operasional namun menghambat keputusan modal.",
+  sens_alasan:"Skenario bencana dan asumsi kelemahan mengungkap ketahanan aktual perusahaan; sangat sensitif."},
+
+{no:90, dept:"Risk Model", nama:"Data Loss History & Operational Risk Register", kat:"Data / Dokumen",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"10 Thn",
+  pic:"CRO / Internal Audit",
+  lok:"Sistem ERM / SharePoint Risk",
+  desk:"Register insiden risiko operasional yang telah terjadi (loss events): fraud internal, gangguan sistem, kesalahan proses, dan kerugian operasional. Diperlukan untuk Basel/Solvency modeling.",
+  krit_alasan:"Loss history diperlukan untuk pemodelan modal risiko operasional; data historis yang akurat mendukung ORSA dan audit.",
+  sens_alasan:"Data insiden kerugian adalah informasi reputasi sensitif; bocor dapat merusak kepercayaan nasabah dan mitra bisnis."},
+
+{no:91, dept:"Risk Model", nama:"Laporan Profil Risiko Investasi & ALM", kat:"Dokumen / Laporan",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"8 Jam", ret:"10 Thn",
+  pic:"CRO / CIO / Chief Actuary",
+  lok:"Sistem Investasi + DMS Risk",
+  desk:"Laporan Asset-Liability Management (ALM): durasi matching, convexity, VaR portofolio investasi, dan kesenjangan duration antara aset dan liabilitas asuransi.",
+  krit_alasan:"ALM menentukan kebijakan investasi dan lindung nilai; ketidaktersediaan informasi ini meningkatkan risiko mismatch yang berpotensi kerugian besar.",
+  sens_alasan:"Detail strategi investasi dan posisi portofolio adalah informasi market-sensitive yang tidak boleh bocor."},
+
+{no:92, dept:"Risk Model", nama:"Parameter & Asumsi Aktuaria yang Disetujui Direksi", kat:"Dokumen / Aktuaria",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"10 Thn",
+  pic:"Chief Actuary / Direksi",
+  lok:"DMS Aktuaria — akses sangat terbatas",
+  desk:"Dokumen asumsi aktuaria resmi yang disetujui Direksi: tingkat diskonto, inflasi medis, lapse rate, biaya administrasi, dan margin of adverse deviation per lini produk.",
+  krit_alasan:"Semua kalkulasi cadangan dan pricing menggunakan asumsi ini; perubahan tanpa approval menghasilkan inkonsistensi laporan.",
+  sens_alasan:"Asumsi aktuaria adalah landasan valuasi seluruh perusahaan; bocor ke kompetitor memungkinkan reverse engineering model bisnis."},
+
+{no:93, dept:"Risk Model", nama:"Laporan Solvabilitas & MMBR ke OJK", kat:"Dokumen / Regulasi",
+  sens:"C", krit:"Y", c:3,i:3,a:3, rto:"4 Jam",rpo:"2 Jam", ret:"10 Thn (OJK)",
+  pic:"Chief Actuary / CFO / Direktur",
+  lok:"Sistem Pelaporan OJK + DMS Keuangan",
+  desk:"Laporan bulanan/triwulanan solvabilitas (RBC), Minimum Modal Berbasis Risiko (MMBR), dan kecukupan modal ke OJK. Dipublikasikan sebagian di website OJK.",
+  krit_alasan:"Laporan solvabilitas adalah indikator utama kesehatan perusahaan asuransi; wajib dan tepat waktu ke OJK.",
+  sens_alasan:"Kondisi solvabilitas adalah informasi material; penurunan RBC di bawah threshold harus dilaporkan segera dan bersifat sangat sensitif."},
+
+{no:94, dept:"Risk Model", nama:"Model Credit Risk & Counterparty Risk (Reinsuransi)", kat:"Data / Model",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"7 Thn",
+  pic:"CRO / Chief Actuary / Direksi Keuangan",
+  lok:"Sistem Risk + Spreadsheet Terproteksi",
+  desk:"Model penilaian risiko kredit mitra reinsuransi, bank kustodian, dan counterparty investasi. Mencakup rating limit, exposure per pihak, dan trigger review.",
+  krit_alasan:"Keputusan penempatan reasuransi dan investasi bergantung pada credit risk model; error berisiko kerugian besar saat counterparty default.",
+  sens_alasan:"Penilaian kredit internal atas mitra bisnis strategis adalah informasi sangat sensitif; bocor dapat merusak hubungan bisnis."},
+
+{no:95, dept:"Risk Model", nama:"Dashboard Risiko & KRI (Key Risk Indicator) Real-Time", kat:"Data / Aplikasi",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"4 Jam",rpo:"2 Jam", ret:"Data KRI: 3 Thn",
+  pic:"CRO / Direksi",
+  lok:"BI Platform + Sistem ERM",
+  desk:"Dashboard risiko real-time yang memantau KRI across semua kategori risiko: pasar, kredit, likuiditas, operasional, dan asuransi. Alert otomatis jika KRI melewati threshold.",
+  krit_alasan:"Manajemen risiko tidak dapat melakukan intervensi dini tanpa monitoring KRI; risiko eskalasi meningkat.",
+  sens_alasan:"Data KRI mengungkap kondisi risiko aktual perusahaan yang sangat material; tidak boleh diakses pihak eksternal."},
+
+/* ── Tambahan cross-departmental (10) ─────────────── */
+{no:96, dept:"HC", nama:"Platform Wellbeing & Employee Assistance Program (EAP)", kat:"Aplikasi / Layanan",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"1 Hari", ret:"Data konseling: 5 Thn",
+  pic:"HC Manager / Vendor EAP",
+  lok:"Cloud SaaS Vendor EAP (eksternal terproteksi)",
+  desk:"Platform konseling kesehatan mental dan EAP untuk karyawan. Data konseling bersifat anonim dari perusahaan namun teridentifikasi di level vendor.",
+  krit_alasan:"Layanan EAP bersifat sukarela; tidak tersedianya sesaat tidak menghentikan operasional.",
+  sens_alasan:"Data konseling kesehatan mental adalah data paling sensitif per UU PDP; harus dijaga ketat bahkan dari manajemen perusahaan."},
+
+{no:97, dept:"GAF", nama:"Dokumen Asuransi Jiwa Kumpulan Karyawan (Group Life)", kat:"Dokumen / Asuransi",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"2 Hari",rpo:"N/A", ret:"Berlaku + 7 Thn",
+  pic:"HC Manager / GAF / CFO",
+  lok:"Arsip HC + DMS",
+  desk:"Polis asuransi jiwa kumpulan (group term life) dan asuransi kecelakaan kerja (PA) untuk seluruh karyawan. Manfaat kematian dan kecelakaan kerja berdasarkan dokumen ini.",
+  krit_alasan:"Polis harus tersedia saat pengajuan klaim ahli waris karyawan yang meninggal; tidak tersedianya menghambat pembayaran.",
+  sens_alasan:"Detail manfaat asuransi karyawan bersifat sensitif secara internal; tidak untuk diketahui publik."},
+
+{no:98, dept:"Klaim", nama:"SOP Penanganan Klaim Bencana Massal (Catastrophe Protocol)", kat:"Dokumen / Prosedur Darurat",
+  sens:"C", krit:"Y", c:3,i:3,a:2, rto:"Segera (saat bencana)",rpo:"N/A", ret:"Berlaku + 5 Thn",
+  pic:"Kepala Klaim / CRO / Direksi",
+  lok:"DMS Klaim + Salinan Offline",
+  desk:"Prosedur penanganan klaim massal saat terjadi bencana alam, pandemi, atau kecelakaan massal. Mencakup pembentukan tim krisis, fast-track klaim, dan koordinasi dengan reasuransi.",
+  krit_alasan:"Protokol ini harus siap dan diketahui saat bencana terjadi; tidak tersedianya berarti penanganan klaim massal kacau.",
+  sens_alasan:"Kapabilitas dan batas penanganan bencana perusahaan tidak boleh diketahui publik agar tidak menimbulkan kepanikan."},
+
+{no:99, dept:"Risk Model", nama:"Model Epidemik & Pandemic Risk (Post-COVID Update)", kat:"Data / Model Aktuaria",
+  sens:"C", krit:"Y", c:3,i:3,a:1, rto:"2 Hari",rpo:"N/A", ret:"10 Thn",
+  pic:"Chief Actuary / CRO",
+  lok:"Server Aktuaria — akses sangat terbatas",
+  desk:"Model risiko pandemi dan epidemik yang diperbarui pasca COVID-19. Mencakup penyesuaian mortalita, klaim excess mortality, dan stress testing skenario pandemi masa depan.",
+  krit_alasan:"Model pandemi diperlukan untuk penetapan ulang asumsi risiko; kritis untuk solvabilitas jangka panjang.",
+  sens_alasan:"Model mengungkap proyeksi kehilangan finansial perusahaan dalam skenario bencana; sangat sensitif secara bisnis dan regulasi."},
+
+{no:100, dept:"Legal", nama:"Register & Monitoring Perubahan Regulasi (Regulatory Watch)", kat:"Dokumen / Regulasi",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"3 Thn + update berkelanjutan",
+  pic:"Kepala Legal / Compliance",
+  lok:"SharePoint Legal + Compliance + Kalender Digital",
+  desk:"Database pemantauan perubahan regulasi dari OJK, BI, PPATK, Kemenkeu, dan regulasi internasional (IFRS, ICS). Update otomatis dengan analisis dampak ke operasional.",
+  krit_alasan:"Ketidaktahuan atas perubahan regulasi adalah risiko kepatuhan kritikal; miss deadline regulasi langsung berisiko sanksi OJK.",
+  sens_alasan:"Register regulasi bersifat informasi publik namun analisis dampak internalnya bersifat restricted."},
+
+{no:101, dept:"Marketing Retail", nama:"Data & Analitik Kanal Digital (Web & App Analytics)", kat:"Data / Analitik",
+  sens:"R", krit:"N", c:2,i:2,a:1, rto:"2 Hari",rpo:"1 Hari", ret:"2 Thn",
+  pic:"Kepala Marketing Digital",
+  lok:"Google Analytics / Adobe Analytics (Cloud)",
+  desk:"Data traffic website, konversi landing page, funnel digital, app install, user behavior, dan atribusi kampanye digital. Digunakan untuk optimasi marketing spend.",
+  krit_alasan:"Analitik digital bersifat retrospektif; tidak tersedianya sesaat tidak menghentikan kampanye yang berjalan.",
+  sens_alasan:"Data perilaku pengguna website/app mengandung informasi yang dilindungi kebijakan privasi; harus di-anonymize sesuai UU PDP."},
+
+{no:102, dept:"Customer Service", nama:"Template & Standar Komunikasi Nasabah (Standard Letter)", kat:"Dokumen / Template",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"4 Jam",rpo:"N/A", ret:"Berlaku + 2 Thn",
+  pic:"Kepala CS / Legal / Compliance",
+  lok:"SharePoint CS + DMS",
+  desk:"Template surat resmi kepada nasabah yang telah disetujui Legal dan Compliance: surat polis, surat klaim, surat penolakan klaim, surat permintaan dokumen, dan surat penawaran produk.",
+  krit_alasan:"Tanpa template yang disetujui, CS dapat menggunakan bahasa yang tidak compliant; risiko pelanggaran regulasi perlindungan konsumen.",
+  sens_alasan:"Template mengandung klausul hukum yang disepakati; integritas template lebih penting dari kerahasiaannya."},
+
+{no:103, dept:"GAF", nama:"Rencana Keberlangsungan Operasional Gedung (Facility BCP)", kat:"Dokumen / Prosedur Darurat",
+  sens:"R", krit:"Y", c:2,i:3,a:2, rto:"Segera (saat bencana)",rpo:"N/A", ret:"Berlaku + 3 Thn",
+  pic:"Kepala GAF / K3 / BCM Manager",
+  lok:"DMS GAF + Salinan Offline",
+  desk:"Rencana keberlangsungan operasional fasilitas fisik: lokasi alternatif kantor saat gedung utama tidak dapat digunakan, prosedur evakuasi, dan pemulihan fasilitas pasca bencana.",
+  krit_alasan:"Harus siap saat bencana (gempa, kebakaran); tanpa facility BCP, pemulihan operasional fisik akan kacau dan lama.",
+  sens_alasan:"Lokasi alternatif kantor dan prosedur aktivasi adalah informasi operasional sensitif yang tidak boleh diketahui publik."},
+
+{no:104, dept:"HC", nama:"Data Kompensasi & Benefit Benchmarking (Salary Survey)", kat:"Data / Dokumen",
+  sens:"C", krit:"N", c:3,i:2,a:1, rto:"3 Hari",rpo:"N/A", ret:"5 Thn",
+  pic:"Kepala HC / CFO",
+  lok:"SharePoint HC — akses sangat terbatas",
+  desk:"Hasil salary survey industri, data benchmarking kompensasi per level jabatan, dan analisis posisi gaji perusahaan relatif terhadap pasar (percentile P50, P75). Digunakan untuk revisi skala gaji.",
+  krit_alasan:"Salary review dilakukan tahunan; tidak tersedianya sesaat tidak menghentikan operasional.",
+  sens_alasan:"Data benchmarking gaji dan posisi pasar adalah informasi sangat sensitif; bocor dapat memicu tuntutan kenaikan gaji massal atau target headhunting kompetitor."},
+
+{no:105, dept:"Risk Model", nama:"Kebijakan Manajemen Risiko Perusahaan (Risk Management Policy)", kat:"Dokumen / Kebijakan",
+  sens:"I", krit:"Y", c:1,i:3,a:2, rto:"1 Hari",rpo:"N/A", ret:"Berlaku + 5 Thn",
+  pic:"CRO / Direksi / Dewan Komisaris",
+  lok:"SharePoint Risk + Intranet (akses karyawan tertentu)",
+  desk:"Kebijakan manajemen risiko induk perusahaan yang mencakup risk appetite, risk tolerance, kerangka three lines of defense, dan tata kelola risiko. Disetujui Dewan Komisaris.",
+  krit_alasan:"Kebijakan ini adalah landasan seluruh aktivitas manajemen risiko; tidak tersedianya menghambat konsistensi pengelolaan risiko.",
+  sens_alasan:"Integritas kebijakan lebih penting dari kerahasiaannya; sebagian dapat dipublikasikan sebagai bukti GCG."},
+];
+
+/* ═══════════════════════════════════════════════════════
+   RENDER ENGINE
+═══════════════════════════════════════════════════════ */
+const sensLabel = {C:"Confidential", R:"Restricted", I:"Internal Use Only", P:"Public"};
+const deptGroup = ["HC","GAF","Legal","Marketing Retail","Klaim","Customer Service","Risk Model"];
+const deptIcon  = {
+  "HC":"👥 Human Capital",
+  "GAF":"🏢 General Affairs & Facilities",
+  "Legal":"⚖️ Legal",
+  "Marketing Retail":"📣 Marketing Retail",
+  "Klaim":"📋 Klaim",
+  "Customer Service":"🎧 Customer Service",
+  "Risk Model":"📊 Risk Model & Aktuaria"
+};
+
+const deptClass = {
+  "HC":"d-HC","GAF":"d-GAF","Legal":"d-Legal",
+  "Marketing Retail":"d-Mkt","Klaim":"d-Claim",
+  "Customer Service":"d-CS","Risk Model":"d-Risk"
+};
+
+function cClass(n){ return n>=3?'c3':n===2?'c2':'c1'; }
+function tClass(t){ return t===9?'t9':t===8?'t8':t===7?'t7':t===6?'t6':'t-lo'; }
+
+let openRow = null;
+
+function buildTable(list){
+  const tbody = document.getElementById('tBody');
+  tbody.innerHTML = '';
+  document.getElementById('noRes').style.display = list.length===0?'block':'none';
+  document.getElementById('countEl').textContent = list.length;
+
+  // group by dept if no filters
+  const filterActive = document.getElementById('deptSel').value || document.getElementById('sensSel').value || document.getElementById('kritSel').value || document.getElementById('searchBox').value;
+
+  let lastDept = null;
+  list.forEach(a => {
+    if(!filterActive && a.dept !== lastDept){
+      lastDept = a.dept;
+      const gr = document.createElement('tr');
+      gr.className = 'group-header';
+      gr.innerHTML = `<td colspan="15">${deptIcon[a.dept]}</td>`;
+      tbody.appendChild(gr);
+    }
+
+    const t = a.c+a.i+a.a;
+    const tr = document.createElement('tr');
+    tr.className = 'data-row';
+    tr.dataset.no = a.no;
+    tr.innerHTML = `
+      <td class="no-cell">${String(a.no).padStart(3,'0')}</td>
+      <td class="name-cell">${a.nama}</td>
+      <td><span class="dbadge ${deptClass[a.dept]}">${a.dept}</span></td>
+      <td class="kat-cell">${a.kat}</td>
+      <td><span class="sbadge s-${a.sens}">${sensLabel[a.sens]}</span></td>
+      <td><span class="kbadge k-${a.krit}">${a.krit==='Y'?'⚠ Kritikal':'Non-Kritikal'}</span></td>
+      <td class="cia-num"><span class="${cClass(a.c)}">${a.c}</span></td>
+      <td class="cia-num"><span class="${cClass(a.i)}">${a.i}</span></td>
+      <td class="cia-num"><span class="${cClass(a.a)}">${a.a}</span></td>
+      <td class="total-cell"><span class="${tClass(t)}">${t}</span></td>
+      <td class="rto-c">${a.rto}</td>
+      <td class="rpo-c">${a.rpo}</td>
+      <td class="ret-c">${a.ret}</td>
+      <td class="pic-c">${a.pic}</td>
+      <td style="text-align:center;width:22px"><span class="chev">▼</span></td>
+    `;
+    tr.addEventListener('click', ()=>toggleDetail(tr, a));
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleDetail(tr, a){
+  if(openRow && openRow !== tr){
+    openRow.classList.remove('expanded');
+    const pe = openRow.nextSibling;
+    if(pe && pe.className==='expand-row') pe.remove();
+  }
+  if(tr.classList.contains('expanded')){
+    tr.classList.remove('expanded');
+    const pe = tr.nextSibling;
+    if(pe && pe.className==='expand-row') pe.remove();
+    openRow = null;
+    return;
+  }
+  tr.classList.add('expanded');
+  openRow = tr;
+  const exTr = document.createElement('tr');
+  exTr.className = 'expand-row';
+  exTr.innerHTML = `<td colspan="15"><div class="expand-panel">
+    <div class="ep-field full"><label>Deskripsi Aset</label><p>${a.desk}</p></div>
+    <div class="ep-field"><label>Alasan Kritikalitas</label><p>${a.krit_alasan}</p></div>
+    <div class="ep-field"><label>Alasan Sensitivitas</label><p>${a.sens_alasan}</p></div>
+    <div class="ep-field"><label>Lokasi / Format</label><p>${a.lok}</p></div>
+  </div></td>`;
+  tr.after(exTr);
+}
+
+function getFiltered(){
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const d = document.getElementById('deptSel').value;
+  const s = document.getElementById('sensSel').value;
+  const k = document.getElementById('kritSel').value;
+  return assets.filter(a =>
+    (!q || a.nama.toLowerCase().includes(q) || a.dept.toLowerCase().includes(q) || a.kat.toLowerCase().includes(q)) &&
+    (!d || a.dept===d) &&
+    (!s || a.sens===s) &&
+    (!k || a.krit===k)
+  );
+}
+
+function applyFilter(){ openRow=null; buildTable(getFiltered()); }
+function resetAll(){
+  ['searchBox','deptSel','sensSel','kritSel'].forEach(id=>document.getElementById(id).value='');
+  applyFilter();
+}
+
+['searchBox','deptSel','sensSel','kritSel'].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener(id==='searchBox'?'input':'change', applyFilter);
+});
+
+/* STATS */
+function buildStats(){
+  const dCnt = {}, sCnt = {C:0,R:0,I:0,P:0}; let kY=0,kN=0;
+  assets.forEach(a=>{
+    dCnt[a.dept]=(dCnt[a.dept]||0)+1;
+    sCnt[a.sens]++;
+    a.krit==='Y'?kY++:kN++;
+  });
+  const el = document.getElementById('statsRow');
+  el.innerHTML = `
+    <div class="stat-chip"><div class="num">${assets.length}</div><div class="lbl">Total Aset</div></div>
+    <div class="stat-chip"><div class="num" style="color:#ff8080">${kY}</div><div class="lbl">Kritikal</div></div>
+    <div class="stat-chip"><div class="num" style="color:rgba(255,255,255,0.35)">${kN}</div><div class="lbl">Non-Kritikal</div></div>
+    <div class="stat-chip"><div class="num" style="color:#ff8080">${sCnt.C}</div><div class="lbl">Confidential</div></div>
+    <div class="stat-chip"><div class="num" style="color:#ffaa44">${sCnt.R}</div><div class="lbl">Restricted</div></div>
+    <div class="stat-chip"><div class="num" style="color:#66aaff">${sCnt.I}</div><div class="lbl">Internal</div></div>
+    <div class="stat-chip"><div class="num" style="color:#66cc88">${sCnt.P}</div><div class="lbl">Public</div></div>
+    ${Object.entries(dCnt).map(([d,n])=>`<div class="stat-chip"><div class="num" style="font-size:0.95rem">${n}</div><div class="lbl" style="font-size:0.58rem">${d}</div></div>`).join('')}
+  `;
+}
+
+buildStats();
+buildTable(assets);
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+server: 192.168.10.33 (PROD)
+user: adminbas  
+pass: B@sELI@satelkom15Nov2023
+
+
+
+SELECT
+	a.name,
+	a.login,
+   	a.lastLogin,
+	c.name,
+	a._state,
+	d.module
+FROM
+	bas_eli.user AS a
+	INNER JOIN
+   	bas_eli.user2role AS b
+   	ON a._id = b.user
+	INNER JOIN
+	bas_eli.role AS c
+	ON b.roles = c._id
+	INNER JOIN
+	bas.role2module AS d
+	ON d._id = c._id
+    	INNER JOIN
+    	bas_eli.modul AS e
+    	ON d.module = e.uiname
+WHERE
+	c._id IN 
+	(
+ 	'9'
+	,'23'
+	,'24'
+	,'33'
+	,'34'
+	,'35'
+	,'36'
+	,'37'
+	,'38'
+	,'42'
+	,'43'
+	,'47'
+	,'50'
+	,'52'
+	,'54'
+	,'56'
+	,'57'
+	) AND
+    	b._state = 1

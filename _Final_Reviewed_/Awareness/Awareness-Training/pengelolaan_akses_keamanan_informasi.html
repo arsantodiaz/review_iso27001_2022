@@ -1,0 +1,382 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#0a0f1e;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(55,138,221,0.12)}
+.hero::after{content:'';position:absolute;bottom:-30px;left:60px;width:100px;height:100px;border-radius:50%;background:rgba(127,119,221,0.08)}
+.hero-badge{display:inline-block;background:rgba(55,138,221,0.2);border:1px solid rgba(55,138,221,0.35);color:#93c5fd;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#60a5fa}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#0a0f1e;color:#60a5fa;border-color:#185fa5}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-p{color:rgba(196,181,253,0.85)}.tx-p strong{color:#c4b5fd;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-p{color:#a78bfa}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-p{background:#7f77dd}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#60a5fa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+
+.pw-meter{margin-bottom:12px}
+.pw-row{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.pw-label{font-size:11px;color:var(--color-text-secondary);width:160px;flex-shrink:0}
+.pw-bar-w{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.pw-bar{height:100%;border-radius:3px}
+.pb-r{background:#e24b4a}.pb-y{background:#ef9f27}.pb-g{background:#1d9e75}
+.pw-val{font-size:10px;font-weight:500;width:60px;text-align:right;flex-shrink:0}
+.pv-r{color:#f87171}.pv-y{color:#fbbf24}.pv-g{color:#34d399}
+
+.principle-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.principle-card{border-radius:10px;padding:12px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.principle-num{font-size:22px;font-weight:500;color:#185fa5;margin-bottom:4px;line-height:1}
+.principle-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.principle-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+
+.pw-strength{margin-bottom:12px}
+.pw-example-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;margin-bottom:6px;border:1px solid var(--color-border-tertiary)}
+.pw-example-row.bad{background:rgba(226,75,74,0.08);border-color:rgba(226,75,74,0.2)}
+.pw-example-row.ok{background:rgba(239,159,39,0.08);border-color:rgba(239,159,39,0.2)}
+.pw-example-row.good{background:rgba(29,158,117,0.08);border-color:rgba(29,158,117,0.2)}
+.pw-ex-text{font-family:var(--font-mono,monospace);font-size:13px;flex:1}
+.pw-ex-text.bad{color:#f87171}.pw-ex-text.ok{color:#fbbf24}.pw-ex-text.good{color:#34d399}
+.pw-ex-label{font-size:10px;font-weight:500}
+.pw-ex-label.bad{color:#f87171}.pw-ex-label.ok{color:#fbbf24}.pw-ex-label.good{color:#34d399}
+.pw-ex-desc{font-size:10px;color:var(--color-text-secondary);margin-top:2px}
+
+.review-table{width:100%;border-collapse:collapse;font-size:11px}
+.review-table th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:6px 8px;text-align:left;border-bottom:1px solid var(--color-border-tertiary);letter-spacing:.04em;text-transform:uppercase}
+.review-table td{padding:7px 8px;border-bottom:1px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-secondary);line-height:1.4;font-size:11px}
+.review-table tr:last-child td{border-bottom:none}
+.review-table .dept{font-weight:500;color:var(--color-text-primary)}
+
+.step-flow{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-num{width:26px;height:26px;border-radius:50%;background:#0c447c;color:#93c5fd;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-line-v{width:1px;height:10px;background:rgba(55,138,221,0.2);margin-left:13px}
+.step-body{flex:1;padding-bottom:2px}
+.step-title{font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:2px}
+.step-desc{font-size:11px;color:rgba(147,197,253,0.65);line-height:1.4}
+
+.footer{background:#0a0f1e;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#60a5fa}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Access Control Awareness</div>
+  <h1>Panduan Implementasi<br><span>Pengelolaan Akses</span></h1>
+  <p>Otorisasi · Least privilege · Review berkala · Password policy · MFA · Akses vendor</p>
+  <div class="hero-icon">🔐</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi & Prinsip</div>
+  <div class="tab" onclick="sw('password')">Kebijakan Password</div>
+  <div class="tab" onclick="sw('review')">Review Akses</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa pengelolaan akses sangat kritis?</div>
+    <div class="narasi-text">Akses yang tidak terkontrol adalah salah satu <strong>celah keamanan terbesar</strong> dalam sebuah organisasi. Setiap akses yang diberikan tanpa otorisasi yang jelas, tidak terdokumentasi, atau tidak pernah ditinjau ulang — adalah pintu terbuka bagi ancaman, baik dari luar maupun dari dalam organisasi sendiri.<br><br>Prinsip dasarnya sederhana: <strong>berikan akses hanya kepada orang yang membutuhkan, untuk hal yang dibutuhkan, selama yang dibutuhkan — dan tidak lebih.</strong> Akses yang berlebihan bukan bentuk kepercayaan, melainkan risiko yang tidak perlu.</div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>4 prinsip utama pengelolaan akses</div>
+  <div class="principle-grid">
+    <div class="principle-card">
+      <div class="principle-num" style="color:#378add">01</div>
+      <div class="principle-title">Need-to-Know & Least Privilege</div>
+      <div class="principle-desc">Berikan akses hanya sebatas yang diperlukan untuk menjalankan tugas. Tidak ada akses "siapa tahu berguna". Semakin sedikit akses yang tidak perlu, semakin kecil risiko yang ada.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num" style="color:#1d9e75">02</div>
+      <div class="principle-title">Otorisasi & Dokumentasi</div>
+      <div class="principle-desc">Setiap pemberian akses harus disetujui oleh pihak berwenang (atasan langsung + IT Security) dan didokumentasikan. Akses tanpa dokumen = akses tidak sah.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num" style="color:#7f77dd">03</div>
+      <div class="principle-title">Review Berkala</div>
+      <div class="principle-desc">Hak akses bukan sesuatu yang diberikan selamanya. Harus ditinjau secara berkala — minimal setiap 6 bulan — untuk memastikan masih relevan dengan tugas dan tanggung jawab saat ini.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num" style="color:#ef9f27">04</div>
+      <div class="principle-title">Segera Cabut Saat Tidak Diperlukan</div>
+      <div class="principle-desc">Perubahan jabatan, mutasi, atau berhenti kerja harus langsung diikuti pencabutan akses. Jangan tunggu sampai ada insiden untuk baru mencabut akses yang tidak lagi diperlukan.</div>
+    </div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Siapa yang bertanggung jawab atas pengelolaan akses?</div>
+    <div class="narasi-text"><strong>IT Security / Administrator</strong> — mengelola teknis pemberian dan pencabutan akses ke sistem, jaringan, dan infrastruktur.<br><br><strong>Atasan / Manajer</strong> — bertanggung jawab mengajukan dan menyetujui permintaan akses anggota timnya, serta melapor ke IT jika ada perubahan status atau kebutuhan akses.<br><br><strong>HR / Personalia</strong> — wajib segera memberitahu IT setiap kali ada perubahan status kepegawaian: onboarding, mutasi, promosi, cuti panjang, maupun offboarding.<br><br><strong>Setiap Pegawai</strong> — bertanggung jawab menjaga keamanan kredensial masing-masing dan melaporkan jika menemukan akses yang tidak semestinya.</div>
+  </div>
+
+</div>
+
+<div id="p-password" class="panel">
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Standar password yang wajib dipenuhi</div>
+
+  <div class="g2" style="margin-bottom:10px">
+    <div class="card card-b">
+      <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Kriteria password kuat</div>
+      <div class="pw-meter">
+        <div class="pw-row"><span class="pw-label">Panjang minimal</span><div class="pw-bar-w"><div class="pw-bar pb-g" style="width:100%"></div></div><span class="pw-val pv-g">8+ karakter</span></div>
+        <div class="pw-row"><span class="pw-label">Huruf besar (A–Z)</span><div class="pw-bar-w"><div class="pw-bar pb-g" style="width:100%"></div></div><span class="pw-val pv-g">Wajib</span></div>
+        <div class="pw-row"><span class="pw-label">Huruf kecil (a–z)</span><div class="pw-bar-w"><div class="pw-bar pb-g" style="width:100%"></div></div><span class="pw-val pv-g">Wajib</span></div>
+        <div class="pw-row"><span class="pw-label">Angka (0–9)</span><div class="pw-bar-w"><div class="pw-bar pb-g" style="width:100%"></div></div><span class="pw-val pv-g">Wajib</span></div>
+        <div class="pw-row"><span class="pw-label">Simbol (!@#$%^&)</span><div class="pw-bar-w"><div class="pw-bar pb-g" style="width:100%"></div></div><span class="pw-val pv-g">Wajib</span></div>
+        <div class="pw-row"><span class="pw-label">Ganti password rutin</span><div class="pw-bar-w"><div class="pw-bar pb-y" style="width:75%"></div></div><span class="pw-val pv-y">Kritikal: 90hr</span></div>
+        <div class="pw-row"><span class="pw-label">Tidak boleh diulang</span><div class="pw-bar-w"><div class="pw-bar pb-g" style="width:100%"></div></div><span class="pw-val pv-g">5 password terakhir</span></div>
+      </div>
+    </div>
+    <div class="card card-b">
+      <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Aturan tambahan password</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Gunakan passphrase</strong> — kalimat pendek lebih kuat dari kata acak pendek. Contoh: <code style="font-size:10px;background:rgba(255,255,255,0.08);padding:1px 4px;border-radius:3px">Anjing!Lari@2024</code></div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Gunakan password manager</strong> — tools seperti Bitwarden atau KeePass agar tidak perlu mengingat semua password</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Password unik untuk setiap akun</strong> — satu password untuk semua sistem = satu titik kegagalan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Aktifkan MFA / 2FA</strong> di semua sistem yang mendukungnya — terutama email, VPN, dan sistem kritikal</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Ganti segera</strong> jika curiga password sudah diketahui orang lain atau ditemukan di data breach</div></div>
+    </div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Contoh password — mana yang kuat?</div>
+  <div class="pw-strength">
+    <div class="pw-example-row bad">
+      <div style="flex:1"><div class="pw-ex-text bad">password123</div><div class="pw-ex-desc">Terlalu umum, tidak ada huruf besar atau simbol, mudah ditebak</div></div>
+      <span class="pw-ex-label bad">Sangat Lemah</span>
+    </div>
+    <div class="pw-example-row bad">
+      <div style="flex:1"><div class="pw-ex-text bad">NamaKamu1990</div><div class="pw-ex-desc">Menggunakan info pribadi yang mudah ditebak dari media sosial</div></div>
+      <span class="pw-ex-label bad">Lemah</span>
+    </div>
+    <div class="pw-example-row ok">
+      <div style="flex:1"><div class="pw-ex-text ok">Kantor@2024</div><div class="pw-ex-desc">Ada kombinasi huruf besar, kecil, angka & simbol — tapi terlalu pendek dan mudah ditebak</div></div>
+      <span class="pw-ex-label ok">Cukup</span>
+    </div>
+    <div class="pw-example-row good">
+      <div style="flex:1"><div class="pw-ex-text good">K4fe!Pagi@Senin#7</div><div class="pw-ex-desc">Panjang, kombinasi lengkap, sulit ditebak, tapi masih bisa diingat</div></div>
+      <span class="pw-ex-label good">Kuat</span>
+    </div>
+    <div class="pw-example-row good">
+      <div style="flex:1"><div class="pw-ex-text good">Awan!Bergerak_Cepat99</div><div class="pw-ex-desc">Passphrase panjang, mudah diingat, sangat sulit di-brute force</div></div>
+      <span class="pw-ex-label good">Sangat Kuat</span>
+    </div>
+  </div>
+
+  <div class="card card-r">
+    <div class="sec sc-r"><span class="dot dot-r"></span>Password yang dilarang digunakan</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Nama sendiri, anggota keluarga, atau hewan peliharaan</div></div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Tanggal lahir, nomor telepon, atau NIK</div></div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Nama perusahaan atau nama divisi</div></div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Urutan keyboard: qwerty, 123456, abcdef</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Password sama dengan username atau email</div></div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Password lama yang hanya ditambah angka: Password1 → Password2</div></div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Kata umum dari kamus: "admin", "login", "welcome"</div></div>
+        <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Password yang sama untuk semua sistem/akun</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-review" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa review akses wajib dilakukan secara berkala?</div>
+    <div class="narasi-text">Hak akses yang tidak pernah ditinjau ulang cenderung <strong>menumpuk dan meluas melebihi kebutuhan aktual</strong>. Seseorang yang pindah divisi mungkin masih punya akses ke sistem divisi lama. Karyawan yang sudah resign mungkin akunnya masih aktif. Vendor yang kontraknya sudah habis mungkin masih bisa login. Semua ini adalah risiko nyata yang bisa dicegah dengan review berkala yang konsisten.</div>
+  </div>
+
+  <div class="card card-b" style="margin-bottom:10px">
+    <div class="sec sc-b" style="margin-bottom:10px"><span class="dot dot-b"></span>Alur proses review hak akses</div>
+    <div class="step-flow">
+      <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">IT Security menarik laporan daftar akses aktif</div><div class="step-desc">Seluruh akun aktif per sistem — siapa yang punya akses ke apa — diexport secara periodik</div></div></div>
+      <div class="step-line-v"></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Distribusikan ke masing-masing manajer / asset owner</div><div class="step-desc">Setiap manajer menerima daftar akses anggota timnya untuk diverifikasi kesesuaiannya</div></div></div>
+      <div class="step-line-v"></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Manajer melakukan validasi per akun</div><div class="step-desc">Untuk setiap akun: Masih diperlukan? Sesuai jabatan saat ini? Jika tidak — ajukan pencabutan</div></div></div>
+      <div class="step-line-v"></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">IT Security memproses pencabutan atau penyesuaian akses</div><div class="step-desc">Akses yang tidak lagi diperlukan dicabut, akses yang perlu disesuaikan diperbarui</div></div></div>
+      <div class="step-line-v"></div>
+      <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Dokumentasikan hasil review dan simpan sebagai bukti audit</div><div class="step-desc">Seluruh proses review didokumentasikan — siapa yang menyetujui, apa yang diubah, kapan dilakukan</div></div></div>
+    </div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Frekuensi review berdasarkan tingkat akses</div>
+  <div class="card card-n" style="padding:0;overflow:hidden;margin-bottom:10px">
+    <table class="review-table">
+      <thead>
+        <tr>
+          <th>Jenis Akses</th>
+          <th>Contoh Sistem</th>
+          <th>Frekuensi Review</th>
+          <th>Prioritas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="dept">Akses Admin / Privileged</td><td>Server, Active Directory, firewall, database root</td><td>Setiap 3 bulan</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+        <tr><td class="dept">Akses Sistem Kritikal</td><td>Core banking, ERP keuangan, HRIS, sistem produksi</td><td>Setiap 3–6 bulan</td><td><span class="badge badge-r">Tinggi</span></td></tr>
+        <tr><td class="dept">Akses Data Sensitif</td><td>Database pelanggan, payroll, data kontrak</td><td>Setiap 6 bulan</td><td><span class="badge badge-y">Tinggi</span></td></tr>
+        <tr><td class="dept">Akses Operasional Umum</td><td>Email, SharePoint, aplikasi internal standar</td><td>Setiap 6–12 bulan</td><td><span class="badge badge-y">Sedang</span></td></tr>
+        <tr><td class="dept">Akses Vendor / Pihak Ketiga</td><td>Remote access, VPN tamu, sistem tertentu</td><td>Setiap kontrak berakhir + 3 bulan</td><td><span class="badge badge-r">Tinggi</span></td></tr>
+        <tr><td class="dept">Akses Darurat (Break-Glass)</td><td>Akun emergency saat insiden</td><td>Setiap penggunaan + audit langsung</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Trigger review mendadak (di luar jadwal)</div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Pegawai resign, PHK, atau pensiun</strong> — cabut semua akses hari yang sama</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Mutasi jabatan atau pindah divisi</strong> — sesuaikan akses segera setelah efektif</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Insiden keamanan terjadi</strong> — audit seluruh akses terkait sistem yang terdampak</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Kontrak vendor berakhir</strong> — cabut akses eksternal selambatnya di hari terakhir kontrak</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Yang harus didokumentasikan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Form permintaan akses</strong> — siapa yang minta, alasan, sistem yang diminta, persetujuan atasan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tanggal pemberian dan pencabutan akses</strong> untuk setiap pengguna dan sistem</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Hasil review berkala</strong> — daftar akses yang divalidasi, diubah, atau dicabut beserta alasannya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Log akses sistem kritikal</strong> — rekam siapa mengakses apa dan kapan untuk keperluan audit</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Pemberian & pengelolaan akses</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan setiap pemberian akses</strong> sudah diotorisasi atasan langsung dan didokumentasikan secara formal</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Terapkan least privilege</strong> — berikan akses minimum yang dibutuhkan untuk menjalankan tugas</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Buat akun individual</strong> untuk setiap pengguna — tidak boleh ada akun yang dipakai bersama-sama</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Nonaktifkan akun</strong> yang tidak digunakan lebih dari 30 hari tanpa alasan yang jelas</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan akun terpisah</strong> untuk akses admin — jangan gunakan akun admin untuk aktivitas sehari-hari</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Keamanan kredensial</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan password sesuai standar</strong> — minimal 8 karakter, kombinasi huruf besar, kecil, angka, dan simbol</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan MFA/2FA</strong> untuk semua sistem kritikal — email, VPN, sistem keuangan, dan HR</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ubah password secara berkala</strong> — sistem kritikal setiap 90 hari, sistem umum setiap 6 bulan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan password manager</strong> yang disetujui IT untuk menyimpan dan mengelola password dengan aman</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ganti password segera</strong> jika dicurigai bocor atau ditemukan dalam notifikasi data breach</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Akses remote & vendor</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan VPN resmi</strong> untuk semua akses remote ke sistem dan jaringan internal kantor</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Batasi akses vendor</strong> hanya pada sistem yang relevan dengan scope pekerjaan mereka</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dampingi vendor</strong> saat mengakses sistem kritikal — jangan biarkan akses tanpa pengawasan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Cabut akses vendor</strong> segera setelah pekerjaan atau kontrak selesai — jangan tunda</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Pelaporan & respons</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan segera ke IT</strong> jika menemukan akun mencurigakan, akses tidak wajar, atau login dari lokasi aneh</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan perubahan status</strong> anggota tim ke IT — mutasi, resign, atau cuti panjang harus segera dikomunikasikan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ikuti review hak akses berkala</strong> yang diinisiasi IT — validasi daftar akses anggota tim dengan teliti</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lock session</strong> dan logout dengan benar setelah selesai bekerja di sistem kritikal</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait akun & akses</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>berbagi akun atau password</strong> dengan siapapun — termasuk rekan tim, atasan, atau IT sendiri</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>menggunakan akun orang lain</strong> untuk mengakses sistem, meski seizin yang bersangkutan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>minta akses melebihi kebutuhan</strong> dengan alasan "siapa tahu suatu hari berguna"</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>membuat akun bersama (shared account)</strong> yang dipakai oleh lebih dari satu orang</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan sesi aktif tanpa pengawasan</strong> — selalu lock layar saat meninggalkan komputer</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait password</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>tulis password di sticky note</strong> dan tempel di monitor, keyboard, atau laci meja</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>simpan password di browser</strong> untuk sistem kritikal — gunakan password manager resmi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>kirim password via email, chat, atau SMS</strong> — gunakan saluran aman yang disediakan IT</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>pakai password yang sama</strong> untuk akun kerja dan akun pribadi (media sosial, email personal)</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>berikan password ke siapapun</strong> yang mengklaim dari IT — IT tidak pernah meminta password</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait akses remote & vendor</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>akses sistem kantor</strong> dari jaringan WiFi publik tanpa VPN yang terenkripsi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>berikan akses remote</strong> kepada vendor melebihi scope dan waktu yang disepakati</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tinggalkan vendor sendirian</strong> saat mengakses sistem kritikal tanpa pengawasan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan akses vendor aktif</strong> setelah kontrak atau proyek berakhir</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan untuk manajer & pemilik sistem</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>approve permintaan akses</strong> tanpa memverifikasi kebutuhan aktual dan relevansinya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tunda pelaporan perubahan status</strong> anggota tim ke IT — satu hari terlambat adalah risiko</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan review hak akses</strong> berkala — validasi daftar akses adalah tanggung jawab manajer</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>berikan akses admin</strong> kepada pengguna tanpa justifikasi dan persetujuan IT Security</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Akses yang tepat · Orang yang tepat · Waktu yang tepat · Tidak lebih dari itu"</span></div>
+    <div class="footer-sub">Akses berlebih bukan bentuk kepercayaan — itu adalah risiko yang tidak perlu</div>
+  </div>
+  <div class="footer-right">SMKI — Access Control<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','password','review','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

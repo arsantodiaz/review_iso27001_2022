@@ -1,0 +1,372 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#12100a;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(29,158,117,0.1)}
+.hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:90px;height:90px;border-radius:50%;background:rgba(239,159,39,0.07)}
+.hero-badge{display:inline-block;background:rgba(29,158,117,0.2);border:1px solid rgba(29,158,117,0.35);color:#34d399;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#34d399}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#12100a;color:#34d399;border-color:#0f6e56}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-b{background:rgba(55,138,221,0.15);border:1.5px solid #378add;font-size:9px;color:#93c5fd;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#34d399;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+
+.zone-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.zone-card{border-radius:10px;padding:12px;border:1px solid var(--color-border-tertiary);text-align:center}
+.zone-title{font-size:12px;font-weight:500;margin-bottom:4px}
+.zone-sub{font-size:10px;color:var(--color-text-secondary);margin-bottom:7px;line-height:1.4}
+.zone-example{font-size:10px;line-height:1.4}
+
+.zone-pub{background:rgba(29,158,117,0.07);border-color:rgba(29,158,117,0.2)}
+.zone-pub .zone-title{color:#34d399}
+.zone-pub .zone-example{color:rgba(167,243,208,0.7)}
+
+.zone-int{background:rgba(239,159,39,0.07);border-color:rgba(239,159,39,0.2)}
+.zone-int .zone-title{color:#fbbf24}
+.zone-int .zone-example{color:rgba(253,230,138,0.7)}
+
+.zone-res{background:rgba(226,75,74,0.07);border-color:rgba(226,75,74,0.2)}
+.zone-res .zone-title{color:#f87171}
+.zone-res .zone-example{color:rgba(252,165,165,0.7)}
+
+.threat-item{display:flex;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);margin-bottom:7px}
+.threat-item:last-child{margin-bottom:0}
+.threat-icon-wrap{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.threat-body{flex:1}
+.threat-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.threat-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+.threat-risk{font-size:9px;font-weight:500;margin-top:3px}
+
+.step-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.step-num{width:26px;height:26px;border-radius:50%;background:#085041;color:#9fe1cb;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-line-v{width:1px;height:8px;background:rgba(29,158,117,0.2);margin-left:13px;margin-bottom:0}
+.step-body{flex:1}
+.step-title{font-size:12px;font-weight:500;color:#34d399;margin-bottom:2px}
+.step-desc{font-size:11px;color:rgba(167,243,208,0.65);line-height:1.4}
+
+.check-group{margin-bottom:14px}
+.check-group:last-child{margin-bottom:0}
+.check-group-title{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--color-border-tertiary);display:flex;align-items:center;gap:6px}
+
+.footer{background:#12100a;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#34d399}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Physical Security Awareness</div>
+  <h1>Keamanan <span>Fisik & Lingkungan</span><br>Tempat Kerja</h1>
+  <p>Clear desk · Clear screen · Akses fisik · Secure disposal · Pemeliharaan · Perlindungan lingkungan</p>
+  <div class="hero-icon">🏢</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi & Zona</div>
+  <div class="tab" onclick="sw('ancaman')">Ancaman Fisik</div>
+  <div class="tab" onclick="sw('akses')">Akses & ID Card</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa keamanan fisik sama pentingnya dengan keamanan digital?</div>
+    <div class="narasi-text">Banyak orang fokus pada keamanan digital — antivirus, password, enkripsi — tetapi lupa bahwa <strong>ancaman fisik sama berbahayanya</strong>. Laptop yang dicuri di kafe, dokumen rahasia yang tertinggal di printer, orang asing yang masuk ke ruang server, atau bencana kebakaran yang menghancurkan perangkat tanpa backup — semua ini adalah insiden keamanan informasi nyata yang berasal dari kelemahan fisik.<br><br>Keamanan fisik dan lingkungan adalah <strong>lapisan pertama pertahanan</strong> sebelum siapapun bisa menyentuh sistem, data, atau perangkat organisasi. Jika lapisan ini lemah, semua kontrol digital di atasnya bisa bypass dengan mudah — cukup dengan masuk ke ruangan yang salah.</div>
+  </div>
+
+  <div class="sec sc-g" style="margin-bottom:8px"><span class="dot dot-g"></span>Tiga zona keamanan fisik di lingkungan kerja</div>
+  <div class="zone-grid">
+    <div class="zone-card zone-pub">
+      <div style="font-size:20px;margin-bottom:5px">🟢</div>
+      <div class="zone-title">Zona Publik</div>
+      <div class="zone-sub">Area yang bisa diakses siapapun tanpa verifikasi identitas</div>
+      <div class="zone-example">Lobby, area parkir, ruang tunggu tamu, kantin umum</div>
+      <div style="margin-top:6px"><span class="badge badge-g">Risiko: Rendah</span></div>
+    </div>
+    <div class="zone-card zone-int">
+      <div style="font-size:20px;margin-bottom:5px">🟡</div>
+      <div class="zone-title">Zona Internal</div>
+      <div class="zone-sub">Area yang hanya boleh diakses pegawai dengan ID Card aktif</div>
+      <div class="zone-example">Ruang kerja, meeting room, area operasional, dapur kantor</div>
+      <div style="margin-top:6px"><span class="badge badge-y">Risiko: Sedang</span></div>
+    </div>
+    <div class="zone-card zone-res">
+      <div style="font-size:20px;margin-bottom:5px">🔴</div>
+      <div class="zone-title">Zona Terbatas</div>
+      <div class="zone-sub">Area yang hanya boleh diakses personel tertentu dengan otorisasi khusus</div>
+      <div class="zone-example">Server room, ruang arsip rahasia, ruang IT, brankas</div>
+      <div style="margin-top:6px"><span class="badge badge-r">Risiko: Sangat Tinggi</span></div>
+    </div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Clear Desk & Clear Screen — kebiasaan kecil yang berdampak besar</div>
+    <div class="narasi-text"><strong>Clear Desk Policy</strong> berarti meja kerja harus bebas dari dokumen, catatan, atau perangkat penyimpanan yang mengandung informasi sensitif saat kamu meninggalkan meja — baik sebentar maupun pulang kerja. Informasi yang terlihat di atas meja bisa dibaca siapapun yang lewat, termasuk tamu, vendor, atau orang tidak dikenal yang masuk ke area kantor.<br><br><strong>Clear Screen Policy</strong> berarti layar komputer harus dikunci setiap kali kamu meninggalkan meja, bahkan hanya untuk ke toilet sekalipun. Gunakan shortcut <strong>Windows + L</strong> (Windows) atau <strong>Control + Command + Q</strong> (Mac) untuk mengunci layar dengan cepat. Atur juga lock otomatis setelah 5 menit tidak aktif sebagai jaring pengaman tambahan.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Secure Disposal — musnahkan dengan benar, bukan sekadar buang</div>
+    <div class="narasi-text">Membuang dokumen atau perangkat lama sembarangan adalah salah satu cara paling mudah bagi pihak tidak bertanggung jawab untuk mendapatkan informasi sensitif. Praktik yang dikenal sebagai <strong>"dumpster diving"</strong> — mengais tempat sampah untuk mencari informasi — masih menjadi metode serangan yang efektif hingga hari ini.<br><br>Setiap dokumen fisik yang berisi informasi rahasia harus <strong>dihancurkan menggunakan shredder</strong> sebelum dibuang. Setiap perangkat penyimpanan digital (hard disk, SSD, flashdisk, memory card) yang akan dibuang atau dipindahtangankan harus melalui proses <strong>secure wipe</strong> — penghapusan data secara menyeluruh yang tidak bisa dipulihkan, bukan sekadar format biasa atau factory reset.</div>
+  </div>
+</div>
+
+<div id="p-ancaman" class="panel">
+  <div class="sec sc-r" style="margin-bottom:8px"><span class="dot dot-r"></span>Ancaman fisik yang wajib diwaspadai</div>
+
+  <div class="threat-item">
+    <div class="threat-icon-wrap" style="background:rgba(226,75,74,0.12)">👁</div>
+    <div class="threat-body">
+      <div class="threat-title">Tailgating & Piggybacking</div>
+      <div class="threat-desc">Orang tidak berwenang mengikuti masuk ke area terbatas tepat di belakang orang yang sah — memanfaatkan momen pintu terbuka. Pelaku bisa berpura-pura sebagai kurir, teknisi, atau tamu.</div>
+      <div class="threat-risk pct-r">Risiko: Sangat Tinggi — akses fisik ke sistem dan data sensitif</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="threat-icon-wrap" style="background:rgba(226,75,74,0.12)">👀</div>
+    <div class="threat-body">
+      <div class="threat-title">Shoulder Surfing</div>
+      <div class="threat-desc">Orang mengintip layar komputer atau dokumen dari balik bahu, terutama di tempat umum (kafe, transportasi, co-working space) atau saat presentasi di ruang meeting dengan tamu eksternal.</div>
+      <div class="threat-risk pct-r">Risiko: Tinggi — kebocoran data login, strategi, atau informasi rahasia</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="threat-icon-wrap" style="background:rgba(239,159,39,0.12)">🗑</div>
+    <div class="threat-body">
+      <div class="threat-title">Dumpster Diving</div>
+      <div class="threat-desc">Mengais tempat sampah untuk mencari dokumen yang dibuang sembarangan — nota, laporan, printout email, atau perangkat lama yang belum di-wipe. Satu dokumen yang tidak di-shred bisa membocorkan data kritis.</div>
+      <div class="threat-risk pct-y">Risiko: Tinggi — kebocoran informasi sensitif dari limbah fisik</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="threat-icon-wrap" style="background:rgba(239,159,39,0.12)">🔑</div>
+    <div class="threat-body">
+      <div class="threat-title">ID Card / Access Card Hilang atau Dipinjam</div>
+      <div class="threat-desc">ID Card atau access card yang hilang, dipinjamkan, atau dicuri bisa digunakan orang lain untuk masuk ke area terbatas. Satu kartu yang salah tangan bisa membuka semua pintu yang seharusnya terkunci.</div>
+      <div class="threat-risk pct-y">Risiko: Tinggi — akses tidak sah ke seluruh area yang terhubung ke kartu tersebut</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="threat-icon-wrap" style="background:rgba(239,159,39,0.12)">💻</div>
+    <div class="threat-body">
+      <div class="threat-title">Perangkat Ditinggal Tanpa Pengawasan</div>
+      <div class="threat-desc">Laptop, tablet, atau ponsel yang ditinggal di meja terbuka, kafe, atau kendaraan adalah target empuk untuk dicuri atau diakses sebentar oleh pihak tidak berwenang — bahkan beberapa menit sudah cukup untuk menyalin data.</div>
+      <div class="threat-risk pct-y">Risiko: Tinggi — pencurian perangkat dan data di dalamnya</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="threat-icon-wrap" style="background:rgba(29,158,117,0.12)">🔥</div>
+    <div class="threat-body">
+      <div class="threat-title">Ancaman Lingkungan — Kebakaran, Banjir, Gempa</div>
+      <div class="threat-desc">Bencana fisik bisa menghancurkan perangkat dan data secara permanen jika tidak ada perlindungan yang memadai. APAR yang tidak berfungsi, server room tanpa fire suppression, atau backup yang tidak rutin bisa berujung pada kehilangan data total.</div>
+      <div class="threat-risk pct-g">Risiko: Sedang-Tinggi — ketersediaan data dan kelangsungan operasional</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:10px">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Tanda bahaya yang wajib dilaporkan</div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r">Ada <strong>orang tidak dikenal</strong> di area terbatas atau ruang kerja tanpa escort</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Pintu zona terbatas</strong> terbuka atau tidak terkunci tanpa alasan</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Perangkat atau dokumen</strong> hilang dari meja atau ruang kerja</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>ID Card atau access card</strong> hilang — segera lapor ke Security dan HR</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r">Ada <strong>perangkat asing</strong> (USB, kabel, alat tidak dikenal) yang tersambung ke perangkat kantor</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Tindakan saat menemukan tanda bahaya</div>
+      <div class="it"><div class="ck ck-y">1</div><div class="tx tx-y"><strong>Jangan konfrontasi sendiri</strong> — hubungi Security atau atasan langsung</div></div>
+      <div class="it"><div class="ck ck-y">2</div><div class="tx tx-y"><strong>Catat detail</strong> — deskripsi orang, waktu, lokasi, dan apa yang terjadi</div></div>
+      <div class="it"><div class="ck ck-y">3</div><div class="tx tx-y"><strong>Amankan area</strong> — tutup akses jika memungkinkan tanpa membahayakan diri</div></div>
+      <div class="it"><div class="ck ck-y">4</div><div class="tx tx-y"><strong>Laporkan ke IT Security</strong> jika ada perangkat atau data yang diduga terekspos</div></div>
+      <div class="it"><div class="ck ck-y">5</div><div class="tx tx-y"><strong>Simpan semua bukti</strong> — rekaman CCTV, dokumen, atau catatan untuk investigasi</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-akses" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Prinsip kontrol akses fisik</div>
+    <div class="narasi-text">Akses fisik ke area kerja harus dikelola dengan prinsip yang sama dengan akses digital: <strong>hanya orang yang berwenang, pada area yang diperlukan, dengan verifikasi yang jelas</strong>. ID Card / Access Card adalah kunci fisik yang setara dengan username dan password — kehilangan atau meminjamkannya sama bahayanya dengan memberikan password ke orang lain.</div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Penggunaan ID Card & Access Card</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Selalu gunakan ID Card milik sendiri</strong> — tidak boleh menggunakan kartu orang lain meski seizinnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pakai ID Card yang terlihat</strong> di area kerja — kenakan di tempat yang mudah diverifikasi petugas</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lapor segera jika ID Card hilang</strong> ke Security dan HR untuk dinonaktifkan dan diganti</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kembalikan ID Card</strong> saat resign, kontrak berakhir, atau pindah divisi yang mengubah hak akses</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Jangan biarkan pintu tertahan</strong> terbuka untuk orang lain yang belum tap kartu sendiri</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Pengelolaan tamu & pihak eksternal</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tanyakan kepentingan</strong> orang yang tidak dikenal di area kerja — dengan sopan tapi tegas</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Daftarkan tamu di resepsionis</strong> dan berikan visitor badge yang terlihat jelas</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dampingi tamu selalu</strong> saat berada di area internal — jangan biarkan berkeliling sendiri</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan tamu sign out</strong> dan kembalikan visitor badge saat meninggalkan gedung</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Vendor dan teknisi</strong> hanya boleh masuk ke area yang sesuai scope pekerjaan mereka</div></div>
+    </div>
+  </div>
+
+  <div class="card card-b">
+    <div class="sec sc-b"><span class="dot dot-b"></span>CCTV & monitoring keamanan fisik</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Aktifkan CCTV</strong> di area kritikal — pintu masuk, server room, area arsip, dan lift</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Pastikan rekaman dapat diakses</strong> saat dibutuhkan untuk investigasi insiden</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Review footage secara berkala</strong> untuk mendeteksi pola akses yang tidak wajar</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Simpan rekaman minimal 30 hari</strong> agar bisa digunakan untuk investigasi insiden yang terlambat dilaporkan</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Periksa kamera secara berkala</strong> — pastikan tidak ada yang rusak, mati, atau sudut pandangnya terhalang</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Pasang tanda peringatan CCTV</strong> di area yang dimonitor sesuai regulasi privasi yang berlaku</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Clear desk & clear screen</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Bersihkan meja</strong> dari dokumen sensitif setiap kali meninggalkan area kerja — simpan di laci atau lemari terkunci</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kunci layar komputer</strong> dengan Windows+L atau Ctrl+Cmd+Q setiap kali meninggalkan meja</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Atur screen lock otomatis</strong> maksimal 5 menit tidak aktif sebagai jaring pengaman tambahan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ambil langsung hasil cetak</strong> dari printer — jangan biarkan dokumen tertinggal di mesin</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan privacy screen filter</strong> di laptop saat bekerja di tempat umum atau area terbuka</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Pemeliharaan perangkat & ruangan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan pemeliharaan perangkat berkala</strong> — cek kondisi fisik, update firmware, dan dokumentasikan hasilnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kunci ruangan kerja</strong> setiap kali meninggalkan area — terutama ruang server, arsip, dan ruang rapat</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan APAR tersedia dan berfungsi</strong> — periksa tanggal kadaluarsa dan kondisi secara rutin</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan fasilitas rusak</strong> — pintu yang tidak bisa terkunci, sensor akses mati, atau CCTV tidak berfungsi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Backup data secara rutin</strong> dan simpan di lokasi terpisah yang aman dari bencana fisik</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Secure disposal</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Hancurkan dokumen fisik</strong> berisi informasi sensitif menggunakan shredder sebelum dibuang</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan secure wipe</strong> pada hard disk, SSD, dan flashdisk sebelum dipindahtangankan atau dibuang</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Koordinasikan dengan IT</strong> untuk disposal perangkat lama — jangan buang sendiri tanpa persetujuan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan proses disposal</strong> — catat perangkat apa yang dihancurkan, kapan, dan oleh siapa</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Keamanan saat bekerja di luar kantor</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Jangan tinggalkan laptop</strong> tanpa pengawasan di tempat umum, kafe, atau kendaraan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan tas atau sleeve</strong> yang tidak mencolok untuk membawa perangkat kerja di tempat umum</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan enkripsi disk</strong> agar data tidak bisa diakses jika perangkat dicuri</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan segera</strong> jika perangkat hilang atau dicuri — makin cepat dilaporkan, makin cepat ditangani</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait akses fisik</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>pinjamkan ID Card atau access card</strong> ke siapapun, termasuk rekan kerja atau keluarga</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan orang lain masuk</strong> mengikuti di belakangmu (tailgating) ke area terbatas</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>tahan pintu akses</strong> terbuka untuk orang yang belum tap kartu sendiri meski terlihat mengenal</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan tamu tanpa escort</strong> di area internal atau area terbatas perusahaan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan orang tidak dikenal</strong> di area kerja — tanya kepentingannya dengan sopan</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait perangkat & dokumen</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>tinggalkan perangkat tanpa pengawasan</strong> di tempat umum, kafe, atau kendaraan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan layar terbuka</strong> saat meninggalkan meja — selalu kunci dengan Windows+L</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>buang dokumen sensitif</strong> di tempat sampah biasa tanpa dihancurkan terlebih dahulu</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>buang atau jual perangkat lama</strong> tanpa melalui proses secure wipe oleh IT</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan dokumen rahasia</strong> terbuka di atas meja saat rapat dengan tamu eksternal</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait ruangan & fasilitas</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tinggalkan ruangan terbuka</strong> tanpa dikunci saat meninggalkan area kerja</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan laporan kerusakan</strong> fasilitas keamanan — pintu rusak, sensor mati, APAR kadaluarsa</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>izinkan vendor atau teknisi</strong> bekerja di area kritikal tanpa pendampingan dan dokumentasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>nonaktifkan atau menutupi CCTV</strong> tanpa persetujuan Security dan manajemen</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan di tempat umum & WFH</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>buka dokumen rahasia</strong> di layar yang bisa terlihat orang lain di sekitar kamu</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan anggota keluarga</strong> menggunakan perangkat kerja meski hanya sebentar</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>cetak dokumen rahasia</strong> di printer umum atau printer rumah yang tidak terkelola IT</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>diskusikan informasi sensitif</strong> di tempat umum yang percakapannya bisa didengar orang lain</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Kunci selalu, tanya selalu, lapor selalu — keamanan fisik adalah tanggung jawab semua orang"</span></div>
+    <div class="footer-sub">Satu pintu yang tidak terkunci bisa membatalkan semua kontrol keamanan digital yang ada</div>
+  </div>
+  <div class="footer-right">SMKI — Physical Security<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','ancaman','akses','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

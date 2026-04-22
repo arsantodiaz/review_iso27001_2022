@@ -1,0 +1,299 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#0d2b1a;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(29,158,117,0.12)}
+.hero-badge{display:inline-block;background:rgba(29,158,117,0.2);border:1px solid rgba(29,158,117,0.35);color:#34d399;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#34d399}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#0d2b1a;color:#34d399;border-color:#1d9e75}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-w{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-b{background:rgba(55,138,221,0.15);border:1.5px solid #378add;font-size:9px;color:#93c5fd;font-weight:700}
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}
+
+.phase{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start}
+.phase-num{width:36px;height:36px;border-radius:50%;background:#0f6e56;color:#9fe1cb;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid #1d9e75}
+.phase-line{width:1.5px;height:14px;background:rgba(29,158,117,0.25);margin-left:17px}
+.phase-body{flex:1}
+.phase-title{font-size:12px;font-weight:500;color:#34d399;margin-bottom:3px}
+.phase-desc{font-size:11px;color:rgba(167,243,208,0.7);line-height:1.5}
+
+.lifecycle{display:flex;flex-direction:column;gap:0}
+
+.badge{display:inline-block;font-size:9px;padding:2px 8px;border-radius:10px;font-weight:500;margin-left:6px}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+
+.checklist-group{margin-bottom:14px}
+.checklist-group:last-child{margin-bottom:0}
+.checklist-title{font-size:11px;font-weight:500;color:#34d399;margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid rgba(29,158,117,0.2)}
+
+.risk-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.risk-name{font-size:11px;color:var(--color-text-secondary);flex:1}
+.risk-bar-wrap{width:120px;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;flex-shrink:0}
+.risk-bar{height:100%;border-radius:3px}
+.rb-r{background:#e24b4a}.rb-y{background:#ef9f27}.rb-g{background:#1d9e75}
+.risk-label{font-size:10px;font-weight:500;width:70px;text-align:right;flex-shrink:0}
+.pct-r{color:#f87171}.pct-y{color:#fbbf24}.pct-g{color:#34d399}
+
+.narasi-box{background:#0a1a0f;border:1px solid rgba(29,158,117,0.2);border-radius:12px;padding:16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#34d399;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.narasi-text{font-size:12px;color:rgba(167,243,208,0.8);line-height:1.7;font-style:italic}
+.narasi-text strong{color:#6ee7b7;font-style:normal;font-weight:500}
+
+.footer{background:#0d2b1a;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#34d399}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — HR Security Awareness</div>
+  <h1>Panduan Implementasi<br><span>Pengelolaan SDM</span></h1>
+  <p>Employee background screening · Awareness · Perubahan status kepegawaian · Kebijakan SMKI</p>
+  <div class="hero-icon">👥</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi Lengkap</div>
+  <div class="tab" onclick="sw('lifecycle')">Siklus Pegawai</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+  <div class="tab" onclick="sw('risiko')">Risiko & Dampak</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+
+  <div class="narasi-box">
+    <div class="narasi-label">Opening — mengapa pengelolaan SDM kritis untuk keamanan informasi</div>
+    <div class="narasi-text">Karyawan adalah <strong>aset sekaligus risiko terbesar</strong> dalam keamanan informasi organisasi. Kebocoran data, penyalahgunaan akses, dan ancaman dari dalam (insider threat) sering kali bermula dari proses pengelolaan SDM yang tidak ketat — mulai dari rekrutmen, selama masa kerja, hingga saat seseorang meninggalkan organisasi. Itulah mengapa <strong>Sistem Manajemen Keamanan Informasi (SMKI)</strong> mengatur secara khusus bagaimana SDM dikelola dalam kaitannya dengan keamanan data.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">1. Employee Background Screening — sebelum bergabung</div>
+    <div class="narasi-text">Sebelum seseorang resmi bergabung, organisasi wajib melakukan <strong>verifikasi dan skrining latar belakang</strong> secara menyeluruh. Ini bukan sekadar formalitas, melainkan langkah penting untuk memastikan bahwa orang yang dipercaya mengelola data dan sistem perusahaan memiliki rekam jejak yang bersih dan bisa dipertanggungjawabkan.<br><br>Proses ini mencakup: <strong>verifikasi identitas</strong> (KTP, ijazah, sertifikasi), <strong>pemeriksaan riwayat kerja</strong> sebelumnya, <strong>referensi dari pemberi kerja terdahulu</strong>, dan untuk posisi tertentu yang memiliki akses ke sistem kritikal atau data sensitif, dapat dilakukan <strong>pemeriksaan rekam jejak hukum</strong>. Seluruh proses ini harus didokumentasikan dan disimpan sesuai ketentuan privasi yang berlaku.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">2. Awareness Keamanan Informasi — selama masa kerja</div>
+    <div class="narasi-text">Tidak cukup hanya merekrut orang yang tepat — setiap pegawai dan pihak terkait (vendor, kontraktor, mitra) wajib <strong>diberikan awareness keamanan informasi secara berkala</strong>. Awareness bukan kegiatan sekali jadi, melainkan proses berkelanjutan yang harus terus diperbarui mengikuti perkembangan ancaman.<br><br>Program awareness yang efektif mencakup: <strong>orientasi keamanan untuk pegawai baru</strong>, pelatihan rutin minimal setahun sekali, simulasi phishing, sosialisasi kebijakan dan prosedur terbaru, serta pengujian pemahaman (assessment). Setiap peserta harus <strong>menandatangani pakta integritas</strong> dan memahami konsekuensi pelanggaran kebijakan keamanan informasi.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">3. Sosialisasi Kebijakan & Prosedur SMKI — kepada seluruh pegawai</div>
+    <div class="narasi-text">Kebijakan dan prosedur SMKI hanya efektif jika <strong>dipahami dan dijalankan oleh seluruh lapisan organisasi</strong>, bukan hanya tim IT atau Security. Setiap perubahan kebijakan, prosedur operasional, atau regulasi yang berdampak pada keamanan informasi harus disosialisasikan secara aktif — tidak cukup hanya diunggah ke portal internal dan berharap semua orang membacanya.<br><br>Sosialisasi yang baik menggunakan berbagai saluran: <strong>email blast, briefing departemen, poster di area kerja, modul e-learning</strong>, hingga town hall meeting. Pastikan ada mekanisme konfirmasi bahwa pegawai telah membaca dan memahami kebijakan yang berlaku, serta saluran untuk bertanya jika ada hal yang tidak dipahami.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">4. Pengelolaan Perubahan Status Kepegawaian — mutasi, promosi & offboarding</div>
+    <div class="narasi-text">Setiap perubahan status kepegawaian — baik <strong>mutasi jabatan, promosi, transfer divisi, cuti panjang, maupun pengunduran diri atau PHK</strong> — harus segera diikuti dengan penyesuaian terhadap <strong>hak akses dan pencatatan aset</strong>. Ini adalah salah satu celah yang paling sering diabaikan dan menjadi pintu masuk ancaman insider.<br><br>Ketika seorang pegawai pindah divisi, akses ke sistem lama harus <strong>segera dicabut</strong> dan hak akses baru diberikan sesuai kebutuhan posisi barunya. Saat pegawai resign atau diterminasi, <strong>seluruh akun harus dinonaktifkan pada hari yang sama</strong>, perangkat dikembalikan dan diperiksa, serta data yang mungkin telah dipindahkan harus diaudit. Proses ini harus terdokumentasi lengkap dalam sistem HR dan IT.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Closing — komitmen bersama</div>
+    <div class="narasi-text">Pengelolaan SDM yang aman bukan hanya tanggung jawab tim HR atau IT Security semata. <strong>Setiap manajer dan pemimpin tim memiliki peran aktif</strong> untuk memastikan anggotanya memahami dan mematuhi kebijakan keamanan informasi. Laporkan segera setiap perubahan status kepegawaian ke HR dan IT, ikuti program awareness secara aktif, dan jadikan keamanan informasi sebagai bagian dari budaya kerja sehari-hari.<br><br><strong>"Orang yang tepat, dengan akses yang tepat, pada waktu yang tepat — dan tidak lebih dari itu."</strong></div>
+  </div>
+
+</div>
+
+<div id="p-lifecycle" class="panel">
+  <div class="sec sc-g" style="margin-bottom:8px"><span class="dot dot-g"></span>Siklus keamanan SDM — dari rekrutmen hingga offboarding</div>
+
+  <div class="card card-g" style="margin-bottom:10px">
+    <div class="lifecycle">
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-body">
+          <div class="phase-title">Pra-Rekrutmen & Background Screening <span class="badge badge-b">Sebelum bergabung</span></div>
+          <div class="phase-desc">Verifikasi identitas (KTP, ijazah, sertifikasi) · Cek riwayat kerja & referensi · Pemeriksaan rekam jejak hukum untuk posisi kritikal · Verifikasi kesesuaian kualifikasi dengan posisi yang dilamar · Dokumentasikan seluruh hasil screening</div>
+        </div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-body">
+          <div class="phase-title">Onboarding & Orientasi Keamanan <span class="badge badge-g">Hari pertama</span></div>
+          <div class="phase-desc">Penandatanganan NDA dan pakta integritas · Orientasi kebijakan keamanan informasi · Pemberian akses sesuai prinsip least privilege · Penyerahan dan pencatatan aset (laptop, ID card, token) · Pelatihan awareness keamanan informasi pertama</div>
+        </div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-body">
+          <div class="phase-title">Selama Masa Kerja — Monitoring & Awareness Berkelanjutan <span class="badge badge-y">Rutin</span></div>
+          <div class="phase-desc">Pelatihan & refresh awareness minimal setahun sekali · Review hak akses secara berkala (setiap 6 bulan) · Sosialisasi update kebijakan dan prosedur SMKI · Simulasi phishing dan uji kesadaran keamanan · Dokumentasi setiap perubahan akses atau aset</div>
+        </div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase">
+        <div class="phase-num">4</div>
+        <div class="phase-body">
+          <div class="phase-title">Perubahan Status — Mutasi, Promosi, atau Transfer <span class="badge badge-y">Saat perubahan</span></div>
+          <div class="phase-desc">Cabut akses sistem lama segera setelah mutasi efektif · Berikan akses baru sesuai posisi dan kebutuhan · Sesuaikan pencatatan aset (perangkat, akun, token) · Update data di sistem HR dan IT secara bersamaan · Konfirmasi pemahaman kebijakan posisi baru</div>
+        </div>
+      </div>
+      <div class="phase-line"></div>
+      <div class="phase">
+        <div class="phase-num">5</div>
+        <div class="phase-body">
+          <div class="phase-title">Offboarding — Resign, PHK, atau Pensiun <span class="badge badge-r">Kritikal</span></div>
+          <div class="phase-desc">Nonaktifkan SEMUA akun pada hari yang sama dengan tanggal efektif · Kembalikan dan periksa seluruh aset perusahaan · Audit data yang mungkin dipindahkan ke perangkat pribadi · Cabut akses VPN, email, sistem internal, dan badge · Dokumentasikan seluruh proses offboarding secara tertulis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Background screening</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Verifikasi semua dokumen</strong> calon pegawai sebelum keputusan rekrutmen final</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Hubungi referensi</strong> dari pemberi kerja sebelumnya untuk posisi yang memiliki akses kritikal</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan hasil screening</strong> dan simpan sesuai ketentuan privasi yang berlaku</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan ulang screening</strong> secara berkala untuk pegawai dengan akses ke sistem sangat kritikal</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Awareness & pelatihan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Wajibkan orientasi keamanan</strong> di hari pertama kerja sebelum akses sistem diberikan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Adakan pelatihan refresh</strong> minimal setahun sekali untuk semua pegawai dan vendor</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Mintakan tanda tangan</strong> pakta integritas dan konfirmasi pemahaman kebijakan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ukur efektivitas awareness</strong> melalui simulasi phishing dan assessment berkala</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Pengelolaan akses & aset</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Terapkan prinsip least privilege</strong> — berikan akses hanya sebatas kebutuhan jabatan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Review hak akses</strong> setiap 6 bulan untuk memastikan masih sesuai kebutuhan aktual</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Catat semua aset</strong> yang diberikan ke pegawai — laptop, ID card, token, akun sistem</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update sistem HR dan IT</strong> secara bersamaan saat ada perubahan status kepegawaian</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Offboarding & perubahan status</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Nonaktifkan semua akun</strong> di hari yang sama dengan tanggal efektif berhenti kerja</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan exit interview keamanan</strong> — ingatkan kewajiban kerahasiaan yang tetap berlaku</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Audit data sebelum offboarding</strong> — periksa apakah ada data perusahaan di perangkat pribadi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan proses offboarding</strong> secara tertulis dan simpan minimal 1 tahun</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan saat rekrutmen</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan berikan <strong>akses sistem sebelum</strong> proses onboarding dan penandatanganan NDA selesai</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan abaikan <strong>verifikasi dokumen</strong> meski calon pegawai berasal dari referensi internal</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan tempatkan pegawai baru di <strong>posisi akses kritikal</strong> tanpa masa probasi dan pengawasan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan simpan hasil screening di <strong>tempat yang bisa diakses sembarang pihak</strong></div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan selama masa kerja</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan biarkan pegawai <strong>berbagi akun atau password</strong> dengan rekan kerja meski satu tim</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan abaikan <strong>laporan perilaku mencurigakan</strong> dari rekan yang mengindikasikan insider threat</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan biarkan akses lama <strong>tetap aktif setelah mutasi</strong> atau perubahan posisi jabatan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan lewatkan <strong>update kebijakan</strong> tanpa sosialisasi resmi ke seluruh pegawai terdampak</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan saat offboarding</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tunda penonaktifan akun</strong> pegawai yang sudah berhenti — risiko sangat tinggi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan lupa <strong>cabut akses VPN, email, badge</strong>, dan semua sistem tanpa terkecuali</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan kembalikan aset tanpa <strong>pemeriksaan menyeluruh</strong> — cek data yang tersimpan di perangkat</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan biarkan mantan pegawai <strong>tetap di grup chat atau sistem</strong> internal perusahaan</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan untuk vendor & pihak ketiga</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan berikan akses kepada vendor <strong>tanpa NDA dan perjanjian keamanan</strong> yang sah</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan biarkan vendor akses sistem <strong>tanpa pengawasan</strong> atau tanpa batasan waktu</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan lupa <strong>cabut akses vendor</strong> setelah kontrak berakhir atau proyek selesai</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan skip <strong>awareness keamanan</strong> untuk vendor dan kontraktor yang akses sistem internal</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-risiko" class="panel">
+  <div class="sec sc-r" style="margin-bottom:8px"><span class="dot dot-r"></span>Risiko keamanan akibat pengelolaan SDM yang lemah</div>
+  <div class="card card-r" style="margin-bottom:10px">
+    <div class="risk-row"><span class="risk-name">Insider threat — pegawai aktif</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:90%"></div></div><span class="risk-label pct-r">Sangat Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Akses ghost account — mantan pegawai</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:88%"></div></div><span class="risk-label pct-r">Sangat Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Kebocoran data via offboarding buruk</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:85%"></div></div><span class="risk-label pct-r">Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Akses berlebih pasca mutasi jabatan</span><div class="risk-bar-wrap"><div class="risk-bar rb-y" style="width:72%"></div></div><span class="risk-label pct-y">Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Vendor dengan akses tidak terkontrol</span><div class="risk-bar-wrap"><div class="risk-bar rb-y" style="width:68%"></div></div><span class="risk-label pct-y">Sedang-Tinggi</span></div>
+    <div class="risk-row"><span class="risk-name">Pegawai tidak aware kebijakan SMKI</span><div class="risk-bar-wrap"><div class="risk-bar rb-y" style="width:60%"></div></div><span class="risk-label pct-y">Sedang</span></div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-b">
+      <div class="sec sc-b"><span class="dot dot-b"></span>Dampak jika tidak dikelola</div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b"><strong>Kebocoran data pelanggan</strong> oleh mantan pegawai yang masih punya akses aktif</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b"><strong>Sabotase sistem</strong> oleh pegawai yang diterminasi dengan akses belum dicabut</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b"><strong>Denda regulasi</strong> akibat pelanggaran privasi data karyawan dan pelanggan</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-b"><strong>Reputasi rusak</strong> akibat insiden keamanan yang berasal dari internal organisasi</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Manfaat pengelolaan SDM yang baik</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Mengurangi risiko insider threat</strong> hingga signifikan dengan kontrol akses ketat</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kepatuhan terhadap regulasi</strong> ISO 27001, UU PDP, dan standar industri lainnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Budaya keamanan yang kuat</strong> — pegawai paham dan aktif menjaga keamanan informasi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Audit trail yang rapi</strong> — mudah diinvestigasi jika terjadi insiden keamanan</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Orang yang tepat · Akses yang tepat · Waktu yang tepat · Tidak lebih dari itu"</span></div>
+    <div class="footer-sub">Laporkan perubahan status kepegawaian ke HR dan IT segera — jangan tunda</div>
+  </div>
+  <div class="footer-right">SMKI — HR Security<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','lifecycle','dos','donts','risiko'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

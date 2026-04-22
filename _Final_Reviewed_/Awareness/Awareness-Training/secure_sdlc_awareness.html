@@ -1,0 +1,537 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#080d18;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(127,119,221,0.12)}
+.hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:90px;height:90px;border-radius:50%;background:rgba(55,138,221,0.07)}
+.hero-badge{display:inline-block;background:rgba(127,119,221,0.2);border:1px solid rgba(127,119,221,0.35);color:#c4b5fd;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#a78bfa}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#080d18;color:#a78bfa;border-color:#534ab7}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-p{background:rgba(127,119,221,0.15);border:1.5px solid #7f77dd;font-size:9px;color:#c4b5fd;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-p{color:rgba(196,181,253,0.85)}.tx-p strong{color:#c4b5fd;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-p{color:#a78bfa}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-p{background:#7f77dd}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#a78bfa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+.badge-p{background:rgba(127,119,221,0.15);color:#c4b5fd;border:1px solid rgba(127,119,221,0.25)}
+
+.phase-wrap{display:flex;flex-direction:column;gap:0;margin-bottom:10px}
+.phase-row{display:flex;gap:0;align-items:stretch}
+.phase-box{flex:1;border-radius:10px;padding:11px 12px;border:1px solid var(--color-border-tertiary);position:relative;margin:0 4px}
+.phase-box:first-child{margin-left:0}
+.phase-box:last-child{margin-right:0}
+.phase-label{font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.phase-title{font-size:12px;font-weight:500;margin-bottom:5px}
+.phase-items{font-size:10px;line-height:1.5;color:var(--color-text-secondary)}
+.phase-items span{display:block;padding:2px 0;border-bottom:1px solid var(--color-border-tertiary)}
+.phase-items span:last-child{border-bottom:none}
+.phase-arrow{display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);font-size:14px;padding:0 2px;align-self:center}
+
+.ph-req{background:#0c0518;border-color:rgba(127,119,221,0.25)}
+.ph-req .phase-label{color:#a78bfa}
+.ph-req .phase-title{color:#c4b5fd}
+
+.ph-des{background:#050d1a;border-color:rgba(55,138,221,0.2)}
+.ph-des .phase-label{color:#378add}
+.ph-des .phase-title{color:#93c5fd}
+
+.ph-dev{background:#031209;border-color:rgba(29,158,117,0.2)}
+.ph-dev .phase-label{color:#1d9e75}
+.ph-dev .phase-title{color:#34d399}
+
+.ph-test{background:#150a01;border-color:rgba(239,159,39,0.2)}
+.ph-test .phase-label{color:#ef9f27}
+.ph-test .phase-title{color:#fbbf24}
+
+.ph-dep{background:#1a0505;border-color:rgba(226,75,74,0.2)}
+.ph-dep .phase-label{color:#e24b4a}
+.ph-dep .phase-title{color:#f87171}
+
+.ph-ops{background:#030d12;border-color:rgba(29,101,158,0.2)}
+.ph-ops .phase-label{color:#185fa5}
+.ph-ops .phase-title{color:#60a5fa}
+
+.code-rule{border-radius:10px;padding:12px;border:1px solid var(--color-border-tertiary);margin-bottom:8px;background:var(--color-background-secondary)}
+.cr-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.cr-num{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.cr-title{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.cr-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.5;padding-left:30px}
+.cr-bad{margin-top:5px;padding:5px 8px;border-radius:6px;font-family:var(--font-mono,monospace);font-size:10px;margin-left:30px}
+.cr-bad-label{font-size:9px;font-weight:500;margin-bottom:2px}
+
+.arch-principle{border-radius:10px;padding:13px;border:1px solid var(--color-border-tertiary);margin-bottom:8px}
+.ap-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+.ap-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ap-title{font-size:12px;font-weight:500;margin-bottom:2px}
+.ap-sub{font-size:10px;color:var(--color-text-secondary)}
+.ap-body{font-size:11px;color:var(--color-text-secondary);line-height:1.5;padding-left:42px}
+
+.env-compare{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.env-card{border-radius:10px;padding:12px;border:1px solid var(--color-border-tertiary);text-align:center}
+.env-name{font-size:12px;font-weight:500;margin-bottom:3px}
+.env-sub{font-size:10px;margin-bottom:8px;color:var(--color-text-secondary)}
+.env-rule{font-size:10px;line-height:1.5;text-align:left}
+.env-rule span{display:block;padding:2px 0}
+
+.env-dev{background:#031209;border-color:rgba(29,158,117,0.2)}
+.env-dev .env-name{color:#34d399}
+.env-dev .env-rule span{color:rgba(167,243,208,0.75)}
+
+.env-test{background:#150a01;border-color:rgba(239,159,39,0.2)}
+.env-test .env-name{color:#fbbf24}
+.env-test .env-rule span{color:rgba(253,230,138,0.75)}
+
+.env-prod{background:#1a0505;border-color:rgba(226,75,74,0.2)}
+.env-prod .env-name{color:#f87171}
+.env-prod .env-rule span{color:rgba(252,165,165,0.75)}
+
+.footer{background:#080d18;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#a78bfa}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Secure Development Awareness</div>
+  <h1>Pengembangan & Pemeliharaan<br><span>Sistem yang Aman</span></h1>
+  <p>Secure SDLC · Secure Coding · Secure Architecture · Environment Separation · Security Testing</p>
+  <div class="hero-icon">⚙️</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('sdlc')">Secure SDLC</div>
+  <div class="tab" onclick="sw('code')">Secure Coding</div>
+  <div class="tab" onclick="sw('arch')">Secure Architecture</div>
+  <div class="tab" onclick="sw('env')">Environment & Testing</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-sdlc" class="panel active">
+  <div class="narasi-box">
+    <div class="narasi-label">Apa itu Secure SDLC?</div>
+    <div class="narasi-text">Secure SDLC (Software Development Life Cycle) adalah pendekatan di mana <strong>keamanan diintegrasikan ke setiap fase pengembangan sistem</strong> — bukan ditambahkan di akhir sebagai afterthought. Filosofinya adalah <strong>"Shift Left"</strong>: temukan dan perbaiki masalah keamanan sedini mungkin, saat biayanya masih murah. Menemukan bug keamanan saat Requirements 100x lebih murah daripada menemukannya saat Production.<br><br>Setiap perubahan kode, konfigurasi, atau arsitektur sistem harus <strong>diotorisasi dan terdokumentasi</strong> — tidak ada perubahan yang dilakukan langsung di production tanpa melalui proses yang benar.</div>
+  </div>
+
+  <div class="sec sc-p" style="margin-bottom:8px"><span class="dot dot-p"></span>Aktivitas keamanan di setiap fase SDLC</div>
+
+  <div style="margin-bottom:10px">
+    <div class="phase-row" style="margin-bottom:6px">
+      <div class="phase-box ph-req">
+        <div class="phase-label">Fase 1</div>
+        <div class="phase-title">Requirements</div>
+        <div class="phase-items">
+          <span>Definisikan security requirements</span>
+          <span>Identifikasi data sensitif yang terlibat</span>
+          <span>Tentukan regulasi & compliance yang berlaku</span>
+          <span>Buat threat model awal</span>
+        </div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box ph-des">
+        <div class="phase-label">Fase 2</div>
+        <div class="phase-title">Design</div>
+        <div class="phase-items">
+          <span>Terapkan secure architecture principles</span>
+          <span>Lakukan threat modeling (STRIDE)</span>
+          <span>Rancang kontrol akses & enkripsi</span>
+          <span>Review desain keamanan sebelum development</span>
+        </div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box ph-dev">
+        <div class="phase-label">Fase 3</div>
+        <div class="phase-title">Development</div>
+        <div class="phase-items">
+          <span>Terapkan secure coding standards</span>
+          <span>Gunakan SAST (static analysis)</span>
+          <span>Code review wajib sebelum merge</span>
+          <span>Jangan hardcode credential / secret</span>
+        </div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-box ph-test">
+        <div class="phase-label">Fase 4</div>
+        <div class="phase-title">Testing</div>
+        <div class="phase-items">
+          <span>Lakukan UAT + Security Testing</span>
+          <span>DAST & penetration testing</span>
+          <span>Vulnerability assessment</span>
+          <span>Pastikan semua temuan tertangani</span>
+        </div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box ph-dep">
+        <div class="phase-label">Fase 5</div>
+        <div class="phase-title">Deployment</div>
+        <div class="phase-items">
+          <span>Deploy melalui pipeline CI/CD aman</span>
+          <span>Konfigurasi hardening sebelum go-live</span>
+          <span>Change management wajib terdokumentasi</span>
+          <span>Tidak ada deploy langsung ke production</span>
+        </div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-box ph-ops">
+        <div class="phase-label">Fase 6</div>
+        <div class="phase-title">Operations</div>
+        <div class="phase-items">
+          <span>Monitor log & anomali secara berkelanjutan</span>
+          <span>Patch management & update rutin</span>
+          <span>Incident response jika ada temuan</span>
+          <span>Periodic security review & audit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-p">
+    <div class="sec sc-p"><span class="dot dot-p"></span>Threat modeling — STRIDE framework</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-p">S</div><div class="tx tx-p"><strong>Spoofing</strong> — Menyamar sebagai pengguna atau sistem lain yang sah</div></div>
+        <div class="it"><div class="ck ck-p">T</div><div class="tx tx-p"><strong>Tampering</strong> — Memodifikasi data atau kode tanpa otorisasi</div></div>
+        <div class="it"><div class="ck ck-p">R</div><div class="tx tx-p"><strong>Repudiation</strong> — Menyangkal telah melakukan tindakan tertentu (tidak ada audit log)</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-p">I</div><div class="tx tx-p"><strong>Information Disclosure</strong> — Kebocoran data yang seharusnya tidak boleh diakses</div></div>
+        <div class="it"><div class="ck ck-p">D</div><div class="tx tx-p"><strong>Denial of Service</strong> — Membuat sistem tidak bisa diakses pengguna yang sah</div></div>
+        <div class="it"><div class="ck ck-p">E</div><div class="tx tx-p"><strong>Elevation of Privilege</strong> — Mendapatkan hak akses lebih tinggi dari yang seharusnya</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-code" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa secure coding penting?</div>
+    <div class="narasi-text">Sebagian besar kerentanan keamanan pada sistem berakar dari <strong>kesalahan coding yang sebenarnya bisa dicegah</strong>. SQL Injection, Cross-Site Scripting (XSS), buffer overflow, hardcoded credential — semua ini adalah masalah coding yang sudah memiliki solusi yang diketahui. Secure coding bukan tentang membuat kode sempurna, tapi tentang <strong>tidak mengulangi kesalahan yang sama</strong> yang sudah banyak menyebabkan insiden di seluruh dunia.</div>
+  </div>
+
+  <div class="sec sc-p" style="margin-bottom:8px"><span class="dot dot-p"></span>10 prinsip utama secure coding</div>
+
+  <div class="code-rule">
+    <div class="cr-header">
+      <div class="cr-num" style="background:rgba(226,75,74,0.15);color:#f87171">01</div>
+      <div class="cr-title">Validasi semua input — jangan pernah percaya data dari luar</div>
+    </div>
+    <div class="cr-desc">Semua data dari pengguna, API, atau sistem eksternal harus divalidasi, disanitasi, dan di-escape sebelum diproses. Ini mencegah SQL Injection, XSS, Command Injection, dan banyak serangan lainnya.</div>
+    <div class="cr-bad" style="background:rgba(226,75,74,0.08);border:1px solid rgba(226,75,74,0.2)">
+      <div class="cr-bad-label" style="color:#f87171">Contoh buruk (SQL Injection):</div>
+      <span style="color:#fca5a5;font-size:10px">query = "SELECT * FROM users WHERE name = '" + userInput + "'"</span>
+    </div>
+    <div class="cr-bad" style="background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.2);margin-top:4px">
+      <div class="cr-bad-label" style="color:#34d399">Cara benar (parameterized query):</div>
+      <span style="color:#6ee7b7;font-size:10px">query = "SELECT * FROM users WHERE name = ?" → execute(query, [userInput])</span>
+    </div>
+  </div>
+
+  <div class="code-rule">
+    <div class="cr-header">
+      <div class="cr-num" style="background:rgba(226,75,74,0.15);color:#f87171">02</div>
+      <div class="cr-title">Jangan hardcode credential, secret, atau API key</div>
+    </div>
+    <div class="cr-desc">Password, API key, token, dan secret tidak boleh ditulis langsung di dalam kode. Gunakan environment variables, secrets manager (HashiCorp Vault, AWS Secrets Manager), atau config file yang tidak ikut di-commit ke repository.</div>
+    <div class="cr-bad" style="background:rgba(226,75,74,0.08);border:1px solid rgba(226,75,74,0.2)">
+      <div class="cr-bad-label" style="color:#f87171">Jangan lakukan ini:</div>
+      <span style="color:#fca5a5;font-size:10px">const API_KEY = "sk-abc123xyz789..." // langsung di kode!</span>
+    </div>
+  </div>
+
+  <div class="code-rule">
+    <div class="cr-header">
+      <div class="cr-num" style="background:rgba(239,159,39,0.15);color:#fbbf24">03</div>
+      <div class="cr-title">Gunakan enkripsi yang kuat untuk data sensitif</div>
+    </div>
+    <div class="cr-desc">Data sensitif saat disimpan (at rest) dan saat dikirim (in transit) harus dienkripsi. Gunakan algoritma yang sudah teruji: AES-256 untuk enkripsi, bcrypt/Argon2 untuk hashing password, TLS 1.2+ untuk komunikasi. Jangan buat enkripsi sendiri.</div>
+  </div>
+
+  <div class="code-rule">
+    <div class="cr-header">
+      <div class="cr-num" style="background:rgba(239,159,39,0.15);color:#fbbf24">04</div>
+      <div class="cr-title">Terapkan autentikasi & otorisasi yang tepat</div>
+    </div>
+    <div class="cr-desc">Setiap endpoint harus memverifikasi identitas pengguna (autentikasi) dan memastikan pengguna punya hak untuk melakukan aksi tersebut (otorisasi). Jangan hanya menyembunyikan UI — pastikan cek dilakukan di server side.</div>
+  </div>
+
+  <div class="code-rule">
+    <div class="cr-header">
+      <div class="cr-num" style="background:rgba(239,159,39,0.15);color:#fbbf24">05</div>
+      <div class="cr-title">Handle error dengan aman — jangan bocorkan info internal</div>
+    </div>
+    <div class="cr-desc">Pesan error yang detail (stack trace, query SQL, path sistem) tidak boleh ditampilkan ke pengguna — itu memberi penyerang informasi berharga. Log detail error di server, tampilkan pesan generik ke pengguna.</div>
+  </div>
+
+  <div class="g2">
+    <div class="code-rule" style="margin-bottom:0">
+      <div class="cr-header">
+        <div class="cr-num" style="background:rgba(127,119,221,0.15);color:#c4b5fd">06</div>
+        <div class="cr-title">Catat semua aktivitas penting (audit log)</div>
+      </div>
+      <div class="cr-desc">Login, akses data sensitif, perubahan konfigurasi, dan kegagalan autentikasi harus dicatat dengan timestamp dan identitas pengguna. Log tidak boleh bisa dimodifikasi oleh pengguna biasa.</div>
+    </div>
+    <div class="code-rule" style="margin-bottom:0">
+      <div class="cr-header">
+        <div class="cr-num" style="background:rgba(127,119,221,0.15);color:#c4b5fd">07</div>
+        <div class="cr-title">Update dependency & library secara rutin</div>
+      </div>
+      <div class="cr-desc">Library pihak ketiga yang sudah usang sering menjadi sumber kerentanan. Gunakan tools seperti npm audit, OWASP Dependency-Check, atau Snyk untuk memantau dan mengupdate dependency secara rutin.</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="code-rule" style="margin-bottom:0">
+      <div class="cr-header">
+        <div class="cr-num" style="background:rgba(55,138,221,0.15);color:#93c5fd">08</div>
+        <div class="cr-title">Lakukan code review dengan perspektif keamanan</div>
+      </div>
+      <div class="cr-desc">Setiap Pull Request harus di-review oleh minimal satu developer lain sebelum di-merge. Gunakan checklist keamanan: apakah input divalidasi? apakah ada hardcoded secret? apakah akses dikontrol dengan benar?</div>
+    </div>
+    <div class="code-rule" style="margin-bottom:0">
+      <div class="cr-header">
+        <div class="cr-num" style="background:rgba(55,138,221,0.15);color:#93c5fd">09</div>
+        <div class="cr-title">Terapkan prinsip least privilege di kode</div>
+      </div>
+      <div class="cr-desc">Koneksi database, API call, dan service account harus menggunakan akun dengan hak minimum yang diperlukan. Jangan koneksikan aplikasi ke database dengan user root atau admin.</div>
+    </div>
+  </div>
+
+  <div class="code-rule">
+    <div class="cr-header">
+      <div class="cr-num" style="background:rgba(29,158,117,0.15);color:#34d399">10</div>
+      <div class="cr-title">Gunakan SAST & DAST sebagai bagian dari pipeline CI/CD</div>
+    </div>
+    <div class="cr-desc">Static Application Security Testing (SAST) menganalisis kode sumber untuk menemukan kerentanan sebelum dijalankan. Dynamic Application Security Testing (DAST) menguji aplikasi yang sedang berjalan. Integrasikan keduanya ke pipeline CI/CD agar setiap commit otomatis diperiksa.</div>
+  </div>
+</div>
+
+<div id="p-arch" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa arsitektur yang aman itu fondasi segalanya?</div>
+    <div class="narasi-text">Arsitektur sistem yang buruk tidak bisa diperbaiki hanya dengan kode yang bagus. <strong>Keputusan arsitektur yang salah menciptakan kerentanan struktural</strong> yang sangat mahal dan sulit untuk diperbaiki setelah sistem berjalan. Secure architecture principles adalah panduan untuk merancang sistem yang secara inheren lebih tahan terhadap serangan — bukan sekadar menambahkan keamanan di lapisan terluar.</div>
+  </div>
+
+  <div class="sec sc-p" style="margin-bottom:8px"><span class="dot dot-p"></span>Prinsip-prinsip secure architecture</div>
+
+  <div class="arch-principle" style="background:#0c0518;border-color:rgba(127,119,221,0.2)">
+    <div class="ap-header">
+      <div class="ap-icon" style="background:rgba(127,119,221,0.15)">🏰</div>
+      <div><div class="ap-title" style="color:#c4b5fd">Defense in Depth (Pertahanan Berlapis)</div><div class="ap-sub">Jangan andalkan satu lapisan keamanan saja</div></div>
+    </div>
+    <div class="ap-body">Gunakan multiple layer of security — jika satu lapisan berhasil ditembus, lapisan berikutnya masih memproteksi. Contoh: firewall + WAF + autentikasi + enkripsi data + monitoring. Tidak ada single point of failure untuk keamanan.</div>
+  </div>
+
+  <div class="arch-principle" style="background:#051224;border-color:rgba(55,138,221,0.2)">
+    <div class="ap-header">
+      <div class="ap-icon" style="background:rgba(55,138,221,0.15)">🔒</div>
+      <div><div class="ap-title" style="color:#93c5fd">Principle of Least Privilege</div><div class="ap-sub">Setiap komponen hanya punya akses yang diperlukan</div></div>
+    </div>
+    <div class="ap-body">Service, microservice, dan komponen sistem hanya boleh punya akses ke resource yang benar-benar dibutuhkan. Database service tidak perlu akses ke filesystem. API gateway tidak perlu bisa tulis ke database langsung. Batasi blast radius jika terjadi kompromi.</div>
+  </div>
+
+  <div class="arch-principle" style="background:#031209;border-color:rgba(29,158,117,0.2)">
+    <div class="ap-header">
+      <div class="ap-icon" style="background:rgba(29,158,117,0.15)">🔐</div>
+      <div><div class="ap-title" style="color:#34d399">Zero Trust Architecture</div><div class="ap-sub">"Never trust, always verify" — bahkan traffic internal</div></div>
+    </div>
+    <div class="ap-body">Jangan asumsi bahwa traffic dari dalam jaringan internal itu aman. Setiap request harus diautentikasi dan diotorisasi, terlepas dari asalnya. Implementasikan mutual TLS, service-to-service authentication, dan micro-segmentation jaringan.</div>
+  </div>
+
+  <div class="arch-principle" style="background:#1a1206;border-color:rgba(239,159,39,0.2)">
+    <div class="ap-header">
+      <div class="ap-icon" style="background:rgba(239,159,39,0.15)">🔑</div>
+      <div><div class="ap-title" style="color:#fbbf24">Secure by Default</div><div class="ap-sub">Konfigurasi awal harus sudah aman tanpa perlu pengaturan tambahan</div></div>
+    </div>
+    <div class="ap-body">Sistem baru harus hadir dalam kondisi aman secara default — fitur yang tidak dibutuhkan dimatikan, port yang tidak perlu ditutup, password default diganti. Jangan biarkan pengguna harus mengaktifkan keamanan secara manual.</div>
+  </div>
+
+  <div class="arch-principle" style="background:#1e0c0c;border-color:rgba(226,75,74,0.2)">
+    <div class="ap-header">
+      <div class="ap-icon" style="background:rgba(226,75,74,0.15)">🧱</div>
+      <div><div class="ap-title" style="color:#f87171">Separation of Concerns & Micro-segmentation</div><div class="ap-sub">Pisahkan komponen agar kompromi tidak menyebar</div></div>
+    </div>
+    <div class="ap-body">Pisahkan komponen berdasarkan fungsi dan tingkat kepercayaan: web tier, application tier, database tier. Gunakan network segmentation agar jika satu komponen dikompromikan, tidak bisa langsung menyebar ke seluruh sistem (lateral movement).</div>
+  </div>
+
+  <div class="g2">
+    <div class="arch-principle" style="background:#030d12;border-color:rgba(29,101,158,0.2);margin-bottom:0">
+      <div class="ap-header">
+        <div class="ap-icon" style="background:rgba(55,138,221,0.12)">📊</div>
+        <div><div class="ap-title" style="color:#60a5fa">Auditability & Observability</div><div class="ap-sub">Sistem harus bisa dimonitor dan diaudit</div></div>
+      </div>
+      <div class="ap-body">Rancang sistem dengan logging, monitoring, dan alerting sejak awal. Setiap transaksi penting harus meninggalkan jejak audit yang tidak bisa dimodifikasi pengguna biasa. Tanpa visibility, insiden tidak bisa dideteksi dan diinvestigasi.</div>
+    </div>
+    <div class="arch-principle" style="background:#0e0a1e;border-color:rgba(127,119,221,0.2);margin-bottom:0">
+      <div class="ap-header">
+        <div class="ap-icon" style="background:rgba(127,119,221,0.12)">🔄</div>
+        <div><div class="ap-title" style="color:#c4b5fd">Fail Securely</div><div class="ap-sub">Saat sistem gagal, pastikan gagal dalam kondisi aman</div></div>
+      </div>
+      <div class="ap-body">Ketika terjadi error atau kegagalan, sistem harus default ke kondisi yang lebih aman — bukan justru membuka akses. Contoh: jika autentikasi gagal karena error, tolak akses (deny by default), bukan izinkan (allow on error).</div>
+    </div>
+  </div>
+</div>
+
+<div id="p-env" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa environment harus dipisahkan?</div>
+    <div class="narasi-text">Mengembangkan atau menguji langsung di lingkungan produksi adalah <strong>salah satu risiko terbesar</strong> dalam pengembangan sistem. Satu kesalahan kecil bisa menghapus data pelanggan, merusak layanan yang sedang berjalan, atau membuka celah keamanan. Pemisahan environment bukan birokrasi — ini adalah <strong>perlindungan nyata</strong> bagi data, sistem, dan reputasi organisasi.</div>
+  </div>
+
+  <div class="sec sc-p" style="margin-bottom:8px"><span class="dot dot-p"></span>Tiga lingkungan yang harus dipisahkan secara ketat</div>
+  <div class="env-compare">
+    <div class="env-card env-dev">
+      <div class="env-name">Development</div>
+      <div class="env-sub">Tempat developer menulis & menguji kode secara lokal atau di server dev</div>
+      <div class="env-rule">
+        <span>✓ Boleh eksperimen bebas</span>
+        <span>✓ Data uji / dummy, bukan data asli</span>
+        <span>✓ Debug mode boleh aktif</span>
+        <span>✗ Tidak boleh pakai data produksi</span>
+        <span>✗ Tidak bisa akses sistem live</span>
+      </div>
+    </div>
+    <div class="env-card env-test">
+      <div class="env-name">Testing / Staging</div>
+      <div class="env-sub">Lingkungan yang mereplikasi produksi untuk UAT & security testing</div>
+      <div class="env-rule">
+        <span>✓ Mirip produksi tapi terisolasi</span>
+        <span>✓ UAT & penetration testing di sini</span>
+        <span>✓ Data anonymized jika perlu</span>
+        <span>✗ Tidak boleh jadi jembatan ke prod</span>
+        <span>✗ Tidak boleh akses data pelanggan asli</span>
+      </div>
+    </div>
+    <div class="env-card env-prod">
+      <div class="env-name">Production</div>
+      <div class="env-sub">Lingkungan live yang digunakan pengguna nyata — paling ketat aksesnya</div>
+      <div class="env-rule">
+        <span>✓ Akses sangat terbatas & terdokumentasi</span>
+        <span>✓ Setiap perubahan via change mgmt</span>
+        <span>✓ Monitoring 24/7 aktif</span>
+        <span>✗ DILARANG coding/debug langsung</span>
+        <span>✗ DILARANG deploy tanpa approval</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-p">
+      <div class="sec sc-p"><span class="dot dot-p"></span>Change management wajib dilakukan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-p"><strong>Setiap perubahan harus diajukan</strong> melalui proses Change Request (CR) yang formal sebelum dieksekusi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-p"><strong>Tentukan rollback plan</strong> sebelum deploy — jika ada masalah, harus bisa kembali ke kondisi sebelumnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-p"><strong>Dokumentasikan semua perubahan</strong> — apa yang diubah, kenapa, kapan, oleh siapa, dan hasil pengujiannya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-p"><strong>Dapatkan persetujuan dari pihak berwenang</strong> sebelum melakukan perubahan di production</div></div>
+    </div>
+    <div class="card card-b">
+      <div class="sec sc-b"><span class="dot dot-b"></span>Security testing yang wajib dilakukan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>SAST (Static Analysis)</strong> — scan kode sumber untuk kerentanan sebelum dijalankan, terintegrasi di CI/CD</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>DAST (Dynamic Analysis)</strong> — uji aplikasi yang berjalan untuk menemukan kerentanan runtime</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Penetration Testing</strong> — simulasi serangan oleh tim security atau pihak ketiga secara berkala</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>UAT dengan skenario keamanan</strong> — dokumentasikan dan pastikan semua requirement keamanan terpenuhi</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan dalam pengembangan</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>hardcode credential, API key, atau password</strong> langsung di dalam kode sumber</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>commit secret ke repository</strong> (GitHub, GitLab, Bitbucket) — bahkan di branch private sekalipun</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>merge kode tanpa code review</strong> — minimal satu reviewer harus menyetujui sebelum merge</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>gunakan library / dependency yang sudah deprecated</strong> atau memiliki kerentanan yang diketahui</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>buat enkripsi atau algoritma keamanan sendiri</strong> — gunakan yang sudah teruji dan standar industri</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan hasil SAST/DAST</strong> — temuan kerentanan harus ditangani sebelum release</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait environment & deployment</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>lakukan perubahan atau coding langsung</strong> di lingkungan produksi / operasional</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>deploy ke production tanpa melalui</strong> proses change management dan persetujuan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>gunakan data produksi asli</strong> di lingkungan development atau testing tanpa anonymisasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>bypass pipeline CI/CD</strong> untuk deploy langsung meski dalam kondisi urgent</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan debug mode atau verbose error</strong> aktif di lingkungan production</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>skip rollback plan</strong> — setiap deployment harus punya prosedur rollback yang sudah diuji</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait arsitektur & desain</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>menambahkan keamanan hanya di akhir</strong> — security harus ada sejak fase requirements dan design</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan komponen punya akses lebih luas</strong> dari yang dibutuhkan — terapkan least privilege di level arsitektur</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan threat modeling</strong> — identifikasi ancaman sebelum mulai desain sistem baru</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>campur komponen dengan trust level berbeda</strong> tanpa kontrol yang jelas di antara keduanya</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait testing & maintenance</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>skip security testing</strong> dengan alasan jadwal yang ketat — kerentanan yang lolos jauh lebih mahal</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tunda patch keamanan</strong> — update harus diterapkan secepatnya setelah tersedia</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan sistem berjalan tanpa monitoring</strong> — anomali yang tidak terdeteksi bisa berkembang menjadi insiden besar</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>hapus atau modifikasi audit log</strong> — log adalah bukti yang tidak boleh dirusak</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Security bukan fitur — security adalah fondasi. Shift left, build it in, not bolt it on."</span></div>
+    <div class="footer-sub">Temukan kerentanan saat development, bukan saat sudah di tangan pengguna</div>
+  </div>
+  <div class="footer-right">SMKI — Secure Development<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['sdlc','code','arch','env','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

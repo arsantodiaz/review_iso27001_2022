@@ -1,0 +1,28 @@
+Klausul 7: Dukungan (Support)
+7.1 Sumber Daya
+
+Tujuan Utama: Menyediakan sumber daya yang memadai untuk implementasi dan pemeliharaan SMKI.
+
+Bukti (Evidence): Dokumen pengadaan infrastruktur TI, bukti rekrutmen personel ahli, dan persetujuan alokasi waktu untuk proyek SMKI.
+
+7.2 Kompetensi & 7.3 Kesadaran
+
+Tujuan Utama: Memastikan personel memiliki keahlian yang relevan dan kesadaran penuh terhadap kebijakan SMKI.
+
+Dokumen (Document): Matriks Kebutuhan Pelatihan dan Materi Sosialisasi Kesadaran Keamanan (Security Awareness Training Material).
+
+Bukti (Evidence): Sertifikat keahlian, daftar hadir pelatihan, evaluasi efektivitas pelatihan (hasil pre-test/post-test), dan rekam jejak kampanye phishing simulation.
+
+7.4 Komunikasi
+
+Tujuan Utama: Menetapkan pedoman komunikasi internal dan eksternal terkait keamanan informasi.
+
+Dokumen (Document): Rencana Komunikasi Organisasi (Communication Plan Matrix) yang mengatur "Apa, Kapan, Siapa, dan Bagaimana" proses komunikasi dilakukan.
+
+7.5 Informasi Terdokumentasi
+
+Tujuan Utama: Mengelola pembuatan, pembaruan, dan pengendalian aset dokumen sistem manajemen.
+
+Dokumen (Document): Prosedur Pengendalian Informasi Terdokumentasi (Document Control Procedure).
+
+Bukti (Evidence): Daftar Induk Dokumen dan Rekaman (Master Document Register).

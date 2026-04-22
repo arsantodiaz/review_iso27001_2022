@@ -1,0 +1,470 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#060d18;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(55,138,221,0.12)}
+.hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:90px;height:90px;border-radius:50%;background:rgba(29,158,117,0.08)}
+.hero-badge{display:inline-block;background:rgba(55,138,221,0.18);border:1px solid rgba(55,138,221,0.35);color:#60a5fa;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#60a5fa}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#060d18;color:#60a5fa;border-color:#185fa5}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-b{background:rgba(55,138,221,0.15);border:1.5px solid #378add;font-size:9px;color:#93c5fd;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-p{color:rgba(196,181,253,0.85)}.tx-p strong{color:#c4b5fd;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-p{color:#a78bfa}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-p{background:#7f77dd}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#60a5fa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+
+.metric-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.metric-card{border-radius:10px;padding:12px 10px;border:1px solid var(--color-border-tertiary);text-align:center}
+.metric-val{font-size:22px;font-weight:500;margin-bottom:2px}
+.metric-name{font-size:11px;font-weight:500;margin-bottom:3px}
+.metric-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.3}
+
+.mc-rto{background:#051224;border-color:rgba(55,138,221,0.25)}
+.mc-rto .metric-val,.mc-rto .metric-name{color:#60a5fa}
+.mc-rpo{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.mc-rpo .metric-val,.mc-rpo .metric-name{color:#34d399}
+.mc-mtd{background:#1a0c02;border-color:rgba(239,159,39,0.25)}
+.mc-mtd .metric-val,.mc-mtd .metric-name{color:#fbbf24}
+.mc-wrt{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.mc-wrt .metric-val,.mc-wrt .metric-name{color:#f87171}
+
+.bcp-vs-drp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.bvd-card{border-radius:12px;padding:14px;border:1px solid var(--color-border-tertiary)}
+.bvd-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--color-border-tertiary)}
+.bvd-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.bvd-title{font-size:13px;font-weight:500}
+.bvd-sub{font-size:10px;margin-top:1px}
+.bvd-item{font-size:11px;color:var(--color-text-secondary);padding:4px 0;border-bottom:1px solid var(--color-border-tertiary);line-height:1.4}
+.bvd-item:last-child{border-bottom:none}
+.bvd-item strong{color:var(--color-text-primary);font-weight:500}
+
+.phase-row{display:flex;gap:0;margin-bottom:10px}
+.ph-box{flex:1;padding:12px 10px;border:1px solid var(--color-border-tertiary);margin:0 3px;border-radius:10px;text-align:center}
+.ph-box:first-child{margin-left:0}
+.ph-box:last-child{margin-right:0}
+.ph-icon{font-size:18px;margin-bottom:4px}
+.ph-title{font-size:11px;font-weight:500;margin-bottom:3px}
+.ph-time{font-size:10px;padding:2px 6px;border-radius:6px;display:inline-block;margin-bottom:4px}
+.ph-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.3}
+
+.ph-pre{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.ph-pre .ph-title{color:#c4b5fd}
+.ph-pre .ph-time{background:rgba(127,119,221,0.15);color:#c4b5fd}
+
+.ph-res{background:#1e0505;border-color:rgba(226,75,74,0.2)}
+.ph-res .ph-title{color:#f87171}
+.ph-res .ph-time{background:rgba(226,75,74,0.12);color:#f87171}
+
+.ph-con{background:#1a0c02;border-color:rgba(239,159,39,0.2)}
+.ph-con .ph-title{color:#fbbf24}
+.ph-con .ph-time{background:rgba(239,159,39,0.12);color:#fbbf24}
+
+.ph-rec{background:#061224;border-color:rgba(55,138,221,0.2)}
+.ph-rec .ph-title{color:#60a5fa}
+.ph-rec .ph-time{background:rgba(55,138,221,0.12);color:#60a5fa}
+
+.ph-res2{background:#061a12;border-color:rgba(29,158,117,0.2)}
+.ph-res2 .ph-title{color:#34d399}
+.ph-res2 .ph-time{background:rgba(29,158,117,0.12);color:#34d399}
+
+.step-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.step-line{width:1px;height:10px;background:rgba(55,138,221,0.2);margin-left:14px}
+.step-num{width:28px;height:28px;border-radius:50%;background:#0c447c;color:#93c5fd;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #185fa5}
+.step-body{flex:1}
+.step-title{font-size:12px;font-weight:500;color:#60a5fa;margin-bottom:2px}
+.step-desc{font-size:11px;color:rgba(147,197,253,0.65);line-height:1.4}
+
+.bia-table{width:100%;border-collapse:collapse;font-size:11px}
+.bia-table th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:6px 8px;text-align:left;border-bottom:1px solid var(--color-border-tertiary);letter-spacing:.04em;text-transform:uppercase}
+.bia-table td{padding:7px 8px;border-bottom:1px solid var(--color-border-tertiary);color:var(--color-text-secondary);font-size:11px;line-height:1.4;vertical-align:top}
+.bia-table tr:last-child td{border-bottom:none}
+.bia-table .dept{font-weight:500;color:var(--color-text-primary)}
+
+.footer{background:#060d18;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#60a5fa}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Business Continuity & Disaster Recovery</div>
+  <h1>Pengelolaan <span>BCDRP</span><br>Business Continuity & Disaster Recovery Plan</h1>
+  <p>BCP · DRP · BIA · RTO · RPO · ISO 22301 · Uji & Latihan · Peran Setiap Pegawai</p>
+  <div class="hero-icon">🛡️</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi & Konsep</div>
+  <div class="tab" onclick="sw('bia')">BIA & Prioritas</div>
+  <div class="tab" onclick="sw('fase')">Fase Pemulihan</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa BCDRP bukan hanya urusan IT?</div>
+    <div class="narasi-text">Bencana tidak memilih waktu dan tidak mengenal batas divisi. Gempa bumi, kebakaran, serangan ransomware, pandemi, atau bahkan pemadaman listrik berkepanjangan — semua bisa menghentikan operasional bisnis secara tiba-tiba. <strong>Business Continuity and Disaster Recovery Plan (BCDRP)</strong> adalah rencana terstruktur yang memastikan organisasi dapat <strong>bertahan, beroperasi, dan pulih</strong> dari gangguan tersebut dengan dampak seminimal mungkin.<br><br>BCDRP bukan hanya dokumen teknis IT — ini adalah <strong>tanggung jawab seluruh organisasi</strong>. Setiap divisi memiliki proses bisnis kritikal yang harus diidentifikasi, dilindungi, dan dipulihkan. Tanpa keterlibatan aktif semua pihak, rencana terbaik sekalipun tidak akan bisa dijalankan saat bencana benar-benar terjadi.</div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>4 metrik kunci yang wajib dipahami semua divisi</div>
+  <div class="metric-grid">
+    <div class="metric-card mc-rto">
+      <div class="metric-val">RTO</div>
+      <div class="metric-name">Recovery Time Objective</div>
+      <div class="metric-desc">Batas waktu maksimal pemulihan sistem/layanan. Berapa lama bisnis bisa bertahan tanpa sistem tersebut?</div>
+    </div>
+    <div class="metric-card mc-rpo">
+      <div class="metric-val">RPO</div>
+      <div class="metric-name">Recovery Point Objective</div>
+      <div class="metric-desc">Seberapa jauh data boleh hilang. Berapa lama data yang rela kamu kehilangan jika terjadi bencana?</div>
+    </div>
+    <div class="metric-card mc-mtd">
+      <div class="metric-val">MTD</div>
+      <div class="metric-name">Maximum Tolerable Downtime</div>
+      <div class="metric-desc">Batas waktu absolut sebelum dampak menjadi tidak bisa dipulihkan. RTO harus selalu lebih pendek dari MTD.</div>
+    </div>
+    <div class="metric-card mc-wrt">
+      <div class="metric-val">WRT</div>
+      <div class="metric-name">Work Recovery Time</div>
+      <div class="metric-desc">Waktu yang dibutuhkan untuk memproses backlog pekerjaan setelah sistem pulih kembali normal.</div>
+    </div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>BCP vs DRP — apa bedanya?</div>
+  <div class="bcp-vs-drp">
+    <div class="bvd-card" style="background:#051224;border-color:rgba(55,138,221,0.2)">
+      <div class="bvd-header">
+        <div class="bvd-icon" style="background:rgba(55,138,221,0.15)">📋</div>
+        <div><div class="bvd-title" style="color:#93c5fd">Business Continuity Plan (BCP)</div><div class="bvd-sub" style="color:rgba(147,197,253,0.6)">Fokus: kelangsungan bisnis secara menyeluruh</div></div>
+      </div>
+      <div class="bvd-item"><strong>Cakupan luas</strong> — mencakup seluruh aspek operasional bisnis, bukan hanya IT</div>
+      <div class="bvd-item"><strong>Proaktif</strong> — dirancang SEBELUM bencana terjadi untuk memastikan bisnis tetap berjalan</div>
+      <div class="bvd-item"><strong>Melibatkan semua divisi</strong> — HR, Finance, Operasional, Legal, IT, hingga komunikasi publik</div>
+      <div class="bvd-item"><strong>Mencakup:</strong> alternatif lokasi kerja, komunikasi darurat, continuity of operations, dan manajemen krisis</div>
+      <div class="bvd-item"><strong>Pertanyaan kunci:</strong> "Bagaimana bisnis tetap berjalan saat terjadi gangguan?"</div>
+    </div>
+    <div class="bvd-card" style="background:#061a12;border-color:rgba(29,158,117,0.2)">
+      <div class="bvd-header">
+        <div class="bvd-icon" style="background:rgba(29,158,117,0.15)">💻</div>
+        <div><div class="bvd-title" style="color:#34d399">Disaster Recovery Plan (DRP)</div><div class="bvd-sub" style="color:rgba(52,211,153,0.6)">Fokus: pemulihan sistem & infrastruktur IT</div></div>
+      </div>
+      <div class="bvd-item"><strong>Cakupan spesifik</strong> — fokus pada pemulihan sistem IT, data, dan infrastruktur teknologi</div>
+      <div class="bvd-item"><strong>Reaktif</strong> — prosedur yang dijalankan SETELAH bencana/insiden terjadi</div>
+      <div class="bvd-item"><strong>Terutama IT-driven</strong> — melibatkan tim IT, Security, dan infrastructure</div>
+      <div class="bvd-item"><strong>Mencakup:</strong> backup & restore, failover, recovery prosedur sistem per sistem, dan RTO/RPO per layanan</div>
+      <div class="bvd-item"><strong>Pertanyaan kunci:</strong> "Bagaimana sistem IT dipulihkan setelah bencana?"</div>
+    </div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">ISO 22301:2019 — Standar internasional BCMS</div>
+    <div class="narasi-text"><strong>ISO 22301:2019</strong> adalah standar internasional untuk <strong>Business Continuity Management System (BCMS)</strong> — kerangka kerja yang membantu organisasi mempersiapkan diri, merespons, dan pulih dari gangguan yang mengganggu kelangsungan bisnis.<br><br>Klausul utama yang relevan untuk semua pegawai: <strong>Klausul 8.2 (Business Impact Analysis)</strong> — mengidentifikasi proses kritikal dan dampak gangguan. <strong>Klausul 8.3 (Business Continuity Strategy)</strong> — strategi untuk melindungi proses kritikal. <strong>Klausul 8.4 (Business Continuity Procedures)</strong> — prosedur respons yang harus diikuti saat gangguan terjadi. <strong>Klausul 8.5 (Exercise and Testing)</strong> — BCDRP yang tidak diuji sama dengan tidak punya rencana.</div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Ancaman yang memicu aktivasi BCDRP</div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Bencana alam</strong> — gempa bumi, banjir, kebakaran, petir yang merusak infrastruktur</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Serangan siber masif</strong> — ransomware, DDoS, atau data breach skala besar</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Kegagalan infrastruktur kritis</strong> — pemadaman listrik panjang, server down, jaringan putus</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Pandemi atau krisis kesehatan</strong> — yang menyebabkan pegawai tidak bisa hadir di kantor</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Gangguan rantai pasok kritis</strong> — kegagalan supplier utama yang menghentikan operasional</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Kerusakan atau kehilangan data masif</strong> — akibat kesalahan manusia, korupsi data, atau penghapusan tidak sengaja</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Konsekuensi tanpa BCDRP yang matang</div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Kerugian finansial langsung</strong> — setiap jam downtime berarti pendapatan yang hilang dan biaya pemulihan</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Reputasi rusak permanen</strong> — pelanggan kehilangan kepercayaan jika layanan tidak pulih tepat waktu</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Sanksi regulasi</strong> — melanggar SLA, kewajiban layanan, atau regulasi yang mengharuskan ketersediaan tertentu</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Kehilangan data permanen</strong> — tanpa backup yang benar, data yang hilang mungkin tidak bisa dipulihkan</div></div>
+      <div class="it"><div class="ck ck-y">!</div><div class="tx tx-y"><strong>Kegagalan bisnis total</strong> — 40% bisnis yang mengalami bencana besar tanpa BCP tidak pernah dibuka kembali</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-bia" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">Business Impact Analysis (BIA) — fondasi dari semua rencana</div>
+    <div class="narasi-text"><strong>BIA (Business Impact Analysis)</strong> adalah proses mengidentifikasi <strong>fungsi bisnis kritikal, dampak gangguan, dan kebutuhan pemulihan</strong> dari setiap proses. BIA menjawab pertanyaan fundamental: jika sistem X tidak bisa diakses selama Y jam, apa dampaknya ke bisnis? Berapa kerugian finansialnya? Apakah ada kewajiban hukum yang dilanggar?<br><br>BIA adalah tanggung jawab SEMUA divisi — bukan hanya IT. Setiap manajer harus mampu mengidentifikasi proses kritikal di unitnya, menentukan RTO dan RPO yang realistis, dan memberikan input yang akurat untuk penyusunan BCDRP yang efektif.</div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Langkah menyusun BIA per divisi</div>
+  <div class="card card-b" style="margin-bottom:10px">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Identifikasi seluruh proses bisnis di unitmu</div><div class="step-desc">Daftarkan semua aktivitas yang dilakukan unit — dari yang harian hingga periodik. Jangan lewatkan proses yang terlihat kecil tapi punya dampak besar jika terhenti</div></div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Klasifikasikan tingkat kekritisan setiap proses</div><div class="step-desc">Kategorikan: Mission Critical (tidak bisa berhenti sama sekali), Business Critical (bisa berhenti maksimal beberapa jam), Operasional (bisa berhenti beberapa hari), Support (bisa berhenti lebih lama)</div></div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Tentukan RTO dan RPO untuk setiap proses kritikal</div><div class="step-desc">Berapa lama toleransi downtime? Berapa banyak data yang boleh hilang? Konsultasikan dengan atasan dan pihak terkait — jangan menentukan sendiri tanpa dasar bisnis yang jelas</div></div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Identifikasi dependensi dan sumber daya yang diperlukan</div><div class="step-desc">Sistem apa, orang siapa, vendor mana yang diperlukan agar proses ini bisa berjalan? Apa yang terjadi jika salah satu dependensi tersebut tidak tersedia?</div></div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Hitung dampak finansial dan operasional per jam downtime</div><div class="step-desc">Estimasi kerugian langsung (pendapatan hilang, denda SLA) dan tidak langsung (reputasi, kepercayaan pelanggan). Angka ini menjadi justifikasi investasi dalam proteksi dan recovery</div></div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Dokumentasikan dan validasi dengan manajemen</div><div class="step-desc">Hasil BIA harus divalidasi oleh manajemen, diintegrasikan ke dalam BCDRP organisasi, dan diperbarui minimal setahun sekali atau saat ada perubahan signifikan dalam proses bisnis</div></div></div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Contoh hasil BIA per fungsi bisnis — prioritas pemulihan</div>
+  <div class="card card-n" style="padding:0;overflow:hidden">
+    <table class="bia-table">
+      <thead>
+        <tr>
+          <th>Fungsi / Proses Bisnis</th>
+          <th>Kekritisan</th>
+          <th>RTO</th>
+          <th>RPO</th>
+          <th>Dampak Downtime</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="dept">Core banking / transaksi keuangan</td><td><span class="badge badge-r">Mission Critical</span></td><td style="color:#f87171;font-weight:500">&lt; 1 jam</td><td style="color:#f87171;font-weight:500">0 (zero)</td><td>Kerugian langsung & regulasi OJK</td></tr>
+        <tr><td class="dept">Email & komunikasi internal</td><td><span class="badge badge-r">Business Critical</span></td><td style="color:#fbbf24;font-weight:500">&lt; 4 jam</td><td style="color:#fbbf24;font-weight:500">&lt; 1 jam</td><td>Koordinasi terhenti, eskalasi lambat</td></tr>
+        <tr><td class="dept">Sistem HR & penggajian</td><td><span class="badge badge-r">Business Critical</span></td><td style="color:#fbbf24;font-weight:500">&lt; 8 jam</td><td style="color:#fbbf24;font-weight:500">&lt; 24 jam</td><td>Penggajian terlambat, compliance HR</td></tr>
+        <tr><td class="dept">CRM & data pelanggan</td><td><span class="badge badge-r">Business Critical</span></td><td style="color:#fbbf24;font-weight:500">&lt; 4 jam</td><td style="color:#fbbf24;font-weight:500">&lt; 1 jam</td><td>Layanan pelanggan terhenti</td></tr>
+        <tr><td class="dept">ERP & sistem operasional</td><td><span class="badge badge-y">High Priority</span></td><td style="color:#60a5fa;font-weight:500">&lt; 24 jam</td><td style="color:#60a5fa;font-weight:500">&lt; 4 jam</td><td>Operasional manual, ineffisiensi tinggi</td></tr>
+        <tr><td class="dept">Website & portal publik</td><td><span class="badge badge-y">High Priority</span></td><td style="color:#60a5fa;font-weight:500">&lt; 4 jam</td><td style="color:#60a5fa;font-weight:500">&lt; 2 jam</td><td>Reputasi & akuisisi pelanggan terdampak</td></tr>
+        <tr><td class="dept">Internal file server & SharePoint</td><td><span class="badge badge-b">Standard</span></td><td style="color:#34d399;font-weight:500">&lt; 48 jam</td><td style="color:#34d399;font-weight:500">&lt; 24 jam</td><td>Produktivitas turun tapi masih bisa manual</td></tr>
+        <tr><td class="dept">Sistem pelaporan & analitik</td><td><span class="badge badge-g">Low Priority</span></td><td style="color:#34d399;font-weight:500">&lt; 72 jam</td><td style="color:#34d399;font-weight:500">&lt; 48 jam</td><td>Keputusan berdasarkan data lama</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="p-fase" class="panel">
+  <div class="narasi-box">
+    <div class="narasi-label">5 fase dalam siklus BCDRP</div>
+    <div class="narasi-text">Pengelolaan BCDRP bukan hanya tentang apa yang dilakukan saat bencana — tapi tentang siklus persiapan yang berkelanjutan. Rencana yang baik dibangun jauh sebelum bencana, diuji secara berkala, dan terus diperbaiki berdasarkan hasil pengujian dan insiden nyata yang terjadi.</div>
+  </div>
+
+  <div class="phase-row" style="margin-bottom:10px">
+    <div class="ph-box ph-pre">
+      <div class="ph-icon">🔮</div>
+      <div class="ph-title">Pre-Disaster Preparedness</div>
+      <div class="ph-time">Sebelum bencana</div>
+      <div class="ph-desc">BIA, risk assessment, penyusunan BCP/DRP, pelatihan tim, drill & simulasi rutin</div>
+    </div>
+    <div class="ph-box ph-res">
+      <div class="ph-icon">🚨</div>
+      <div class="ph-title">Immediate Response</div>
+      <div class="ph-time">0–4 jam pertama</div>
+      <div class="ph-desc">Deteksi bencana, aktivasi Crisis Management Team, notifikasi, containment awal</div>
+    </div>
+    <div class="ph-box ph-con">
+      <div class="ph-icon">⚙️</div>
+      <div class="ph-title">Continuity Operations</div>
+      <div class="ph-time">Jam 4 – hari ke-7</div>
+      <div class="ph-desc">Aktifkan prosedur darurat, alihkan ke backup site, jalankan operasi dengan kapasitas terbatas</div>
+    </div>
+    <div class="ph-box ph-rec">
+      <div class="ph-icon">🔄</div>
+      <div class="ph-title">System Recovery</div>
+      <div class="ph-time">Hari 1 – minggu ke-4</div>
+      <div class="ph-desc">Pulihkan sistem IT dari backup, restore data, verifikasi integritas, uji layanan sebelum kembali normal</div>
+    </div>
+    <div class="ph-box ph-res2">
+      <div class="ph-icon">✅</div>
+      <div class="ph-title">Return to Normal & Review</div>
+      <div class="ph-time">Pasca pemulihan</div>
+      <div class="ph-desc">Kembalikan operasi normal, lakukan post-disaster review, update BCDRP, lessons learned</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Fase 1 — Immediate Response (0–4 jam)</div>
+      <div class="it"><div class="ck ck-b">1</div><div class="tx tx-r"><strong>Aktifkan Crisis Management Team (CMT)</strong> — hubungi semua anggota sesuai call tree yang sudah ditetapkan</div></div>
+      <div class="it"><div class="ck ck-b">2</div><div class="tx tx-r"><strong>Asesmen awal bencana</strong> — tentukan scope, dampak, dan apakah perlu deklarasi disaster resmi</div></div>
+      <div class="it"><div class="ck ck-b">3</div><div class="tx tx-r"><strong>Notifikasi pihak terkait</strong> — manajemen senior, regulator (jika diperlukan), dan pelanggan kunci</div></div>
+      <div class="it"><div class="ck ck-b">4</div><div class="tx tx-r"><strong>Aktifkan alternate site atau remote work</strong> jika kantor utama tidak bisa digunakan</div></div>
+      <div class="it"><div class="ck ck-b">5</div><div class="tx tx-r"><strong>Jalankan prosedur darurat manual</strong> untuk proses Mission Critical selagi sistem dipulihkan</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Fase 2 — Continuity Operations (sampai minggu ke-1)</div>
+      <div class="it"><div class="ck ck-b">1</div><div class="tx tx-y"><strong>Jalankan BCP procedures</strong> — prosedur alternatif per divisi untuk menjaga operasi tetap berjalan</div></div>
+      <div class="it"><div class="ck ck-b">2</div><div class="tx tx-y"><strong>Prioritaskan proses Mission Critical</strong> sesuai hasil BIA — jangan coba pulihkan semua sekaligus</div></div>
+      <div class="it"><div class="ck ck-b">3</div><div class="tx tx-y"><strong>Komunikasi berkala ke stakeholders</strong> — update status pemulihan secara reguler dan transparan</div></div>
+      <div class="it"><div class="ck ck-b">4</div><div class="tx tx-y"><strong>Dokumentasikan semua keputusan dan tindakan</strong> yang diambil selama fase darurat untuk post-review</div></div>
+      <div class="it"><div class="ck ck-b">5</div><div class="tx tx-y"><strong>Monitor sumber daya</strong> — pastikan tim tidak kelelahan, atur shift jika pemulihan berjalan lama</div></div>
+    </div>
+  </div>
+
+  <div class="card card-b">
+    <div class="sec sc-b"><span class="dot dot-b"></span>Strategi backup & recovery — pilar teknis DRP</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>3-2-1 Backup Rule</strong> — 3 salinan data, di 2 media berbeda, 1 di lokasi offsite atau cloud</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Uji restore backup secara rutin</strong> — backup yang tidak pernah diuji adalah false security</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Hot/Warm/Cold standby site</strong> — pilih sesuai RTO: hot (menit), warm (jam), cold (hari)</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Failover otomatis</strong> untuk sistem Mission Critical — tidak boleh mengandalkan intervensi manual untuk RTO pendek</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Enkripsi backup</strong> — data backup yang tidak terenkripsi adalah risiko kebocoran saat transit atau penyimpanan</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Verifikasi integritas data</strong> pasca recovery — pastikan data yang dipulihkan tidak korup atau tidak lengkap</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Dokumentasikan runbook recovery</strong> per sistem — prosedur detail step-by-step yang bisa diikuti siapapun</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Latih tim DRP secara reguler</strong> — minimal setahun sekali melalui simulasi atau tabletop exercise</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-g">
+    <div class="sec sc-g"><span class="dot dot-g"></span>Pengujian BCDRP — wajib dilakukan secara berkala (ISO 22301 Klausul 8.5)</div>
+    <div class="g2" style="margin-bottom:0">
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tabletop Exercise</strong> — diskusi skenario bencana tanpa eksekusi nyata. Murah dan efektif untuk mengidentifikasi gap prosedur</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Functional Drill</strong> — simulasi aktivasi prosedur tertentu (misal: uji aktivasi call tree atau backup site)</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Full-Scale Exercise</strong> — simulasi bencana penuh melibatkan semua tim dan prosedur secara bersamaan</div></div>
+      </div>
+      <div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Frekuensi minimal</strong> — tabletop: 2x/tahun; functional drill: 1x/tahun; full-scale: 1x/2 tahun</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan semua hasil</strong> pengujian — temuan, gap, dan rencana perbaikan harus terdokumentasi</div></div>
+        <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update BCDRP</strong> segera setelah pengujian — rencana yang tidak diperbarui akan usang dan tidak efektif</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kewajiban setiap pegawai — sebelum bencana</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ketahui peranmu dalam BCDRP</strong> — siapa yang harus dihubungi, apa tugasmu, dan prosedur apa yang harus diikuti saat bencana</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Simpan kontak darurat offline</strong> — nomor telepon Crisis Management Team dan atasan jangan hanya tersimpan di sistem digital</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ikuti semua latihan dan simulasi BCDRP</strong> — jangan anggap remeh drill — saat bencana nyata, otot memori inilah yang bekerja</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Identifikasi proses kritikal di unitmu</strong> — berikan input BIA yang akurat kepada tim Business Continuity</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan data kerja ter-backup</strong> — simpan di lokasi yang sudah ditetapkan IT, bukan hanya di laptop lokal</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan proses yang hanya kamu yang tahu</strong> — single point of knowledge adalah risiko kelangsungan bisnis</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kewajiban saat bencana terjadi</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Prioritaskan keselamatan diri dan orang lain</strong> — tidak ada sistem yang lebih berharga dari keselamatan manusia</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan segera ke atasan dan Crisis Management Team</strong> — jangan tunggu yakin dulu, laporkan dan biarkan CMT memutuskan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Ikuti instruksi dari Crisis Management Team</strong> — jangan berinisiatif di luar prosedur yang sudah ditetapkan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan prosedur manual</strong> jika sistem tidak tersedia — pastikan kamu tahu prosedur manual proses kritikal unitmu</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Catat semua tindakan dan keputusan</strong> yang diambil selama fase darurat untuk keperluan post-disaster review</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan saluran komunikasi resmi</strong> yang ditetapkan — jangan andalkan email atau sistem yang mungkin juga terdampak</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kewajiban manajemen & pemilik proses</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan BCDRP terdokumentasi dan diperbarui</strong> minimal setahun sekali atau saat ada perubahan signifikan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Alokasikan anggaran untuk BCDRP</strong> — backup, alternate site, pelatihan, dan pengujian membutuhkan investasi nyata</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tunjuk Business Continuity Coordinator</strong> per divisi yang bertanggung jawab atas kesiapan BCDRP di unitnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan tidak ada key person dependency</strong> — proses kritikal tidak boleh hanya diketahui satu orang</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Kewajiban pasca pemulihan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan post-disaster review</strong> setelah setiap aktivasi BCDRP — apa yang berhasil, apa yang gagal, apa yang perlu diperbaiki</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update BCDRP</strong> berdasarkan lessons learned dari bencana atau drill yang baru saja terjadi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Verifikasi semua sistem kembali normal</strong> — termasuk backup yang mungkin terkuras saat pemulihan harus diisi ulang</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Komunikasikan status pemulihan</strong> kepada semua stakeholders — internal dan eksternal secara transparan</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan dalam persiapan BCDRP</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>anggap BCDRP hanya urusan IT</strong> — setiap divisi punya proses kritikal yang harus diidentifikasi dan dilindungi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan BCDRP menjadi dokumen yang hanya disimpan</strong> tanpa pernah diuji atau diperbarui</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>skip pengujian BCDRP</strong> dengan alasan mengganggu operasional — tanpa pengujian, BCDRP tidak bisa diandalkan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>biarkan ada key person dependency</strong> — jika hanya satu orang yang tahu proses kritikal, itu adalah risiko bisnis besar</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>tentukan RTO dan RPO tanpa dasar bisnis</strong> — angka yang terlalu optimistis atau terlalu longgar sama-sama berbahaya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan backup data di perangkat lokal</strong> — data yang hanya ada di laptop tanpa backup adalah bom waktu</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan saat bencana terjadi</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>berinisiatif di luar prosedur BCDRP</strong> — improvisation saat bencana bisa memperburuk situasi secara signifikan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>coba pulihkan semua sistem sekaligus</strong> — ikuti urutan prioritas BIA, fokus pada Mission Critical terlebih dahulu</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>komunikasikan ke publik atau media</strong> tanpa otorisasi dari manajemen dan tim komunikasi krisis</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>restore dari backup yang tidak diverifikasi</strong> — backup yang terinfeksi malware akan menginfeksi ulang sistem yang baru dipulihkan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>declare "pemulihan selesai" terlalu cepat</strong> — verifikasi menyeluruh harus dilakukan sebelum kembali ke operasi normal</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan dokumentasi</strong> selama fase bencana — rekam semua tindakan untuk post-review dan bukti kepatuhan regulasi</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait backup & data</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>simpan satu-satunya backup di lokasi yang sama</strong> dengan data primer — satu bencana bisa menghancurkan keduanya</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>asumsikan backup berjalan dengan benar</strong> tanpa verifikasi berkala — backup yang gagal sering baru diketahui saat dibutuhkan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>simpan data kritikal hanya di perangkat lokal</strong> tanpa sinkronisasi ke storage resmi yang ter-backup</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>enkripsi backup tanpa menyimpan kunci enkripsi</strong> di tempat yang aman dan terpisah — kehilangan kunci = kehilangan data</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan pasca pemulihan</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>skip post-disaster review</strong> karena "sudah capek" — ini adalah momen terbaik untuk belajar selagi pengalaman masih segar</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan update BCDRP</strong> setelah pengujian atau bencana nyata — gap yang ditemukan harus segera diperbaiki</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>lupa isi ulang sumber daya darurat</strong> — baterai, generator, stok konsumabel, dan anggaran darurat harus diisi kembali</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>anggap bencana sudah selesai</strong> hanya karena sistem kembali online — backlog data dan proses yang tertunda masih harus diselesaikan</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Plan for the worst, prepare for the unexpected — BCDRP yang tidak diuji adalah rencana yang tidak bisa diandalkan"</span></div>
+    <div class="footer-sub">ISO 22301:2019 · NIST SP 800-34 · RTO · RPO · MTD · 3-2-1 Backup Rule</div>
+  </div>
+  <div class="footer-right">SMKI — BCDRP<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','bia','fase','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

@@ -1,0 +1,22 @@
+Klausul 9: Evaluasi Kinerja (Performance Evaluation)
+9.1 Pemantauan, Pengukuran, Analisis, dan Evaluasi
+
+Tujuan Utama: Mengevaluasi kinerja keamanan informasi dan efektivitas SMKI.
+
+Dokumen (Document): Matriks Indikator Pemantauan (Monitoring & Measurement Metrices).
+
+Bukti (Evidence): Laporan dashboard keamanan, hasil Vulnerability Assessment, dan laporan insiden.
+
+9.2 Audit Internal
+
+Tujuan Utama: Memastikan SMKI sesuai dengan standar ISO 27001 dan persyaratan internal organisasi secara objektif.
+
+Dokumen (Document): Prosedur Audit Internal.
+
+Bukti (Evidence): Program Audit Tahunan (Annual Audit Program), Rencana Audit (Audit Plan), Laporan Hasil Audit Internal, dan sertifikasi kompetensi Auditor Internal.
+
+9.3 Tinjauan Manajemen
+
+Tujuan Utama: Peninjauan berkala oleh Manajemen Puncak untuk memastikan kelayakan, kecukupan, dan keefektifan SMKI.
+
+Bukti (Evidence): Undangan rapat, materi presentasi Tinjauan Manajemen, MoM Tinjauan Manajemen yang memuat keputusan dan tindak lanjut (Action Items), serta daftar hadir Manajemen Puncak.

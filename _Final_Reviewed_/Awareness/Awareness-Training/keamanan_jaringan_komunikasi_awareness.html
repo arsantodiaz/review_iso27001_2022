@@ -1,0 +1,409 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#050d1a;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(55,138,221,0.12)}
+.hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:90px;height:90px;border-radius:50%;background:rgba(127,119,221,0.08)}
+.hero-badge{display:inline-block;background:rgba(55,138,221,0.2);border:1px solid rgba(55,138,221,0.35);color:#60a5fa;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#60a5fa}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#050d1a;color:#60a5fa;border-color:#185fa5}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-p{color:rgba(196,181,253,0.85)}.tx-p strong{color:#c4b5fd;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-p{color:#a78bfa}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-p{background:#7f77dd}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#60a5fa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+
+.threat-item{display:flex;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);margin-bottom:7px}
+.threat-item:last-child{margin-bottom:0}
+.ti-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ti-body{flex:1}
+.ti-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.ti-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+.ti-risk{font-size:9px;font-weight:500;margin-top:3px}
+
+.layer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.layer-card{border-radius:10px;padding:12px 14px;border:1px solid var(--color-border-tertiary)}
+.layer-num{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.layer-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.layer-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+
+.email-check{background:#051224;border:1px solid rgba(55,138,221,0.2);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.email-check-title{font-size:11px;font-weight:500;color:#60a5fa;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.email-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding:8px 10px;border-radius:8px}
+.email-row:last-child{margin-bottom:0}
+.email-row.safe{background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.15)}
+.email-row.danger{background:rgba(226,75,74,0.08);border:1px solid rgba(226,75,74,0.15)}
+.email-indicator{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ei-safe{background:rgba(29,158,117,0.15)}
+.ei-danger{background:rgba(226,75,74,0.15)}
+.email-content{flex:1}
+.email-label{font-size:10px;font-weight:500;margin-bottom:2px}
+.el-safe{color:#34d399}.el-danger{color:#f87171}
+.email-desc{font-size:11px;line-height:1.4}
+.ed-safe{color:rgba(167,243,208,0.75)}.ed-danger{color:rgba(252,165,165,0.75)}
+
+.step-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.step-num{width:26px;height:26px;border-radius:50%;background:#0c447c;color:#93c5fd;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-line-v{width:1px;height:8px;background:rgba(55,138,221,0.2);margin-left:13px}
+.step-body{flex:1}
+.step-title{font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:2px}
+.step-desc{font-size:11px;color:rgba(147,197,253,0.65);line-height:1.4}
+
+.footer{background:#050d1a;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#60a5fa}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Network & Communication Security</div>
+  <h1>Keamanan <span>Jaringan & Komunikasi</span><br>Panduan Implementasi</h1>
+  <p>Segregasi jaringan · Firewall · Keamanan email · Browsing aman · WiFi publik · Enkripsi komunikasi</p>
+  <div class="hero-icon">🌐</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi & Prinsip</div>
+  <div class="tab" onclick="sw('ancaman')">Ancaman Jaringan</div>
+  <div class="tab" onclick="sw('email')">Keamanan Email</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa keamanan jaringan penting untuk semua pegawai?</div>
+    <div class="narasi-text">Jaringan adalah <strong>tulang punggung komunikasi dan operasional</strong> organisasi. Setiap kali kamu terhubung ke jaringan kantor — mengirim email, mengakses sistem internal, atau browsing — kamu berada di dalam ekosistem yang jika tidak dijaga bisa menjadi pintu masuk bagi penyerang.<br><br>Ancaman jaringan tidak hanya datang dari luar. <strong>Satu perangkat yang terinfeksi malware</strong>, satu email phishing yang diklik, atau satu koneksi WiFi publik tanpa VPN — cukup untuk membuka celah yang memungkinkan penyerang masuk ke seluruh sistem organisasi. Keamanan jaringan bukan hanya tugas IT, tapi <strong>tanggung jawab setiap pengguna jaringan.</strong></div>
+  </div>
+
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Lapisan keamanan jaringan yang perlu dipahami</div>
+  <div class="layer-grid">
+    <div class="layer-card" style="background:#051224;border-color:rgba(55,138,221,0.2)">
+      <div class="layer-num" style="color:#378add">Lapisan 1</div>
+      <div class="layer-title" style="color:#93c5fd">Segregasi Jaringan</div>
+      <div class="layer-desc">Jaringan internal (kantor) dan jaringan publik (tamu/vendor) harus dipisahkan. Data sensitif tidak boleh melewati jaringan yang sama dengan trafik publik. Ini mencegah lateral movement jika salah satu jaringan dikompromikan.</div>
+    </div>
+    <div class="layer-card" style="background:#061a12;border-color:rgba(29,158,117,0.2)">
+      <div class="layer-num" style="color:#1d9e75">Lapisan 2</div>
+      <div class="layer-title" style="color:#34d399">Firewall & Monitoring</div>
+      <div class="layer-desc">Firewall menjadi gerbang yang memeriksa setiap lalu lintas data masuk dan keluar. Pemantauan berkala memastikan tidak ada akses anomali yang lolos — traffic yang tidak wajar harus segera diinvestigasi.</div>
+    </div>
+    <div class="layer-card" style="background:#0e0a1e;border-color:rgba(127,119,221,0.2)">
+      <div class="layer-num" style="color:#7f77dd">Lapisan 3</div>
+      <div class="layer-title" style="color:#c4b5fd">Enkripsi Komunikasi</div>
+      <div class="layer-desc">Seluruh komunikasi data sensitif harus dienkripsi — baik saat transit (HTTPS, VPN, TLS) maupun saat disimpan. Informasi kritikal yang dikirim tanpa enkripsi bisa disadap di tengah jalan oleh siapapun di jaringan yang sama.</div>
+    </div>
+    <div class="layer-card" style="background:#1a1206;border-color:rgba(239,159,39,0.2)">
+      <div class="layer-num" style="color:#ef9f27">Lapisan 4</div>
+      <div class="layer-title" style="color:#fbbf24">Perilaku Pengguna</div>
+      <div class="layer-desc">Semua lapisan teknis di atas bisa ditembus oleh satu klik pada link phishing atau koneksi ke WiFi berbahaya. Perilaku pengguna adalah lapisan yang paling sering menjadi titik lemah — sekaligus yang paling mudah diperbaiki.</div>
+    </div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Enkripsi attachment — kirim password via saluran terpisah</div>
+    <div class="narasi-text">Ketika mengirimkan file atau dokumen yang berisi informasi kritikal via email, <strong>lindungi file tersebut dengan password enkripsi</strong> sebelum dikirim. Namun — dan ini sangat penting — <strong>jangan kirim password di email yang sama</strong> dengan file-nya. Jika email tersebut disadap atau salah kirim, penyerang mendapat keduanya sekaligus.<br><br>Praktik yang benar: kirim file terenkripsi via email, lalu kirimkan password-nya melalui <strong>saluran komunikasi berbeda</strong> — misalnya via WhatsApp, SMS, atau telepon langsung ke penerima. Dengan cara ini, meski email disadap, file tetap tidak bisa dibuka tanpa password yang ada di saluran lain.</div>
+  </div>
+
+</div>
+
+<div id="p-ancaman" class="panel">
+  <div class="sec sc-r" style="margin-bottom:8px"><span class="dot dot-r"></span>Ancaman utama pada jaringan & komunikasi</div>
+
+  <div class="threat-item">
+    <div class="ti-icon" style="background:rgba(226,75,74,0.12)">🎣</div>
+    <div class="ti-body">
+      <div class="ti-title">Phishing & Spear Phishing</div>
+      <div class="ti-desc">Email atau pesan yang menyamar sebagai pihak terpercaya (bank, vendor, atasan) untuk mencuri kredensial atau menginstall malware. Spear phishing menarget individu spesifik dengan informasi personal yang membuat email terlihat sangat meyakinkan.</div>
+      <div class="ti-risk pct-r">Risiko: Sangat Tinggi — penyebab utama kebocoran data dan ransomware</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="ti-icon" style="background:rgba(226,75,74,0.12)">📡</div>
+    <div class="ti-body">
+      <div class="ti-title">Man-in-the-Middle (MitM) Attack</div>
+      <div class="ti-desc">Penyerang menyisipkan diri di antara dua pihak yang berkomunikasi — misalnya antara laptopmu dan server kantor — untuk menyadap, membaca, atau memodifikasi data yang dikirim. Serangan ini umum terjadi di jaringan WiFi publik yang tidak terenkripsi.</div>
+      <div class="ti-risk pct-r">Risiko: Sangat Tinggi — pencurian data login, token, dan informasi sensitif</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="ti-icon" style="background:rgba(239,159,39,0.12)">📶</div>
+    <div class="ti-body">
+      <div class="ti-title">Rogue Access Point / Evil Twin WiFi</div>
+      <div class="ti-desc">Penyerang membuat hotspot WiFi palsu dengan nama yang mirip jaringan resmi (contoh: "Kantor_Guest" vs "Kont0r_Guest"). Siapapun yang terhubung akan seluruh trafiknya bisa dipantau dan disadap oleh penyerang.</div>
+      <div class="ti-risk pct-y">Risiko: Tinggi — seluruh komunikasi bisa disadap tanpa terdeteksi</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="ti-icon" style="background:rgba(239,159,39,0.12)">🦠</div>
+    <div class="ti-body">
+      <div class="ti-title">Malware via Email Attachment & Download</div>
+      <div class="ti-desc">File yang terlihat normal (PDF, Word, Excel) bisa mengandung malware yang aktif saat dibuka. Mengunduh file dari situs tidak resmi atau membuka lampiran email mencurigakan adalah cara paling umum malware menyebar di jaringan kantor.</div>
+      <div class="ti-risk pct-y">Risiko: Tinggi — infeksi bisa menyebar ke seluruh jaringan dalam hitungan menit</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="ti-icon" style="background:rgba(239,159,39,0.12)">🔗</div>
+    <div class="ti-body">
+      <div class="ti-title">Drive-by Download & Malicious Website</div>
+      <div class="ti-desc">Mengakses situs berbahaya atau situs resmi yang sudah dikompromikan bisa secara otomatis mengunduh dan mengeksekusi malware tanpa sepengetahuan pengguna — hanya dengan membuka halaman website tersebut.</div>
+      <div class="ti-risk pct-y">Risiko: Sedang-Tinggi — infeksi otomatis tanpa klik apapun</div>
+    </div>
+  </div>
+
+  <div class="threat-item">
+    <div class="ti-icon" style="background:rgba(29,158,117,0.12)">📧</div>
+    <div class="ti-body">
+      <div class="ti-title">Business Email Compromise (BEC)</div>
+      <div class="ti-desc">Penyerang mengkompromikan atau memalsukan akun email eksekutif/finance untuk menginstruksikan transfer dana, membagikan data sensitif, atau mengubah informasi rekening. Kerugian finansial dari BEC bisa sangat besar dalam waktu singkat.</div>
+      <div class="ti-risk pct-r">Risiko: Sangat Tinggi — kerugian finansial langsung dan kebocoran data</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:10px">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Tanda email / pesan berbahaya</div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Urgensi berlebihan</strong> — "bayar sekarang", "akun diblokir dalam 1 jam", "segera konfirmasi"</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Alamat pengirim mencurigakan</strong> — mirip tapi tidak sama persis dengan domain resmi</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Link yang tidak sesuai</strong> — hover link menampilkan URL yang berbeda dari yang tertulis</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Lampiran tidak diminta</strong> — file yang tidak pernah diminta sebelumnya tiba-tiba dikirim</div></div>
+      <div class="it"><div class="ck ck-r">!</div><div class="tx tx-r"><strong>Tata bahasa aneh</strong> — terjemahan mesin, kesalahan ejaan, atau format tidak biasa</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Langkah saat menerima email mencurigakan</div>
+      <div class="it"><div class="ck ck-y">1</div><div class="tx tx-y"><strong>Jangan klik link atau buka lampiran</strong> sebelum memverifikasi pengirim</div></div>
+      <div class="it"><div class="ck ck-y">2</div><div class="tx tx-y"><strong>Verifikasi via telepon</strong> langsung ke pengirim menggunakan nomor yang sudah diketahui</div></div>
+      <div class="it"><div class="ck ck-y">3</div><div class="tx tx-y"><strong>Laporkan ke IT Security</strong> — jangan hapus dulu sebelum dilaporkan, butuh untuk investigasi</div></div>
+      <div class="it"><div class="ck ck-y">4</div><div class="tx tx-y"><strong>Hapus email</strong> setelah dilaporkan — jangan forward ke orang lain</div></div>
+      <div class="it"><div class="ck ck-y">5</div><div class="tx tx-y">Jika sudah terlanjur klik — <strong>segera lapor ke IT</strong> dan jangan tunggu gejala</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-email" class="panel">
+  <div class="sec sc-b" style="margin-bottom:8px"><span class="dot dot-b"></span>Checklist keamanan sebelum mengirim email</div>
+
+  <div class="email-check">
+    <div class="email-check-title">Verifikasi sebelum klik "Kirim"</div>
+
+    <div class="email-row safe">
+      <div class="email-indicator ei-safe">✓</div>
+      <div class="email-content">
+        <div class="email-label el-safe">Periksa alamat penerima</div>
+        <div class="email-desc ed-safe">Pastikan tidak ada typo di alamat email tujuan — satu karakter salah bisa membuat dokumen rahasia terkirim ke orang yang salah. Perhatikan khususnya saat autocomplete menyarankan alamat</div>
+      </div>
+    </div>
+
+    <div class="email-row safe">
+      <div class="email-indicator ei-safe">✓</div>
+      <div class="email-content">
+        <div class="email-label el-safe">Periksa isi dan lampiran</div>
+        <div class="email-desc ed-safe">Baca ulang isi email dan pastikan lampiran yang dilampirkan adalah file yang benar — bukan draft lama, bukan file dengan nama serupa, dan bukan file yang mengandung data lebih dari yang seharusnya dibagikan</div>
+      </div>
+    </div>
+
+    <div class="email-row safe">
+      <div class="email-indicator ei-safe">✓</div>
+      <div class="email-content">
+        <div class="email-label el-safe">Enkripsi lampiran kritikal</div>
+        <div class="email-desc ed-safe">File yang berisi data sensitif (kontrak, laporan keuangan, data karyawan) harus dienkripsi dengan password sebelum dilampirkan. Gunakan fitur enkripsi di Word/Excel/PDF atau tools yang disetujui IT</div>
+      </div>
+    </div>
+
+    <div class="email-row safe">
+      <div class="email-indicator ei-safe">✓</div>
+      <div class="email-content">
+        <div class="email-label el-safe">Kirim password via saluran berbeda</div>
+        <div class="email-desc ed-safe">Password untuk file terenkripsi TIDAK boleh dikirim di email yang sama. Gunakan WhatsApp, telepon, atau SMS langsung ke penerima yang terverifikasi. Ini memastikan jika email disadap, file tetap tidak bisa dibuka</div>
+      </div>
+    </div>
+
+    <div class="email-row danger">
+      <div class="email-indicator ei-danger">✕</div>
+      <div class="email-content">
+        <div class="email-label el-danger">Jangan Reply-All sembarangan</div>
+        <div class="email-desc ed-danger">Fitur Reply-All mengirim balasanmu ke seluruh daftar penerima — termasuk yang tidak perlu tahu. Sebelum Reply-All, pastikan memang semua orang di daftar harus menerima informasi tersebut</div>
+      </div>
+    </div>
+
+    <div class="email-row danger">
+      <div class="email-indicator ei-danger">✕</div>
+      <div class="email-content">
+        <div class="email-label el-danger">Jangan forward email internal ke luar</div>
+        <div class="email-desc ed-danger">Email internal yang berisi data sensitif tidak boleh diteruskan ke alamat email pribadi atau pihak eksternal tanpa otorisasi. Meski tujuannya untuk kemudahan akses, ini membuka risiko kebocoran</div>
+      </div>
+    </div>
+
+    <div class="email-row danger">
+      <div class="email-indicator ei-danger">✕</div>
+      <div class="email-content">
+        <div class="email-label el-danger">Jangan gunakan email pribadi untuk urusan kantor</div>
+        <div class="email-desc ed-danger">Email korporat sudah dilengkapi kontrol keamanan (enkripsi, DLP, audit log). Email pribadi tidak memiliki kontrol ini dan lebih rentan terhadap kompromi. Semua komunikasi resmi harus melalui email korporat</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card card-b">
+      <div class="sec sc-b"><span class="dot dot-b"></span>Keamanan browsing & website</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Pastikan website menggunakan HTTPS</strong> — cek ikon gembok di address bar sebelum memasukkan data apapun</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Verifikasi URL sebelum login</strong> — perhatikan domain utama, bukan hanya tampilan situsnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Gunakan browser yang diperbarui</strong> — browser terbaru memiliki proteksi phishing dan malware yang lebih baik</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Gunakan bookmark</strong> untuk situs penting — jangan mengetik ulang atau mengklik dari hasil pencarian</div></div>
+    </div>
+    <div class="card card-b">
+      <div class="sec sc-b"><span class="dot dot-b"></span>Keamanan koneksi & WiFi</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Gunakan VPN resmi</strong> saat mengakses sistem kantor dari luar jaringan internal</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Hindari WiFi publik</strong> untuk akses sistem kritikal — gunakan hotspot dari ponsel sendiri jika perlu</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Verifikasi nama WiFi kantor</strong> sebelum terhubung — tanyakan ke IT jika ragu dengan jaringan yang tersedia</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-b"><strong>Matikan auto-connect WiFi</strong> di perangkat — jangan biarkan perangkat terhubung otomatis ke jaringan yang tidak dikenal</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Infrastruktur & jaringan</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan segregasi jaringan</strong> — pisahkan jaringan internal, jaringan tamu, dan jaringan perangkat IoT</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Aktifkan dan pantau firewall</strong> — analisa log secara berkala untuk mendeteksi anomali akses</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update perangkat jaringan</strong> (router, switch, firewall) secara rutin untuk menutup kerentanan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Monitor trafik jaringan</strong> — ketidaksesuaian pola akses harus segera diinvestigasi oleh IT</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan HTTPS dan TLS</strong> untuk seluruh komunikasi data — pastikan sertifikat SSL selalu valid</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Email & komunikasi</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Periksa pengirim dan konten</strong> email secara teliti sebelum membalas atau mengklik apapun</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Verifikasi alamat penerima</strong> sebelum mengirim — cek ulang sebelum klik Send, terutama untuk data sensitif</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Enkripsi attachment kritikal</strong> dan kirim password-nya via saluran komunikasi yang berbeda</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan email mencurigakan</strong> ke IT Security — jangan hapus sebelum dilaporkan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan email korporat</strong> untuk semua komunikasi resmi yang berkaitan dengan pekerjaan</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Browsing & akses internet</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Pastikan website aman (HTTPS)</strong> dan bebas dari tanda peringatan browser sebelum mengaksesnya</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan DNS filtering</strong> yang disediakan IT untuk memblokir situs berbahaya secara otomatis</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update browser secara berkala</strong> — selalu gunakan versi terbaru yang memiliki patch keamanan terbaru</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Scan file yang diunduh</strong> dengan antivirus sebelum dibuka, meski berasal dari sumber yang dipercaya</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Koneksi & VPN</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Selalu aktifkan VPN</strong> sebelum mengakses sistem kantor dari jaringan luar atau WiFi publik</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan hotspot ponsel sendiri</strong> sebagai alternatif WiFi publik yang lebih aman saat bekerja di luar kantor</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Verifikasi nama WiFi kantor</strong> ke IT sebelum terhubung — hindari WiFi dengan nama yang mirip tapi tidak resmi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan koneksi tidak wajar</strong> — jika perangkat tiba-tiba sangat lambat atau ada trafik aneh, segera hubungi IT</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait email & komunikasi</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>buka email mencurigakan</strong> — apalagi klik linknya atau buka lampirannya sebelum diverifikasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>kirim data sensitif via email</strong> tanpa enkripsi terlebih dahulu</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>forward email internal</strong> berisi data sensitif ke email pribadi atau pihak eksternal</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>kirim password di email yang sama</strong> dengan file yang dilindungi — gunakan saluran berbeda</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>hapus email mencurigakan</strong> sebelum dilaporkan ke IT — dibutuhkan untuk investigasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>balas email phishing</strong> meski hanya untuk bertanya apakah email itu asli atau tidak</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan terkait browsing & download</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>akses website tidak dikenal atau tidak dipercaya</strong> dari perangkat kantor</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>klik URL yang diberikan di dalam website</strong> yang sudah terindikasi mencurigakan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>unduh file dari sumber tidak resmi</strong> — software bajakan, torrent, atau situs tidak terverifikasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>gunakan internet kantor</strong> untuk keperluan pribadi yang tidak berhubungan dengan pekerjaan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan peringatan browser</strong> tentang situs berbahaya atau sertifikat SSL tidak valid</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>install ekstensi browser tidak resmi</strong> tanpa persetujuan IT — bisa menjadi spyware</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait jaringan & koneksi</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>akses sistem kantor dari WiFi publik</strong> tanpa VPN yang aktif dan terverifikasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>terhubung ke WiFi dengan nama mencurigakan</strong> meski berada di area kantor</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>bagikan password WiFi kantor</strong> ke tamu atau vendor tanpa persetujuan IT</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>colokkan perangkat jaringan tidak resmi</strong> (router, switch, repeater pribadi) ke jaringan kantor</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait infrastruktur</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>nonaktifkan firewall atau antivirus</strong> di perangkat kantor meski terasa memperlambat kinerja</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>abaikan notifikasi update</strong> keamanan — update segera begitu tersedia</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>bypass kontrol jaringan</strong> menggunakan proxy atau VPN pribadi tanpa persetujuan IT</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>akses langsung IP internal</strong> atau sistem backend tanpa melalui jalur yang diotorisasi</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>"Verifikasi sebelum klik · Enkripsi sebelum kirim · VPN sebelum konek"</span></div>
+    <div class="footer-sub">Satu klik pada link phishing bisa membuka pintu bagi penyerang ke seluruh jaringan organisasi</div>
+  </div>
+  <div class="footer-right">SMKI — Network Security<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','ancaman','email','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

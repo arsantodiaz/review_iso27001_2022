@@ -1,0 +1,461 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:2px 0}
+.hero{background:#1a1206;border-radius:14px;padding:22px 28px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(239,159,39,0.1)}
+.hero-badge{display:inline-block;background:rgba(239,159,39,0.2);border:1px solid rgba(239,159,39,0.35);color:#fbbf24;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#fbbf24}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px;line-height:1.5}
+.hero-icon{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:40px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#1a1206;color:#fbbf24;border-color:#854f0b}
+
+.panel{display:none}.panel.active{display:block}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;border-radius:50%;display:inline-block}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+.card-p{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.card-n{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.it{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.it:last-child{margin-bottom:0}
+.ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ck-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.ck-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ck-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.ck-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.ck-b{background:rgba(55,138,221,0.15);border:1.5px solid #378add;font-size:9px;color:#93c5fd;font-weight:700}
+.ck-w{background:rgba(226,74,226,0.15);border:1.5px solid #a78bfa;font-size:9px;color:#c4b5fd;font-weight:700}
+
+.tx{font-size:11.5px;line-height:1.5}
+.tx-g{color:rgba(167,243,208,0.85)}.tx-g strong{color:#6ee7b7;font-weight:500}
+.tx-r{color:rgba(252,165,165,0.8)}.tx-r strong{color:#fca5a5;font-weight:500}
+.tx-b{color:rgba(147,197,253,0.85)}.tx-b strong{color:#93c5fd;font-weight:500}
+.tx-y{color:rgba(253,230,138,0.8)}.tx-y strong{color:#fde68a;font-weight:500}
+.tx-p{color:rgba(196,181,253,0.85)}.tx-p strong{color:#c4b5fd;font-weight:500}
+
+.sc-r{color:#f87171}.sc-g{color:#34d399}.sc-b{color:#60a5fa}.sc-y{color:#fbbf24}.sc-p{color:#a78bfa}
+.dot-r{background:#e24b4a}.dot-g{background:#00c48c}.dot-b{background:#378add}.dot-y{background:#ef9f27}.dot-p{background:#7f77dd}
+
+.asset-cat{border-radius:12px;padding:14px;border:1px solid var(--color-border-tertiary);margin-bottom:10px}
+.asset-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.asset-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.asset-title{font-size:13px;font-weight:500}
+.asset-sub{font-size:10px;margin-top:1px;opacity:.7}
+.asset-body{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.asset-col-title{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.asset-item{font-size:11px;line-height:1.4;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.asset-item:last-child{border-bottom:none}
+
+.cat-hw{background:#0f0a02;border-color:rgba(239,159,39,0.2)}
+.cat-hw .asset-icon{background:rgba(239,159,39,0.15)}
+.cat-hw .asset-title{color:#fbbf24}
+.cat-hw .asset-sub{color:rgba(251,191,36,0.6)}
+.cat-hw .asset-col-title{color:rgba(251,191,36,0.7)}
+.cat-hw .asset-item{color:rgba(253,230,138,0.75)}
+
+.cat-sw{background:#051224;border-color:rgba(55,138,221,0.2)}
+.cat-sw .asset-icon{background:rgba(55,138,221,0.15)}
+.cat-sw .asset-title{color:#93c5fd}
+.cat-sw .asset-sub{color:rgba(147,197,253,0.6)}
+.cat-sw .asset-col-title{color:rgba(147,197,253,0.7)}
+.cat-sw .asset-item{color:rgba(147,197,253,0.75)}
+
+.cat-info{background:#0e0a1e;border-color:rgba(127,119,221,0.2)}
+.cat-info .asset-icon{background:rgba(127,119,221,0.15)}
+.cat-info .asset-title{color:#c4b5fd}
+.cat-info .asset-sub{color:rgba(196,181,253,0.6)}
+.cat-info .asset-col-title{color:rgba(196,181,253,0.7)}
+.cat-info .asset-item{color:rgba(196,181,253,0.75)}
+
+.cat-ppl{background:#061a12;border-color:rgba(29,158,117,0.2)}
+.cat-ppl .asset-icon{background:rgba(29,158,117,0.15)}
+.cat-ppl .asset-title{color:#34d399}
+.cat-ppl .asset-sub{color:rgba(52,211,153,0.6)}
+.cat-ppl .asset-col-title{color:rgba(52,211,153,0.7)}
+.cat-ppl .asset-item{color:rgba(167,243,208,0.75)}
+
+.cat-int{background:#1e0a0a;border-color:rgba(226,75,74,0.2)}
+.cat-int .asset-icon{background:rgba(226,75,74,0.15)}
+.cat-int .asset-title{color:#f87171}
+.cat-int .asset-sub{color:rgba(248,113,113,0.6)}
+.cat-int .asset-col-title{color:rgba(248,113,113,0.7)}
+.cat-int .asset-item{color:rgba(252,165,165,0.75)}
+
+.owner-table{width:100%;border-collapse:collapse;font-size:11px}
+.owner-table th{font-size:10px;font-weight:500;color:var(--color-text-secondary);padding:6px 8px;text-align:left;border-bottom:1px solid var(--color-border-tertiary);letter-spacing:.04em;text-transform:uppercase}
+.owner-table td{padding:7px 8px;border-bottom:1px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-secondary);line-height:1.4}
+.owner-table tr:last-child td{border-bottom:none}
+.owner-table .dept{font-weight:500;color:var(--color-text-primary);font-size:11px}
+
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+.badge-b{background:rgba(55,138,221,0.15);color:#93c5fd;border:1px solid rgba(55,138,221,0.25)}
+
+.risk-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.risk-name{font-size:11px;color:var(--color-text-secondary);flex:1;min-width:0}
+.risk-bar-w{width:110px;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;flex-shrink:0}
+.risk-bar{height:100%;border-radius:3px}
+.rb-r{background:#e24b4a}.rb-y{background:#ef9f27}.rb-g{background:#1d9e75}
+.risk-lbl{font-size:10px;font-weight:500;width:72px;text-align:right;flex-shrink:0}
+.pct-r{color:#f87171}.pct-y{color:#fbbf24}.pct-g{color:#34d399}
+
+.narasi-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.narasi-label{font-size:10px;font-weight:500;color:#fbbf24;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.narasi-text{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.narasi-text strong{color:var(--color-text-primary);font-weight:500}
+
+.footer{background:#1a1206;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#fbbf24}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+</style>
+
+<div class="w">
+<div class="hero">
+  <div class="hero-badge">SMKI — Asset Management Awareness</div>
+  <h1>Pengelolaan <span>Aset</span> &amp;<br>Keamanan Informasi</h1>
+  <p>Semua divisi memiliki aset yang wajib diinventarisasi, dinilai risikonya, dan dilindungi — bukan hanya IT &amp; GA</p>
+  <div class="hero-icon">📦</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="sw('narasi')">Narasi &amp; Konsep</div>
+  <div class="tab" onclick="sw('kategori')">5 Kategori Aset</div>
+  <div class="tab" onclick="sw('pemilik')">Siapa Pemilik Aset?</div>
+  <div class="tab" onclick="sw('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="sw('donts')">Yang Tidak Boleh</div>
+</div>
+
+<div id="p-narasi" class="panel active">
+  <div class="narasi-box">
+    <div class="narasi-label">Mengapa aset bukan hanya urusan IT dan GA?</div>
+    <div class="narasi-text">Banyak yang mengira pengelolaan aset adalah tanggung jawab eksklusif tim IT dan General Affairs. Padahal, <strong>setiap divisi dan setiap individu di organisasi memiliki aset informasi yang harus dikelola dan dilindungi</strong>. Dokumen strategi bisnis milik tim Finance, data pelanggan di CRM tim Sales, template legal di divisi Hukum, hingga pengetahuan dan keahlian spesifik seorang pegawai senior — semua itu adalah <strong>aset yang memiliki nilai dan risiko</strong> bagi organisasi.<br><br>Jika aset tidak terdaftar, tidak diketahui siapa pemiliknya, dan tidak dinilai risikonya — aset tersebut tidak bisa dilindungi.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">5 kategori aset dalam keamanan informasi</div>
+    <div class="narasi-text">Standar SMKI (ISO 27001) mengklasifikasikan aset ke dalam lima kelompok besar:<br><br>
+    <strong>1. Hardware</strong> — Perangkat fisik yang digunakan untuk memproses, menyimpan, atau mentransmisikan informasi. Laptop, server, printer, router, CCTV, hingga flash disk dan hard disk eksternal.<br><br>
+    <strong>2. Software</strong> — Seluruh aplikasi, sistem operasi, lisensi, dan tools digital yang digunakan organisasi. Termasuk aplikasi internal, ERP, CRM, dan bahkan tools produktivitas seperti Microsoft Office.<br><br>
+    <strong>3. Informasi (Data)</strong> — Ini adalah aset paling kritikal. Meliputi database pelanggan, laporan keuangan, kontrak, source code, dokumen strategi, hingga email dan catatan meeting.<br><br>
+    <strong>4. People (SDM)</strong> — Pengetahuan, keahlian, dan kompetensi pegawai adalah aset tak ternilai. Kehilangan pegawai kunci tanpa transfer knowledge adalah risiko nyata bagi organisasi.<br><br>
+    <strong>5. Intangible (Tidak Berwujud)</strong> — Reputasi merek, kepercayaan pelanggan, hak kekayaan intelektual, paten, dan nilai goodwill perusahaan.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Prinsip pengelolaan aset yang wajib dipahami semua divisi</div>
+    <div class="narasi-text"><strong>Inventarisasi</strong> — Setiap aset harus tercatat dalam Register Aset yang lengkap: nama aset, kategori, lokasi, pemilik, dan tingkat klasifikasi informasi yang terkait.<br><br>
+    <strong>Kepemilikan (Ownership)</strong> — Setiap aset harus memiliki pemilik yang jelas (asset owner), bukan berarti memiliki secara hukum, tapi bertanggung jawab atas keamanan dan penggunaan aset tersebut.<br><br>
+    <strong>Penilaian Risiko</strong> — Setiap aset harus dinilai risikonya: seberapa besar dampak jika aset tersebut hilang, bocor, atau tidak berfungsi? Penilaian ini menjadi dasar kontrol keamanan yang diterapkan.<br><br>
+    <strong>Pengembalian Aset</strong> — Setiap perubahan status kepegawaian wajib diikuti dokumentasi pengembalian dan penyesuaian aset secara lengkap.</div>
+  </div>
+
+  <div class="narasi-box">
+    <div class="narasi-label">Aturan khusus: flashdisk dan media penyimpanan portabel</div>
+    <div class="narasi-text">Flashdisk dan memory card <strong>hanya boleh digunakan untuk proses pemindahan informasi sementara</strong> (copy-cut-paste), bukan sebagai media penyimpanan jangka panjang. Menyimpan data perusahaan secara permanen di flashdisk pribadi adalah risiko besar — perangkat ini mudah hilang, dicuri, atau terinfeksi malware.<br><br>Untuk penyimpanan jangka panjang, gunakan <strong>storage resmi yang dikelola IT</strong>: server kantor, SharePoint, atau cloud storage korporat yang sudah terenkripsi dan ter-backup secara otomatis.</div>
+  </div>
+</div>
+
+<div id="p-kategori" class="panel">
+  <div class="sec sc-y" style="margin-bottom:8px"><span class="dot dot-y"></span>5 kategori aset — contoh per divisi, bukan hanya IT &amp; GA</div>
+
+  <div class="asset-cat cat-hw">
+    <div class="asset-header">
+      <div class="asset-icon">🖥</div>
+      <div>
+        <div class="asset-title">Hardware <span class="badge badge-y" style="margin-left:6px">Fisik</span></div>
+        <div class="asset-sub">Perangkat keras yang memproses, menyimpan, atau mentransmisikan informasi</div>
+      </div>
+    </div>
+    <div class="asset-body">
+      <div>
+        <div class="asset-col-title">Contoh aset hardware</div>
+        <div class="asset-item">Laptop, PC, workstation</div>
+        <div class="asset-item">Server, NAS, storage eksternal</div>
+        <div class="asset-item">Printer, scanner, mesin fotokopi</div>
+        <div class="asset-item">Router, switch, access point WiFi</div>
+        <div class="asset-item">Flashdisk, hard disk eksternal</div>
+        <div class="asset-item">Smartphone dan tablet kantor</div>
+        <div class="asset-item">CCTV, perangkat keamanan fisik</div>
+      </div>
+      <div>
+        <div class="asset-col-title">Risiko utama</div>
+        <div class="asset-item">Perangkat hilang/dicuri berisi data sensitif</div>
+        <div class="asset-item">Flashdisk tidak resmi membawa malware</div>
+        <div class="asset-item">Perangkat rusak tanpa backup data</div>
+        <div class="asset-item">Printer menyimpan dokumen di memorinya</div>
+        <div class="asset-item">Perangkat lama tidak di-wipe sebelum dibuang</div>
+        <div class="asset-item">Perangkat pribadi digunakan untuk data kantor</div>
+        <div class="asset-item">Akses fisik tidak terkontrol ke server room</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="asset-cat cat-sw">
+    <div class="asset-header">
+      <div class="asset-icon">💿</div>
+      <div>
+        <div class="asset-title">Software <span class="badge badge-b" style="margin-left:6px">Digital</span></div>
+        <div class="asset-sub">Aplikasi, sistem, lisensi, dan tools yang digunakan organisasi</div>
+      </div>
+    </div>
+    <div class="asset-body">
+      <div>
+        <div class="asset-col-title">Contoh aset software</div>
+        <div class="asset-item">Sistem ERP, HRIS, CRM</div>
+        <div class="asset-item">Aplikasi keuangan &amp; akuntansi</div>
+        <div class="asset-item">Microsoft Office, lisensi software</div>
+        <div class="asset-item">Aplikasi internal buatan sendiri</div>
+        <div class="asset-item">Email server dan platform kolaborasi</div>
+        <div class="asset-item">VPN, antivirus, tools keamanan</div>
+        <div class="asset-item">Tools desain, editing, dan produksi</div>
+      </div>
+      <div>
+        <div class="asset-col-title">Risiko utama</div>
+        <div class="asset-item">Software bajakan membuka celah keamanan</div>
+        <div class="asset-item">Lisensi kadaluarsa — tidak dapat update patch</div>
+        <div class="asset-item">Shadow IT — aplikasi tidak resmi digunakan</div>
+        <div class="asset-item">Kerentanan (vulnerability) tidak ditambal</div>
+        <div class="asset-item">Akses aplikasi tidak dicabut saat resign</div>
+        <div class="asset-item">Data tersimpan di aplikasi cloud tidak resmi</div>
+        <div class="asset-item">Source code bocor ke publik atau kompetitor</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="asset-cat cat-info">
+    <div class="asset-header">
+      <div class="asset-icon">📊</div>
+      <div>
+        <div class="asset-title">Informasi &amp; Data <span class="badge badge-r" style="margin-left:6px">Paling Kritikal</span></div>
+        <div class="asset-sub">Semua data dan informasi yang dikelola dan dihasilkan organisasi</div>
+      </div>
+    </div>
+    <div class="asset-body">
+      <div>
+        <div class="asset-col-title">Contoh aset informasi</div>
+        <div class="asset-item">Database pelanggan (nama, kontak, transaksi)</div>
+        <div class="asset-item">Laporan keuangan, proyeksi, anggaran</div>
+        <div class="asset-item">Kontrak, perjanjian, NDA</div>
+        <div class="asset-item">Strategi bisnis dan rencana pengembangan</div>
+        <div class="asset-item">Data karyawan (gaji, penilaian, data pribadi)</div>
+        <div class="asset-item">Source code dan dokumentasi teknis</div>
+        <div class="asset-item">Hasil riset, formula, dan metodologi</div>
+      </div>
+      <div>
+        <div class="asset-col-title">Risiko utama</div>
+        <div class="asset-item">Kebocoran ke pihak tidak berwenang</div>
+        <div class="asset-item">Data dimodifikasi tanpa otorisasi</div>
+        <div class="asset-item">Data hilang tanpa backup yang cukup</div>
+        <div class="asset-item">Klasifikasi tidak jelas — over/undersharing</div>
+        <div class="asset-item">Disimpan di lokasi tidak resmi / cloud pribadi</div>
+        <div class="asset-item">Dikirim via saluran tidak aman (chat pribadi)</div>
+        <div class="asset-item">Tidak dimusnahkan dengan benar saat tidak terpakai</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="asset-cat cat-ppl">
+    <div class="asset-header">
+      <div class="asset-icon">👤</div>
+      <div>
+        <div class="asset-title">People — SDM <span class="badge badge-g" style="margin-left:6px">Sering Terlupakan</span></div>
+        <div class="asset-sub">Pengetahuan, keahlian, dan kompetensi pegawai sebagai aset organisasi</div>
+      </div>
+    </div>
+    <div class="asset-body">
+      <div>
+        <div class="asset-col-title">Contoh aset people</div>
+        <div class="asset-item">Keahlian teknis spesifik (coding, desain, legal)</div>
+        <div class="asset-item">Pengetahuan proses bisnis internal</div>
+        <div class="asset-item">Relasi dan jaringan pelanggan/mitra</div>
+        <div class="asset-item">Pengalaman dan tacit knowledge</div>
+        <div class="asset-item">Kompetensi sertifikasi (ISO, PMP, dll)</div>
+        <div class="asset-item">Pemahaman regulasi dan compliance</div>
+        <div class="asset-item">Kemampuan manajemen krisis</div>
+      </div>
+      <div>
+        <div class="asset-col-title">Risiko utama</div>
+        <div class="asset-item">Key person dependency — satu orang tahu segalanya</div>
+        <div class="asset-item">Knowledge tidak didokumentasikan</div>
+        <div class="asset-item">Resign mendadak tanpa transfer knowledge</div>
+        <div class="asset-item">Pegawai membawa data ke kompetitor</div>
+        <div class="asset-item">Tidak ada succession plan untuk posisi kunci</div>
+        <div class="asset-item">Social engineering memanfaatkan pegawai</div>
+        <div class="asset-item">Akses tidak dicabut saat status berubah</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="asset-cat cat-int">
+    <div class="asset-header">
+      <div class="asset-icon">💎</div>
+      <div>
+        <div class="asset-title">Intangible — Tidak Berwujud <span class="badge badge-r" style="margin-left:6px">Nilai Tertinggi</span></div>
+        <div class="asset-sub">Aset tidak berwujud yang sering punya nilai lebih besar dari aset fisik</div>
+      </div>
+    </div>
+    <div class="asset-body">
+      <div>
+        <div class="asset-col-title">Contoh aset intangible</div>
+        <div class="asset-item">Reputasi dan nama baik perusahaan</div>
+        <div class="asset-item">Kepercayaan pelanggan dan mitra</div>
+        <div class="asset-item">Hak Kekayaan Intelektual (HKI/paten)</div>
+        <div class="asset-item">Merek dagang dan brand value</div>
+        <div class="asset-item">Metodologi dan proses bisnis unik</div>
+        <div class="asset-item">Lisensi dan sertifikasi perusahaan</div>
+        <div class="asset-item">Data analitik dan business intelligence</div>
+      </div>
+      <div>
+        <div class="asset-col-title">Risiko utama</div>
+        <div class="asset-item">Reputasi hancur akibat insiden keamanan data</div>
+        <div class="asset-item">Pelanggaran HKI oleh pihak luar</div>
+        <div class="asset-item">Merek ditiru atau dipalsukan (brand impersonation)</div>
+        <div class="asset-item">Metodologi bocor ke kompetitor</div>
+        <div class="asset-item">Kehilangan sertifikasi akibat non-compliance</div>
+        <div class="asset-item">Kepercayaan pelanggan hilang akibat data breach</div>
+        <div class="asset-item">Data bisnis strategis bocor sebelum eksekusi</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="p-pemilik" class="panel">
+  <div class="sec sc-y" style="margin-bottom:8px"><span class="dot dot-y"></span>Asset owner — setiap divisi pemilik dan penanggungjawab asetnya sendiri</div>
+  <div class="narasi-box" style="margin-bottom:10px">
+    <div class="narasi-label">Prinsip kepemilikan aset</div>
+    <div class="narasi-text"><strong>Asset owner</strong> bukan berarti yang memiliki perangkat secara fisik. Asset owner adalah pihak yang <strong>bertanggung jawab atas keamanan, penggunaan, dan pemantauan aset</strong> tersebut. Setiap aset wajib punya satu pemilik yang jelas — jika tidak ada yang memiliki, tidak ada yang melindungi.</div>
+  </div>
+  <div class="card card-n">
+    <table class="owner-table">
+      <thead>
+        <tr>
+          <th>Divisi / Fungsi</th>
+          <th>Aset yang Dimiliki</th>
+          <th>Kategori</th>
+          <th>Tingkat Risiko</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="dept">Finance &amp; Akuntansi</td><td>Laporan keuangan, data anggaran, proyeksi, akses ERP keuangan</td><td>Informasi, Software</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+        <tr><td class="dept">HR / Personalia</td><td>Data karyawan, slip gaji, kontrak kerja, data penilaian kinerja</td><td>Informasi, People</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+        <tr><td class="dept">Sales &amp; Marketing</td><td>Database pelanggan, pipeline, strategi kampanye, data harga</td><td>Informasi, Intangible</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+        <tr><td class="dept">Legal &amp; Compliance</td><td>Kontrak, NDA, perjanjian, dokumen regulasi, sertifikasi</td><td>Informasi, Intangible</td><td><span class="badge badge-r">Tinggi</span></td></tr>
+        <tr><td class="dept">IT &amp; Teknologi</td><td>Server, jaringan, source code, lisensi software, infrastruktur</td><td>Hardware, Software</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+        <tr><td class="dept">General Affairs</td><td>Inventaris perangkat, gedung, kendaraan, aset fisik operasional</td><td>Hardware, Intangible</td><td><span class="badge badge-y">Tinggi</span></td></tr>
+        <tr><td class="dept">Operasional / Produksi</td><td>SOP, metodologi proses, perangkat produksi, data kualitas</td><td>Informasi, Intangible</td><td><span class="badge badge-y">Tinggi</span></td></tr>
+        <tr><td class="dept">Research &amp; Development</td><td>Hasil riset, formula, prototipe, paten, dokumentasi teknis</td><td>Informasi, Intangible</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+        <tr><td class="dept">Customer Service</td><td>Riwayat interaksi pelanggan, data tiket, rekaman suara, feedback</td><td>Informasi, People</td><td><span class="badge badge-y">Tinggi</span></td></tr>
+        <tr><td class="dept">Direksi / Manajemen</td><td>Strategi korporat, data M&amp;A, keputusan rahasia, rencana ekspansi</td><td>Informasi, Intangible</td><td><span class="badge badge-r">Sangat Tinggi</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="p-dos" class="panel">
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Inventarisasi &amp; register aset</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Daftarkan semua aset</strong> yang ada di divisimu ke dalam Register Aset — termasuk dokumen, data, dan tools</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tinjau Register Aset secara berkala</strong> minimal setahun sekali — pastikan catatan sesuai kondisi lapangan</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Tetapkan satu pemilik (asset owner)</strong> yang jelas untuk setiap aset di divisimu</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Klasifikasikan tingkat kerahasiaan</strong> setiap aset — Public, Internal, Confidential, atau Strictly Confidential</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Laporkan aset baru</strong> ke IT dan GA saat ada penambahan perangkat atau sistem baru</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Penilaian risiko aset</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Nilai risiko setiap aset</strong> berdasarkan dampak jika hilang, bocor, atau tidak berfungsi</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Terapkan kontrol keamanan</strong> yang proporsional sesuai tingkat risiko aset</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan knowledge kunci</strong> pegawai agar tidak terjadi single point of failure</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Review risiko secara berkala</strong> — ancaman berubah, penilaian risiko pun harus diperbarui</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lindungi aset intangible</strong> — daftarkan HKI, jaga kerahasiaan strategi dan metodologi unik</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Penggunaan flashdisk &amp; media portabel</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan flashdisk hanya untuk</strong> proses pemindahan data sementara (copy-cut-paste), bukan penyimpanan tetap</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan hanya flashdisk resmi</strong> yang sudah disetujui dan discan oleh IT</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Hapus data dari flashdisk</strong> segera setelah proses pemindahan selesai</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Gunakan cloud storage resmi</strong> (SharePoint, Drive korporat) untuk penyimpanan data jangka panjang</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec sc-g"><span class="dot dot-g"></span>Pengembalian &amp; perubahan status</div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Kembalikan semua aset</strong> saat pegawai resign, mutasi, atau kontrak berakhir</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Dokumentasikan pengembalian aset</strong> secara tertulis — tandatangani berita acara serah terima</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Update Register Aset</strong> segera setelah ada perubahan kepemilikan atau kondisi aset</div></div>
+      <div class="it"><div class="ck ck-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="tx tx-g"><strong>Lakukan wipe data</strong> pada perangkat yang akan dipindahtangankan, dijual, atau dibuang</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-donts" class="panel">
+  <div class="g2">
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan pengelolaan hardware</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>colokkan flashdisk tidak dikenal</strong> ke perangkat kantor — bisa membawa malware</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>simpan data penting di flashdisk</strong> atau hard disk pribadi sebagai backup utama</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>buang perangkat lama</strong> tanpa menghapus data secara permanen (factory reset tidak cukup)</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>pinjamkan laptop kantor</strong> ke keluarga atau orang lain di luar keperluan kerja</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan biarkan <strong>perangkat tidak terkunci</strong> saat ditinggal, meski sebentar</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec sc-r"><span class="dot dot-r"></span>Larangan pengelolaan software &amp; data</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>install software tidak resmi</strong> tanpa persetujuan IT — termasuk tools gratis dari internet</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>simpan data perusahaan</strong> di cloud pribadi (Google Drive personal, Dropbox pribadi)</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>copy source code atau database</strong> ke perangkat pribadi tanpa otorisasi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>share akses akun sistem</strong> ke rekan kerja meski untuk membantu pekerjaan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-r">Jangan <strong>abaikan update dan patch</strong> keamanan yang diminta oleh IT</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait aset intangible &amp; people</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>bocorkan strategi bisnis</strong>, rencana produk, atau data M&amp;A ke pihak luar</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan biarkan <strong>satu orang menjadi satu-satunya</strong> yang mengetahui proses atau sistem kritis</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>bawa data pelanggan atau proprietary</strong> saat pindah ke perusahaan lain</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>share metodologi unik atau formula</strong> perusahaan tanpa perjanjian kerahasiaan</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec sc-y"><span class="dot dot-y"></span>Larangan terkait register &amp; inventarisasi</div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>biarkan aset tanpa pemilik</strong> yang jelas — aset tanpa owner tidak ada yang melindungi</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>skip pelaporan aset baru</strong> ke IT/GA dengan alasan aset tersebut kecil atau tidak penting</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>kembalikan perangkat</strong> tanpa berita acara tertulis dan pengecekan data yang tersimpan</div></div>
+      <div class="it"><div class="ck ck-r">✕</div><div class="tx tx-y">Jangan <strong>tunda update register aset</strong> saat ada perubahan — data yang tidak akurat sama bahayanya dengan tidak ada data</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>Semua divisi punya aset — semua divisi wajib melindunginya</span></div>
+    <div class="footer-sub">Aset yang tidak terdaftar tidak bisa dilindungi — mulai inventarisasi dari divisimu sekarang</div>
+  </div>
+  <div class="footer-right">SMKI — Asset Management<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function sw(id){
+  const ids=['narasi','kategori','pemilik','dos','donts'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+</script>

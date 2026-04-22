@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventaris Aset Informasi — PT Asuransi Jiwa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --navy-mid: #152D4F;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --cream: #F8F4ED;
+    --red: #C0392B;
+    --red-light: #FADBD8;
+    --green: #1A7A4A;
+    --green-light: #D5F0E3;
+    --amber: #C67C1A;
+    --amber-light: #FDEBD0;
+    --blue: #1A5276;
+    --blue-light: #D6EAF8;
+    --gray-light: #F0EDE8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 2rem 2.5rem;
+    border-bottom: 3px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 220px; height: 220px;
+    border: 40px solid rgba(201,168,76,0.1);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    right: 60px; top: -20px;
+    width: 120px; height: 120px;
+    border: 25px solid rgba(201,168,76,0.07);
+    border-radius: 50%;
+  }
+
+  .header-inner { max-width: 1400px; margin: 0 auto; }
+
+  .header-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  header p {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.82rem;
+    font-weight: 300;
+  }
+
+  .header-meta {
+    margin-top: 1.2rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+
+  /* LEGEND */
+  .legend-bar {
+    background: var(--navy-mid);
+    padding: 0.8rem 2.5rem;
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    align-items: center;
+  }
+  .legend-bar .legend-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-right: 0.3rem;
+  }
+  .legend-group { display: flex; gap: 0.6rem; align-items: center; }
+  .leg {
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+  }
+  .leg.conf { background: var(--red); }
+  .leg.rest { background: var(--amber); }
+  .leg.int  { background: var(--blue); }
+  .leg.pub  { background: var(--green); }
+  .leg.krit { background: #6C3483; }
+  .leg.nonk { background: #555; }
+
+  /* MAIN */
+  main {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem 3rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  /* CARDS */
+  .asset-list { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .asset-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(11,31,58,0.08);
+    box-shadow: 0 2px 12px rgba(11,31,58,0.05);
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .asset-card:hover {
+    box-shadow: 0 6px 24px rgba(11,31,58,0.1);
+    transform: translateY(-1px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.4rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .asset-no {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    min-width: 2.2rem;
+    line-height: 1;
+  }
+
+  .asset-name-block { flex: 1; }
+  .asset-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+  .asset-category {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(11,31,58,0.4);
+  }
+
+  .badge-group { display: flex; gap: 0.5rem; align-items: center; }
+
+  /* Sensitivity badges */
+  .badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .badge.confidential { background: var(--red-light); color: var(--red); }
+  .badge.restricted   { background: var(--amber-light); color: var(--amber); }
+  .badge.internal     { background: var(--blue-light); color: var(--blue); }
+  .badge.public       { background: var(--green-light); color: var(--green); }
+
+  .badge.kritikal    { background: #F4ECF7; color: #6C3483; }
+  .badge.nonkritikal { background: #EAECEE; color: #555; }
+
+  /* CIA scores */
+  .cia-row {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    padding: 0.7rem 1.4rem;
+    background: var(--gray-light);
+    border-bottom: 1px solid rgba(11,31,58,0.05);
+  }
+  .cia-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(11,31,58,0.4);
+    margin-right: 0.4rem;
+  }
+  .cia-score {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--navy-mid);
+  }
+  .cia-key {
+    font-weight: 700;
+    font-size: 0.65rem;
+    color: var(--navy);
+    opacity: 0.5;
+  }
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+  }
+  .dot.s1 { background: #A8D5A2; }
+  .dot.s2 { background: #F4C27F; }
+  .dot.s3 { background: #E57373; }
+
+  .cia-divider { width: 1px; height: 14px; background: rgba(11,31,58,0.12); margin: 0 0.3rem; }
+
+  .card-body {
+    padding: 1rem 1.4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem 1.5rem;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(11,31,58,0.35);
+    margin-bottom: 0.25rem;
+  }
+  .field p {
+    font-size: 0.8rem;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  .field.full { grid-column: 1 / -1; }
+
+  /* NOTE SAMPLE */
+  .sample-note {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.8rem;
+    border-left: 4px solid var(--gold);
+  }
+  .sample-note strong { color: var(--gold-light); }
+
+  @media (max-width: 700px) {
+    .card-body { grid-template-columns: 1fr; }
+    .field.full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-tag">ISO/IEC 27001:2022 — Annex A.8 Asset Management</div>
+    <h1>Inventaris Aset Informasi</h1>
+    <p>PT Asuransi Jiwa Indonesia — Dokumen Klasifikasi Sensitivitas & Kritikalitas Aset</p>
+    <div class="header-meta">
+      <span class="meta-pill">Contoh Awal — 5 Aset</span>
+      <span class="meta-pill">Versi Draft 1.0</span>
+      <span class="meta-pill">Confidential — Internal Use</span>
+    </div>
+  </div>
+</header>
+
+<div class="legend-bar">
+  <div class="legend-group">
+    <span class="legend-label">Sensitivitas:</span>
+    <span class="leg conf">Confidential</span>
+    <span class="leg rest">Restricted</span>
+    <span class="leg int">Internal Use Only</span>
+    <span class="leg pub">Public</span>
+  </div>
+  <div class="legend-group">
+    <span class="legend-label">Kritikalitas:</span>
+    <span class="leg krit">Kritikal</span>
+    <span class="leg nonk">Non-Kritikal</span>
+  </div>
+  <div class="legend-group">
+    <span class="legend-label">CIA Skor:</span>
+    <span class="dot s1" style="display:inline-block"></span><span style="font-size:0.68rem;color:rgba(255,255,255,0.5)">1-Rendah</span>
+    <span class="dot s2" style="display:inline-block;margin-left:6px"></span><span style="font-size:0.68rem;color:rgba(255,255,255,0.5)">2-Sedang</span>
+    <span class="dot s3" style="display:inline-block;margin-left:6px"></span><span style="font-size:0.68rem;color:rgba(255,255,255,0.5)">3-Tinggi</span>
+  </div>
+</div>
+
+<main>
+  <div class="sample-note">
+    <div>📋 <strong>Ini adalah 5 contoh aset awal.</strong> Jika format, kolom, dan isi sudah sesuai, lanjutkan untuk generate hingga 100+ aset mencakup semua kategori: Data, Sistem/Aplikasi, Infrastruktur, SDM, Fisik, dan Dokumen.</div>
+  </div>
+
+  <div class="section-title">Daftar Aset Informasi</div>
+
+  <div class="asset-list">
+
+    <!-- ASET 1 -->
+    <div class="asset-card">
+      <div class="card-header">
+        <div class="asset-no">01</div>
+        <div class="asset-name-block">
+          <div class="asset-name">Database Polis Nasabah</div>
+          <div class="asset-category">🗄️ Aset Data</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge confidential">Confidential</span>
+          <span class="badge kritikal">⚠ Kritikal</span>
+        </div>
+      </div>
+      <div class="cia-row">
+        <span class="cia-label">Skor CIA</span>
+        <span class="cia-score"><span class="cia-key">C</span><span class="dot s3"></span> 3</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">I</span><span class="dot s3"></span> 3</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">A</span><span class="dot s3"></span> 3</span>
+        <span style="margin-left:0.8rem;font-size:0.7rem;font-weight:600;color:#6C3483;">Total: 9/9</span>
+      </div>
+      <div class="card-body">
+        <div class="field full">
+          <label>Deskripsi Aset</label>
+          <p>Database yang menyimpan seluruh data polis aktif nasabah asuransi jiwa, termasuk nomor polis, nama tertanggung, nilai pertanggungan, premi, masa berlaku, dan status klaim. Dikelola di sistem core insurance (AS400/Oracle).</p>
+        </div>
+        <div class="field">
+          <label>Pemilik Aset</label>
+          <p>Divisi Aktuaria & Operasional Polis</p>
+        </div>
+        <div class="field">
+          <label>Lokasi / Format</label>
+          <p>Server Oracle DB — Data Center Utama Jakarta</p>
+        </div>
+        <div class="field">
+          <label>Alasan Sensitivitas</label>
+          <p>Mengandung data pribadi nasabah (PII) yang dilindungi UU PDP No.27/2022 dan ketentuan OJK. Kebocoran dapat menimbulkan sanksi hukum dan kerugian reputasi besar.</p>
+        </div>
+        <div class="field">
+          <label>Alasan Kritikalitas</label>
+          <p>Merupakan inti dari operasional bisnis asuransi. Jika tidak tersedia, seluruh proses penerbitan polis, pembayaran klaim, dan pelaporan OJK terhenti total.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASET 2 -->
+    <div class="asset-card">
+      <div class="card-header">
+        <div class="asset-no">02</div>
+        <div class="asset-name-block">
+          <div class="asset-name">Sistem Core Insurance (ALIS / AS400)</div>
+          <div class="asset-category">💻 Aset Sistem / Aplikasi</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge restricted">Restricted</span>
+          <span class="badge kritikal">⚠ Kritikal</span>
+        </div>
+      </div>
+      <div class="cia-row">
+        <span class="cia-label">Skor CIA</span>
+        <span class="cia-score"><span class="cia-key">C</span><span class="dot s2"></span> 2</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">I</span><span class="dot s3"></span> 3</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">A</span><span class="dot s3"></span> 3</span>
+        <span style="margin-left:0.8rem;font-size:0.7rem;font-weight:600;color:#6C3483;">Total: 8/9</span>
+      </div>
+      <div class="card-body">
+        <div class="field full">
+          <label>Deskripsi Aset</label>
+          <p>Sistem manajemen polis utama yang menangani seluruh proses bisnis asuransi: penerbitan polis, pemrosesan premi, manajemen klaim, dan pelaporan aktuaria. Merupakan sistem backbone perusahaan.</p>
+        </div>
+        <div class="field">
+          <label>Pemilik Aset</label>
+          <p>Divisi IT & Divisi Operasional</p>
+        </div>
+        <div class="field">
+          <label>Lokasi / Format</label>
+          <p>Server On-Premise — Data Center Utama & DR Site Surabaya</p>
+        </div>
+        <div class="field">
+          <label>Alasan Sensitivitas</label>
+          <p>Akses terbatas hanya untuk staf operasional, aktuaria, dan IT. Eksploitasi sistem dapat memungkinkan manipulasi data polis atau klaim secara fraudulent.</p>
+        </div>
+        <div class="field">
+          <label>Alasan Kritikalitas</label>
+          <p>Downtime sistem ini secara langsung menghentikan operasional perusahaan. RTO (Recovery Time Objective) ditetapkan maksimal 4 jam sesuai kebijakan BCM.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASET 3 -->
+    <div class="asset-card">
+      <div class="card-header">
+        <div class="asset-no">03</div>
+        <div class="asset-name-block">
+          <div class="asset-name">Laporan Keuangan & Cadangan Teknis (PSAK 74)</div>
+          <div class="asset-category">📄 Aset Dokumen / Informasi</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge confidential">Confidential</span>
+          <span class="badge kritikal">⚠ Kritikal</span>
+        </div>
+      </div>
+      <div class="cia-row">
+        <span class="cia-label">Skor CIA</span>
+        <span class="cia-score"><span class="cia-key">C</span><span class="dot s3"></span> 3</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">I</span><span class="dot s3"></span> 3</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">A</span><span class="dot s2"></span> 2</span>
+        <span style="margin-left:0.8rem;font-size:0.7rem;font-weight:600;color:#6C3483;">Total: 8/9</span>
+      </div>
+      <div class="card-body">
+        <div class="field full">
+          <label>Deskripsi Aset</label>
+          <p>Dokumen laporan keuangan interim dan tahunan, perhitungan cadangan premi, cadangan klaim (IBNR), dan liability asuransi sesuai standar PSAK 74 / IFRS 17. Mencakup data yang diserahkan ke OJK.</p>
+        </div>
+        <div class="field">
+          <label>Pemilik Aset</label>
+          <p>Divisi Keuangan & Aktuaria</p>
+        </div>
+        <div class="field">
+          <label>Lokasi / Format</label>
+          <p>SharePoint Keuangan (akses terbatas) & Arsip fisik lemari terkunci</p>
+        </div>
+        <div class="field">
+          <label>Alasan Sensitivitas</label>
+          <p>Mengandung informasi keuangan material perusahaan. Kebocoran sebelum publikasi dapat memicu insider trading dan pelanggaran ketentuan OJK/BEI.</p>
+        </div>
+        <div class="field">
+          <label>Alasan Kritikalitas</label>
+          <p>Wajib dilaporkan ke OJK secara berkala. Kegagalan pelaporan tepat waktu berpotensi menimbulkan sanksi regulasi dan pencabutan izin usaha.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASET 4 -->
+    <div class="asset-card">
+      <div class="card-header">
+        <div class="asset-no">04</div>
+        <div class="asset-name-block">
+          <div class="asset-name">SOP Standar Operasional Prosedur Underwriting</div>
+          <div class="asset-category">📋 Aset Dokumen / Prosedur</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge internal">Internal Use Only</span>
+          <span class="badge nonkritikal">Non-Kritikal</span>
+        </div>
+      </div>
+      <div class="cia-row">
+        <span class="cia-label">Skor CIA</span>
+        <span class="cia-score"><span class="cia-key">C</span><span class="dot s2"></span> 2</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">I</span><span class="dot s2"></span> 2</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">A</span><span class="dot s1"></span> 1</span>
+        <span style="margin-left:0.8rem;font-size:0.7rem;font-weight:600;color:#555;">Total: 5/9</span>
+      </div>
+      <div class="card-body">
+        <div class="field full">
+          <label>Deskripsi Aset</label>
+          <p>Dokumen SOP yang menjelaskan proses seleksi risiko (underwriting) calon nasabah asuransi jiwa, termasuk kriteria akseptasi, tabel mortalita yang digunakan, dan proses approval bertingkat.</p>
+        </div>
+        <div class="field">
+          <label>Pemilik Aset</label>
+          <p>Divisi Underwriting</p>
+        </div>
+        <div class="field">
+          <label>Lokasi / Format</label>
+          <p>SharePoint Internal — folder Dokumen Divisi Underwriting</p>
+        </div>
+        <div class="field">
+          <label>Alasan Sensitivitas</label>
+          <p>Tidak boleh keluar ke pihak eksternal karena mengandung metodologi seleksi risiko. Namun seluruh karyawan internal boleh mengakses untuk keperluan operasional.</p>
+        </div>
+        <div class="field">
+          <label>Alasan Kritikalitas</label>
+          <p>Jika tidak tersedia sementara, proses underwriting masih dapat berjalan berdasarkan pengetahuan staf berpengalaman. Dampak bisnis bersifat operasional minor, bukan kritis.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASET 5 -->
+    <div class="asset-card">
+      <div class="card-header">
+        <div class="asset-no">05</div>
+        <div class="asset-name-block">
+          <div class="asset-name">Website Korporat & Landing Page Produk</div>
+          <div class="asset-category">🌐 Aset Sistem / Aplikasi</div>
+        </div>
+        <div class="badge-group">
+          <span class="badge public">Public</span>
+          <span class="badge nonkritikal">Non-Kritikal</span>
+        </div>
+      </div>
+      <div class="cia-row">
+        <span class="cia-label">Skor CIA</span>
+        <span class="cia-score"><span class="cia-key">C</span><span class="dot s1"></span> 1</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">I</span><span class="dot s2"></span> 2</span>
+        <div class="cia-divider"></div>
+        <span class="cia-score"><span class="cia-key">A</span><span class="dot s1"></span> 1</span>
+        <span style="margin-left:0.8rem;font-size:0.7rem;font-weight:600;color:#555;">Total: 4/9</span>
+      </div>
+      <div class="card-body">
+        <div class="field full">
+          <label>Deskripsi Aset</label>
+          <p>Situs web publik perusahaan (www.asuransijiwa.co.id) yang menampilkan informasi produk asuransi, profil perusahaan, layanan nasabah online, kalkulator premi, dan pengajuan klaim online dasar.</p>
+        </div>
+        <div class="field">
+          <label>Pemilik Aset</label>
+          <p>Divisi Marketing & IT</p>
+        </div>
+        <div class="field">
+          <label>Lokasi / Format</label>
+          <p>Cloud Hosting (AWS Jakarta Region) — Publik</p>
+        </div>
+        <div class="field">
+          <label>Alasan Sensitivitas</label>
+          <p>Seluruh konten didesain untuk publik. Tidak ada data sensitif yang disimpan di layer frontend. Integritas penting agar tidak ada deface/misinformasi produk.</p>
+        </div>
+        <div class="field">
+          <label>Alasan Kritikalitas</label>
+          <p>Downtime website tidak menghentikan operasional bisnis inti. Transaksi polis dan klaim tetap dapat dilakukan melalui kanal agen dan kantor cabang secara offline.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end asset-list -->
+
+  <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:#fff;border-radius:10px;border:1px dashed var(--gold);text-align:center;">
+    <p style="font-size:0.82rem;color:var(--navy);opacity:0.6;">
+      ✅ <strong style="opacity:1">5 Contoh Aset</strong> — Apakah format, kolom, dan isi sudah sesuai? <br>
+      Jika iya, lanjutkan generate <strong style="opacity:1">100 aset</strong> mencakup seluruh kategori aset perusahaan asuransi jiwa.
+    </p>
+  </div>
+
+</main>
+</body>
+</html>

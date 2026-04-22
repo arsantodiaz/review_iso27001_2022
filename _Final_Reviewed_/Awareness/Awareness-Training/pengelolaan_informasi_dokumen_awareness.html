@@ -1,0 +1,338 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:var(--font-sans,sans-serif);color:var(--color-text-primary);padding:4px 0}
+.hero{background:#0d1b3e;border-radius:14px;padding:22px 26px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:rgba(0,102,255,0.12)}
+.hero-badge{display:inline-block;background:rgba(55,138,221,0.2);border:1px solid rgba(55,138,221,0.35);color:#93c5fd;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{color:#fff;font-size:20px;font-weight:500;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#60a5fa}
+.hero p{color:rgba(255,255,255,0.5);font-size:12px}
+.hero-icon{position:absolute;right:26px;top:50%;transform:translateY(-50%);font-size:38px;z-index:1}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:#0d1b3e;color:#93c5fd;border-color:#185fa5}
+
+.panel{display:none}
+.panel.active{display:block}
+
+.sec-title{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+
+.card{border-radius:12px;padding:14px 16px;border:1px solid var(--color-border-tertiary)}
+.card-g{background:#061a12;border-color:rgba(29,158,117,0.25)}
+.card-r{background:#1e0c0c;border-color:rgba(226,75,74,0.25)}
+.card-b{background:#051224;border-color:rgba(55,138,221,0.2)}
+.card-y{background:#1a1206;border-color:rgba(239,159,39,0.22)}
+
+.item{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.item:last-child{margin-bottom:0}
+.chk{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.chk-g{background:rgba(29,158,117,0.18);border:1.5px solid #1d9e75}
+.chk-g svg{width:9px;height:9px;stroke:#1d9e75;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chk-r{background:rgba(226,75,74,0.15);border:1.5px solid #e24b4a;font-size:9px;color:#f87171;font-weight:700}
+.chk-y{background:rgba(239,159,39,0.15);border:1.5px solid #ef9f27;font-size:9px;color:#fbbf24;font-weight:700}
+.it{font-size:11.5px;line-height:1.5}
+.it-g{color:rgba(167,243,208,0.85)}
+.it-g strong{color:#6ee7b7;font-weight:500}
+.it-r{color:rgba(252,165,165,0.8)}
+.it-r strong{color:#fca5a5;font-weight:500}
+.it-y{color:rgba(253,230,138,0.8)}
+.it-y strong{color:#fde68a;font-weight:500}
+.it-b{color:rgba(147,197,253,0.85)}
+.it-b strong{color:#93c5fd;font-weight:500}
+
+.sec-title-g{color:#34d399}
+.sec-title-r{color:#f87171}
+.sec-title-y{color:#fbbf24}
+.sec-title-b{color:#60a5fa}
+.dot-g{background:#00c48c}
+.dot-r{background:#e24b4a}
+.dot-y{background:#ef9f27}
+.dot-b{background:#378add}
+
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.cat-card{border-radius:10px;padding:12px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);text-align:center}
+.cat-icon{font-size:20px;margin-bottom:6px}
+.cat-name{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.cat-label{font-size:10px;color:var(--color-text-secondary)}
+.cat-badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;margin-top:4px;font-weight:500}
+.badge-r{background:rgba(226,75,74,0.15);color:#f87171;border:1px solid rgba(226,75,74,0.25)}
+.badge-y{background:rgba(239,159,39,0.15);color:#fbbf24;border:1px solid rgba(239,159,39,0.25)}
+.badge-g{background:rgba(29,158,117,0.15);color:#34d399;border:1px solid rgba(29,158,117,0.25)}
+
+.risk-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.risk-name{font-size:11px;color:var(--color-text-secondary);width:140px;flex-shrink:0}
+.risk-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.risk-bar{height:100%;border-radius:3px}
+.rb-r{background:#e24b4a}
+.rb-y{background:#ef9f27}
+.rb-g{background:#1d9e75}
+.risk-pct{font-size:10px;font-weight:500;width:70px;text-align:right}
+.pct-r{color:#f87171}
+.pct-y{color:#fbbf24}
+.pct-g{color:#34d399}
+
+.incident-step{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start}
+.step-num{width:26px;height:26px;border-radius:50%;background:#185fa5;color:#93c5fd;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body{flex:1}
+.step-title{font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:2px}
+.step-desc{font-size:11px;color:rgba(147,197,253,0.65);line-height:1.4}
+.step-line{width:1px;height:10px;background:rgba(55,138,221,0.2);margin-left:13px;margin-bottom:0}
+
+.footer{background:#0d1b3e;border-radius:10px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.footer-q{font-size:13px;font-weight:500;color:#fff}
+.footer-q span{color:#60a5fa}
+.footer-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.footer-right{font-size:10px;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6}
+
+.divider{height:1px;background:var(--color-border-tertiary);margin:10px 0}
+</style>
+
+<div class="wrap">
+<div class="hero">
+  <div class="hero-badge">Information Security Awareness</div>
+  <h1>Pengelolaan <span>Informasi & Dokumen</span><br>yang Aman</h1>
+  <p>Panduan lengkap — HR, Keuangan, Legal, Pelanggan, dan Data IT</p>
+  <div class="hero-icon">🗂</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('klasifikasi')">Klasifikasi Dokumen</div>
+  <div class="tab" onclick="switchTab('dos')">Yang Harus Dilakukan</div>
+  <div class="tab" onclick="switchTab('donts')">Yang Tidak Boleh</div>
+  <div class="tab" onclick="switchTab('media')">Keamanan Media</div>
+  <div class="tab" onclick="switchTab('insiden')">Insiden & Pelaporan</div>
+</div>
+
+<div id="panel-klasifikasi" class="panel active">
+  <div class="sec-title sec-title-b"><span class="dot dot-b"></span>Kategori informasi yang dikelola & tingkat risikonya</div>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="cat-icon">👤</div>
+      <div class="cat-name">HR & Karyawan</div>
+      <div class="cat-label">Data gaji, kontrak kerja, penilaian kinerja</div>
+      <div class="cat-badge badge-r">Confidential</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🧑‍💼</div>
+      <div class="cat-name">Data Pelanggan</div>
+      <div class="cat-label">Nama, kontak, transaksi, preferensi</div>
+      <div class="cat-badge badge-r">Strictly Confidential</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">💰</div>
+      <div class="cat-name">Laporan Keuangan</div>
+      <div class="cat-label">P&L, anggaran, proyeksi, audit</div>
+      <div class="cat-badge badge-r">Strictly Confidential</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">📄</div>
+      <div class="cat-name">Kontrak & Legal</div>
+      <div class="cat-label">MoU, perjanjian, lisensi, NDA</div>
+      <div class="cat-badge badge-r">Confidential</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">💻</div>
+      <div class="cat-name">Data IT & Infrastruktur</div>
+      <div class="cat-label">IP address, network diagram, konfigurasi server</div>
+      <div class="cat-badge badge-r">Strictly Confidential</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">⌨</div>
+      <div class="cat-name">Source Code</div>
+      <div class="cat-label">Kode aplikasi, API key, script internal</div>
+      <div class="cat-badge badge-r">Strictly Confidential</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-title sec-title-b"><span class="dot dot-b"></span>Tingkat risiko per jenis dokumen</div>
+  <div class="risk-row"><span class="risk-name">Source code & API key</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:95%"></div></div><span class="risk-pct pct-r">Sangat Tinggi</span></div>
+  <div class="risk-row"><span class="risk-name">Data pelanggan (PII)</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:90%"></div></div><span class="risk-pct pct-r">Sangat Tinggi</span></div>
+  <div class="risk-row"><span class="risk-name">Network & IP diagram</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:88%"></div></div><span class="risk-pct pct-r">Sangat Tinggi</span></div>
+  <div class="risk-row"><span class="risk-name">Laporan keuangan</span><div class="risk-bar-wrap"><div class="risk-bar rb-r" style="width:82%"></div></div><span class="risk-pct pct-r">Tinggi</span></div>
+  <div class="risk-row"><span class="risk-name">Kontrak & legal</span><div class="risk-bar-wrap"><div class="risk-bar rb-y" style="width:70%"></div></div><span class="risk-pct pct-y">Tinggi</span></div>
+  <div class="risk-row"><span class="risk-name">Data HR & karyawan</span><div class="risk-bar-wrap"><div class="risk-bar rb-y" style="width:65%"></div></div><span class="risk-pct pct-y">Sedang-Tinggi</span></div>
+</div>
+
+<div id="panel-dos" class="panel">
+  <div class="grid2">
+    <div class="card card-g">
+      <div class="sec-title sec-title-g"><span class="dot dot-g"></span>Penyimpanan & Akses</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Klasifikasikan setiap dokumen</strong> — Public, Internal, Confidential, atau Strictly Confidential</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Terapkan prinsip least privilege</strong> — akses hanya sebatas kebutuhan pekerjaan</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Simpan di lokasi resmi</strong> — server kantor, SharePoint, atau Drive korporat yang dikelola IT</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Enkripsi file sensitif</strong> sebelum dikirim, dan gunakan password via saluran berbeda</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Backup data secara rutin</strong> di lokasi aman dan terpisah dari penyimpanan utama</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec-title sec-title-g"><span class="dot dot-g"></span>Pengiriman & Distribusi</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Gunakan email korporat</strong> untuk semua komunikasi dokumen internal dan eksternal</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Verifikasi penerima</strong> sebelum mengirim — pastikan alamat email sudah benar</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Audit log akses dokumen</strong> kritikal — catat siapa, kapan, dan untuk apa</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Gunakan nama file standar</strong> — format [Tahun]_[Dept]_[Nama]_[Versi] agar mudah dilacak</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Set expiry link</strong> saat berbagi file via cloud — jangan biarkan link aktif selamanya</div></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card card-g">
+      <div class="sec-title sec-title-g"><span class="dot dot-g"></span>Fisik & Clean Desk</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Terapkan clean desk policy</strong> — kunci semua dokumen saat meninggalkan meja</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Musnahkan dokumen tidak terpakai</strong> dengan shredder — jangan buang utuh di tempat sampah</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Ambil langsung hasil cetak/fotokopi</strong> — jangan biarkan dokumen tertinggal di mesin</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Lock layar komputer</strong> setiap kali meninggalkan meja, bahkan sebentar sekalipun</div></div>
+    </div>
+    <div class="card card-g">
+      <div class="sec-title sec-title-g"><span class="dot dot-g"></span>WFH & Tempat Umum</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Gunakan VPN</strong> saat mengakses sistem kantor dari jaringan luar</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Pasang privacy screen filter</strong> saat bekerja di tempat umum atau co-working space</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Gunakan koneksi aman</strong> — hindari WiFi publik tanpa VPN untuk akses dokumen rahasia</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g"><strong>Pastikan anggota keluarga</strong> tidak bisa melihat atau mengakses dokumen kerja dari rumah</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-donts" class="panel">
+  <div class="grid2">
+    <div class="card card-r">
+      <div class="sec-title sec-title-r"><span class="dot dot-r"></span>Penyimpanan & Akses</div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan simpan dokumen perusahaan di <strong>Google Drive / storage pribadi</strong> yang tidak dikelola IT</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan copy source code atau konfigurasi server ke <strong>perangkat pribadi</strong></div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan share <strong>password, API key, token, atau credential</strong> melalui chat atau email</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan berikan akses dokumen kepada <strong>pihak yang tidak berkepentingan</strong>, termasuk rekan kerja</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan simpan <strong>network diagram atau IP address</strong> di tempat yang bisa diakses publik</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="sec-title sec-title-r"><span class="dot dot-r"></span>Pengiriman & Komunikasi</div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan kirim dokumen sensitif via <strong>WhatsApp, Telegram, atau chat pribadi</strong></div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan forward email berisi data rahasia ke <strong>email pribadi</strong> dengan alasan apapun</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan balas email ke <strong>penerima yang salah</strong> — selalu cek ulang sebelum klik Send</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan klik link atau lampiran dari <strong>email mencurigakan</strong> yang meminta akses dokumen</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan share <strong>link cloud tanpa batas waktu</strong> — selalu set expiry dan batasi akses</div></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card card-y">
+      <div class="sec-title sec-title-y"><span class="dot dot-y"></span>Data IT & Source Code</div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan upload <strong>source code ke repository publik</strong> (GitHub public, Pastebin, dll)</div></div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan hardcode <strong>API key, token, atau password</strong> langsung di dalam kode</div></div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan share <strong>network diagram atau topologi jaringan</strong> ke luar tanpa persetujuan</div></div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan paste source code internal ke <strong>AI tools publik</strong> seperti ChatGPT tanpa approval IT</div></div>
+    </div>
+    <div class="card card-y">
+      <div class="sec-title sec-title-y"><span class="dot dot-y"></span>Fisik & WFH</div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan buang dokumen fisik kritikal <strong>tanpa dihancurkan</strong> terlebih dahulu dengan shredder</div></div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan tinggalkan dokumen rahasia <strong>terbuka di meja</strong> saat pergi dari tempat duduk</div></div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan foto atau <strong>screenshot dokumen rahasia</strong> untuk dikirim ke luar perusahaan</div></div>
+      <div class="item"><div class="chk chk-y">✕</div><div class="it it-y">Jangan cetak dokumen confidential di <strong>printer umum atau printer rumah</strong></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-media" class="panel">
+  <div class="sec-title sec-title-b"><span class="dot dot-b"></span>Panduan keamanan per media penyimpanan</div>
+  <div class="grid2" style="margin-bottom:10px">
+    <div class="card card-b">
+      <div style="font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:10px">📄 Fisik (Kertas & Binder)</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Simpan di lemari terkunci — pisahkan antara dokumen biasa dan confidential</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Beri label klasifikasi yang terlihat jelas di setiap dokumen fisik</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Catat peminjaman dokumen — siapa yang membawa dan kapan dikembalikan</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan biarkan dokumen tergeletak di meja terbuka atau area umum</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan buang tanpa shredder — robek manual tidak cukup aman</div></div>
+    </div>
+    <div class="card card-b">
+      <div style="font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:10px">💻 Digital (Laptop & PC)</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Aktifkan enkripsi disk penuh (BitLocker / FileVault) di semua perangkat kerja</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Lock layar otomatis setelah 5 menit tidak aktif</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Laporkan ke IT jika perangkat hilang atau dicuri — segera dan jangan tunda</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan gunakan perangkat pribadi untuk dokumen perusahaan tanpa MDM</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan colokkan flash disk tidak dikenal ke perangkat kantor</div></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card card-b">
+      <div style="font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:10px">☁ Cloud (Drive & SharePoint)</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Gunakan hanya platform cloud yang sudah disetujui IT perusahaan</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Set permission sharing seminimal mungkin — view only jika memungkinkan</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Review secara berkala siapa saja yang masih punya akses ke folder/file penting</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan upload dokumen confidential ke akun cloud pribadi</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan set folder kantor menjadi "Anyone with the link can view"</div></div>
+    </div>
+    <div class="card card-b">
+      <div style="font-size:12px;font-weight:500;color:#93c5fd;margin-bottom:10px">✉ Email</div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Selalu cek ulang alamat penerima sebelum mengirim dokumen sensitif</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Enkripsi attachment berisi data kritikal, kirim password via saluran terpisah</div></div>
+      <div class="item"><div class="chk chk-g"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="it it-g">Tandai email berisi info confidential dengan label atau subject yang jelas</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan reply-all jika tidak semua penerima perlu tahu isi dokumen</div></div>
+      <div class="item"><div class="chk chk-r">✕</div><div class="it it-r">Jangan forward email internal berisi data sensitif ke email pribadi</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-insiden" class="panel">
+  <div class="sec-title sec-title-b"><span class="dot dot-b"></span>Langkah pelaporan insiden kebocoran dokumen</div>
+  <div class="card card-b" style="margin-bottom:12px">
+    <div class="incident-step">
+      <div class="step-num">1</div>
+      <div class="step-body"><div class="step-title">Identifikasi & jangan panik</div><div class="step-desc">Catat apa yang terjadi — dokumen apa, kapan, dan bagaimana bisa bocor atau hilang. Jangan coba sembunyikan atau tangani sendiri.</div></div>
+    </div>
+    <div class="step-line"></div>
+    <div class="incident-step">
+      <div class="step-num">2</div>
+      <div class="step-body"><div class="step-title">Laporkan segera ke atasan & tim IT/Security</div><div class="step-desc">Waktu adalah kunci. Semakin cepat dilaporkan, semakin cepat bisa ditangani. Gunakan jalur pelaporan resmi yang disediakan perusahaan.</div></div>
+    </div>
+    <div class="step-line"></div>
+    <div class="incident-step">
+      <div class="step-num">3</div>
+      <div class="step-body"><div class="step-title">Jangan hapus atau ubah bukti</div><div class="step-desc">Pertahankan semua evidence — log akses, email, file, screenshot. Ini penting untuk investigasi dan menentukan root cause.</div></div>
+    </div>
+    <div class="step-line"></div>
+    <div class="incident-step">
+      <div class="step-num">4</div>
+      <div class="step-body"><div class="step-title">Batasi penyebaran</div><div class="step-desc">IT akan membantu mencabut akses, menonaktifkan link yang bocor, atau melakukan remote wipe jika perangkat hilang.</div></div>
+    </div>
+    <div class="step-line"></div>
+    <div class="incident-step">
+      <div class="step-num">5</div>
+      <div class="step-body"><div class="step-title">Dokumentasikan & tindak lanjut</div><div class="step-desc">Ikuti proses investigasi bersama tim Security. Setelah selesai, pelajari lesson learned agar insiden serupa tidak terulang.</div></div>
+    </div>
+  </div>
+  <div class="sec-title sec-title-r"><span class="dot dot-r"></span>Skenario yang wajib segera dilaporkan</div>
+  <div class="grid2">
+    <div class="card card-r">
+      <div class="item"><div class="chk chk-r">!</div><div class="it it-r">Email berisi dokumen rahasia terkirim ke <strong>alamat yang salah</strong></div></div>
+      <div class="item"><div class="chk chk-r">!</div><div class="it it-r">Laptop atau flash disk berisi data perusahaan <strong>hilang atau dicuri</strong></div></div>
+      <div class="item"><div class="chk chk-r">!</div><div class="it it-r">Menemukan dokumen confidential <strong>tersebar di tempat umum</strong> atau media sosial</div></div>
+    </div>
+    <div class="card card-r">
+      <div class="item"><div class="chk chk-r">!</div><div class="it it-r">Ada akses tidak sah ke <strong>folder atau sistem</strong> yang bukan wewenang seseorang</div></div>
+      <div class="item"><div class="chk chk-r">!</div><div class="it it-r">Source code atau konfigurasi jaringan <strong>ditemukan di repository publik</strong></div></div>
+      <div class="item"><div class="chk chk-r">!</div><div class="it it-r">Menerima permintaan dokumen dari <strong>pihak mencurigakan</strong> mengatasnamakan perusahaan</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-q">Prinsip utama: <span>Informasi yang tepat → Orang yang tepat → Tempat yang tepat → Waktu yang tepat</span></div>
+    <div class="footer-sub">Jika ragu, tanya tim IT/Security sebelum berbagi atau menyimpan dokumen apapun</div>
+  </div>
+  <div class="footer-right">Information Security<br>Awareness Program</div>
+</div>
+</div>
+
+<script>
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const ids=['klasifikasi','dos','donts','media','insiden'];
+    t.classList.toggle('active', ids[i]===id);
+  });
+  document.querySelectorAll('.panel').forEach(p=>{
+    p.classList.toggle('active', p.id==='panel-'+id);
+  });
+}
+</script>

@@ -1,0 +1,1 @@
+buatkan alur penilaian risiko mulai dari penjabarkan risiko, penentuan aset, penentuan owner, kerentanan, akibatnya, nilai risiko dampak dan likelihood. penentuan matrix 5x5 nya, penntuan risk apetite, risk tolenance, dan rencana untuk residual risk nya atua menurunkan tingkat risiko yang harus dimonitor setiap 3 bulan sekali.
