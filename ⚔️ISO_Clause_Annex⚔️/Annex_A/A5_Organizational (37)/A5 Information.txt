@@ -1,0 +1,214 @@
+I. Tata Kelola & Organisasi (Governance & Organization)
+A5.1 Kebijakan Keamanan Informasi (Policies for Information Security)
+
+Dokumen: Dokumen Induk Kebijakan Keamanan Informasi.
+
+Evidence: Tanda tangan pengesahan Direksi, screenshot email broadcast sosialisasi kebijakan, log publikasi di portal Intranet, dan MoM (Minutes of Meeting) review kebijakan tahunan.
+
+A5.2 Peran dan Tanggung Jawab Keamanan Informasi (Roles and Responsibilities)
+
+Dokumen: Struktur Organisasi SMKI, Matriks RACI.
+
+Evidence: Surat Keputusan (SK) penunjukan tim SMKI/CISO, Job Description (Uraian Tugas) yang mencantumkan tanggung jawab keamanan yang telah ditandatangani karyawan terkait.
+
+A5.3 Pemisahan Tugas (Segregation of Duties)
+
+Dokumen: Panduan Pemisahan Tugas (SOP).
+
+Evidence: Matriks hak akses sistem yang menunjukkan pemisahan fungsi Maker, Checker, dan Approver/Signer. Bukti audit trail aplikasi yang ditarik untuk membuktikan satu orang tidak bisa membuat dan menyetujui transaksinya sendiri.
+
+A5.4 Tanggung Jawab Manajemen (Management Responsibilities)
+
+Dokumen: Aturan Kedisiplinan / Panduan Karyawan (Employee Handbook).
+
+Evidence: Notulensi pengarahan manajemen (Townhall), bukti pemberian sanksi (SP) jika ada pelanggaran, form persetujuan SLA / KPI internal.
+
+A5.5 Kontak dengan Otoritas (Contact with Authorities)
+
+Dokumen: Daftar Kontak Darurat Otoritas Eksternal.
+
+Evidence: Tabel berisi daftar kontak kepolisian siber, BSSN, Kominfo, atau regulator sektor (misal: OJK/BI), beserta bukti pelaporan insiden atau korespondensi surat resmi dengan mereka (jika pernah ada).
+
+A5.6 Kontak dengan Kelompok Kepentingan Khusus (Special Interest Groups)
+
+Evidence: Bukti keanggotaan forum profesional (misal: ISACA, (ISC)²), sertifikat partisipasi seminar cybersecurity, atau bukti pendaftaran/berlangganan mailing list dan portal intelijen keamanan.
+
+A5.7 Intelijen Ancaman (Threat Intelligence)
+
+Dokumen: Prosedur Pengelolaan Intelijen Ancaman.
+
+Evidence: Laporan threat intelligence dari pihak ketiga (contoh: feeds dari vendor Antivirus/Gartner), MoM pembahasan ancaman ransomware atau kerentanan terbaru oleh tim IT, dan bukti patching yang dilakukan berdasarkan feeds tersebut.
+
+A5.8 Keamanan Informasi dalam Manajemen Proyek (InfoSec in Project Management)
+
+Dokumen: Metodologi Manajemen Proyek (Project Management Framework).
+
+Evidence: Project Charter yang mencantumkan budget dan sumber daya keamanan, Risk Register proyek, dan dokumen sign-off keamanan (hasil review CISO/Tim Security) sebelum aplikasi/proyek masuk ke tahap Go-Live (Production).
+
+II. Manajemen Aset & Informasi (Asset & Information Management)
+A5.9 Inventarisasi Aset Informasi (Inventory of Assets)
+
+Dokumen: Prosedur Manajemen Aset.
+
+Evidence: Asset Register (Daftar Aset) terkini yang mencakup aset fisik (server, laptop), piranti lunak (software/license), informasi (basis data, dokumen), dan SDM. Dokumen ini harus mencantumkan Asset Owner (Pemilik Aset) secara jelas.
+
+A5.10 Penggunaan Aset yang Dapat Diterima (Acceptable Use of Assets)
+
+Dokumen: Acceptable Use Policy (AUP) / Kebijakan Penggunaan Fasilitas TI.
+
+Evidence: Formulir AUP yang telah ditandatangani oleh seluruh karyawan dan vendor (hardcopy atau digital melalui sistem HRIS), dan log sistem peringatan penyalahgunaan akses (jika ada).
+
+A5.11 Pengembalian Aset (Return of Assets)
+
+Dokumen: Prosedur Off-boarding / Pengunduran Diri.
+
+Evidence: Checklist formulir exit clearance dari HRD yang ditandatangani divisi IT (memastikan pengembalian laptop, ID Card, token, dll), serta Berita Acara Serah Terima (BAST) aset.
+
+A5.12 Klasifikasi Informasi (Classification of Information)
+
+Dokumen: Prosedur Klasifikasi Informasi.
+
+Evidence: Matriks klasifikasi (contoh: Sangat Rahasia, Rahasia, Internal, Publik), dan contoh nyata penerapan di organisasi (misal: screenshot folder server yang dipisah berdasarkan departemen/klasifikasi).
+
+A5.13 Pelabelan Informasi (Labelling of Information)
+
+Dokumen: Prosedur Pelabelan.
+
+Evidence: Bukti watermark atau header/footer pada dokumen berklasifikasi, label stiker Confidential pada hard drive/brankas fisik, atau tagging sensitivitas data di sistem surel (email sensitivity labels).
+
+A5.14 Transfer Informasi (Information Transfer)
+
+Dokumen: Kebijakan Pertukaran Informasi.
+
+Evidence: Non-Disclosure Agreement (NDA) dengan pihak eksternal, log sistem MFT (Managed File Transfer), konfigurasi DLP (Data Loss Prevention), dan prosedur pengiriman media fisik (SLA dengan kurir).
+
+III. Akses & Identitas (Access & Identity Management)
+A5.15 Kontrol Akses (Access Control)
+
+Dokumen: Access Control Policy.
+
+Evidence: Matriks kontrol akses jaringan (VLAN/Firewall rules), dan matriks perizinan pengguna (User Permission Matrix) berdasarkan prinsip Least Privilege (hak akses minimal).
+
+A5.16 Manajemen Identitas (Identity Management)
+
+Dokumen: Prosedur User Lifecycle (Pembuatan, Perubahan, Penghapusan ID).
+
+Evidence: Tiket Helpdesk permohonan pembuatan ID yang telah disetujui atasan/HRD, dan log audit dari Active Directory (AD) atau sistem ERP yang mencatat tanggal pembuatan/penonaktifan identitas.
+
+A5.17 Informasi Otentikasi (Authentication Information)
+
+Dokumen: Kebijakan Kata Sandi (Password Policy).
+
+Evidence: Screenshot konfigurasi Group Policy Object (GPO) di server yang menunjukkan paksaan (enforcement) panjang password minimum, kompleksitas, masa berlaku (contoh: 90 hari), serta implementasi Multi-Factor Authentication (MFA).
+
+A5.18 Hak Akses (Access Rights)
+
+Dokumen: Prosedur Tinjauan Hak Akses (Access Review Procedure).
+
+Evidence: Laporan User Access Review (UAR) berkala (misal: kuartalan/semesteran) yang ditandatangani oleh Manajer Departemen (memvalidasi staf mana saja yang masih butuh akses atau sudah mutasi/resign).
+
+IV. Hubungan Pemasok & Rantai Pasok (Supplier & Supply Chain)
+A5.19 Keamanan Informasi dalam Hubungan Pemasok (Supplier Relationships)
+
+Dokumen: Supplier Information Security Policy.
+
+Evidence: Hasil kuesioner penilaian keamanan vendor (Vendor Security Assessment) sebelum vendor dikontrak.
+
+A5.20 Klausul Keamanan dalam Perjanjian Pemasok (Addressing InfoSec in Supplier Agreements)
+
+Evidence: Salinan dokumen kontrak (PKS/SPK) dengan vendor IT yang secara eksplisit memuat klausul: hak audit (right to audit), kewajiban menjaga kerahasiaan data, pelaporan insiden, dan penalti.
+
+A5.21 Mengelola Keamanan dalam Rantai Pasokan TIK (ICT Supply Chain)
+
+Evidence: Bukti evaluasi risiko bawaan perangkat keras/lunak dari vendor, serta laporan kerentanan terkait komponen open-source yang digunakan pihak ketiga.
+
+A5.22 Pemantauan, Tinjauan, dan Manajemen Perubahan Layanan Pemasok (Monitoring Supplier Services)
+
+Dokumen: Prosedur Evaluasi Pemasok.
+
+Evidence: Laporan evaluasi kinerja vendor tahunan/semesteran, MoM evaluasi pencapaian SLA jaringan/layanan TI, dan tiket permintaan persetujuan jika vendor ingin mengubah infrastrukturnya.
+
+A5.23 Keamanan Informasi Penggunaan Layanan Cloud (Cloud Services)
+
+Dokumen: Kebijakan Penggunaan Cloud.
+
+Evidence: Kontrak/SLA dengan Cloud Service Provider (AWS/Azure/GCP), laporan audit compliance cloud dari penyedia (seperti SOC 2 Report), serta bukti pengaturan keamanan penyewa (misal: tangkapan layar konfigurasi Tenant IAM dan KMS/Enkripsi).
+
+V. Manajemen Insiden (Incident Management)
+A5.24 Perencanaan dan Persiapan Insiden (Incident Management Planning)
+
+Dokumen: Incident Response Plan (IRP) / SOP Manajemen Insiden.
+
+Evidence: Bagan eskalasi (Call Tree/Escalation Matrix), dan bukti simulasi penanganan insiden cyber (contoh: Laporan hasil Tabletop Exercise simulasi Ransomware).
+
+A5.25 Penilaian dan Keputusan Peristiwa Keamanan (Assessment of Security Events)
+
+Evidence: Log triage (pemilahan awal) tiket insiden dari Helpdesk atau sistem SIEM/SOC, yang mengklasifikasikan tingkat keparahan insiden (Kritis, Tinggi, Menengah, Rendah).
+
+A5.26 Respons terhadap Insiden (Response to Incidents)
+
+Evidence: Laporan Investigasi Insiden yang menunjukkan status penyelesaian insiden, waktu tanggap (Response Time), waktu pemulihan (Recovery Time), serta komunikasi dengan pihak terdampak.
+
+A5.27 Pembelajaran dari Insiden (Learning from Incidents)
+
+Dokumen: Formulir Analisis Akar Masalah (Root Cause Analysis / RCA).
+
+Evidence: Laporan Post-Incident Review (PIR) yang memuat tindakan perbaikan yang direkomendasikan agar insiden serupa tidak terulang, beserta tracker implementasinya.
+
+A5.28 Pengumpulan Bukti Forensik (Collection of Evidence)
+
+Dokumen: Prosedur Penanganan Bukti Digital / Chain of Custody.
+
+Evidence: Formulir Chain of Custody (catatan siapa yang menyita, memegang, dan menganalisis hard disk/log/barang bukti), dan laporan hasil kloning (imaging) bukti digital.
+
+VI. Keberlanjutan Bisnis (Business Continuity)
+A5.29 Keamanan Informasi Saat Gangguan (InfoSec during Disruption)
+
+Dokumen: Dokumen Business Continuity Plan (BCP).
+
+Evidence: Rencana kesinambungan bisnis yang mencantumkan dengan jelas bahwa kontrol keamanan informasi (seperti kewajiban akses VPN atau enkripsi data) tetap harus dijalankan meskipun operasional sedang dalam mode krisis/darurat.
+
+A5.30 Kesiapan TIK untuk Keberlanjutan Bisnis (ICT Readiness for Business Continuity)
+
+Dokumen: Disaster Recovery Plan (DRP).
+
+Evidence: Laporan Uji Coba Simulasi Bencana (Laporan DRP/Failover Testing), bukti pencapaian target metrik pemulihan (RTO - Recovery Time Objective & RPO - Recovery Point Objective).
+
+VII. Kepatuhan & Audit (Compliance & Audit)
+A5.31 Hukum, Regulasi, dan Persyaratan Kontrak (Legal, Statutory & Contractual)
+
+Dokumen: Daftar Peraturan Hukum / Legal Register.
+
+Evidence: Dokumen matriks berisi UU PDP, UU ITE, regulasi BI/OJK (jika perbankan), serta bukti evaluasi kepatuhan secara berkala.
+
+A5.32 Hak Kekayaan Intelektual (Intellectual Property Rights)
+
+Dokumen: Kebijakan Penggunaan Perangkat Lunak Legal.
+
+Evidence: Dokumen lisensi perangkat lunak resmi (bukti pembelian subscription Office365, Adobe, dll), serta hasil pemindaian sistem atau audit TI yang membuktikan bahwa tidak ada perangkat lunak bajakan (pirated software) yang diinstal oleh karyawan.
+
+A5.33 Perlindungan Rekaman / Arsip (Protection of Records)
+
+Dokumen: Kebijakan Retensi dan Pemusnahan Data (Data Retention & Disposal Policy).
+
+Evidence: Log pemusnahan dokumen/rekaman fisik dan digital yang telah melewati masa simpan (contoh: Berita Acara Pemusnahan Arsip menggunakan mesin shredder atau penghapusan data database usia lebih dari 5 tahun).
+
+A5.34 Privasi dan Perlindungan Data Pribadi (Privacy and Protection of PII)
+
+Dokumen: Kebijakan Privasi Data (Privacy Policy).
+
+Evidence: Dokumen Data Protection Impact Assessment (DPIA), formulir persetujuan pemrosesan data (Klausul Consent pelanggan/karyawan), dan penetapan fungsi DPO (Data Protection Officer).
+
+A5.35 Tinjauan Independen atas Keamanan Informasi (Independent Review)
+
+Evidence: Laporan Audit Eksternal tahunan, Laporan Uji Penetrasi (Penetration Testing) dari konsultan pihak ketiga, atau laporan audit dari departemen Audit Internal yang independen dari tim operasional TI.
+
+A5.36 Kepatuhan Terhadap Kebijakan dan Standar (Compliance with Policies)
+
+Evidence: Laporan Tinjauan Manajerial berkala di mana para Manajer secara proaktif memeriksa apakah staf di bawahnya mematuhi prosedur keamanan, serta matriks pemantauan compliance operasional.
+
+A5.37 Prosedur Operasi Terdokumentasi (Documented Operating Procedures)
+
+Dokumen: SOP Operasional TI Komprehensif (SOP Backup, SOP Patching, SOP Data Center, dll).
+
+Evidence: Daftar Induk Dokumen SOP yang dikelola (Master List), log riwayat revisi (pengendalian versi dokumen), dan bukti penempatan SOP di tempat yang mudah diakses (misal: SOP Data Center ditempel di ruang server, atau link portal intranet).
